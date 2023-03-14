@@ -1,0 +1,7 @@
+{
+    "vscode-neovim.neovimClean": true,
+    "vscode-neovim.useWSL": true,
+    "vscode-neovim.highlightGroups.unknownHighlight": "vim",
+    "vscode-neovim.logLevel": "debug",
+    "vscode-neovim.logOutputToConsole": true
+}
