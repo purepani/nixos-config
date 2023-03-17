@@ -9,18 +9,10 @@
 }:
 with lib; let
   #nixos-wsl = import ./nixos-wsl;
-  wslpath-env = pkgs.stdenv.mkDerivation {
-    name = "wslpath-1.0";
-    src = wslpath;
-
-    installPhase = ''
-      mkdir -p $out/usr/bin
-      cp wslpath $out/usr/bin/
-      chmod 755 $out/usr/bin/wslpath
-    '';
-
-    buildInputs = [pkgs.php];
-  };
+  wslpath-env =
+    pkgs.writeScriptBin
+    "wslpath"
+    (builtins.replaceStrings ["/usr/bin/php"] ["${pkgs.php}/bin/php"] (builtins.readFile "${wslpath}/wslpath"));
 in {
   imports = [
     "${modulesPath}/profiles/minimal.nix"
@@ -35,7 +27,7 @@ in {
     wslConf.automount.root = "/mnt";
     defaultUser = "nixos";
     startMenuLaunchers = true;
-    nativeSystemd = true;
+    nativeSystemd = false;
 
     # Enable native Docker support
     # docker-native.enable = true;
@@ -44,10 +36,12 @@ in {
     # docker-desktop.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    neovim
-    wget
+  environment.systemPackages = [
+    pkgs.php
+    pkgs.vim
+    pkgs.neovim
+    pkgs.wget
+    wslpath-env
   ];
 
   programs.neovim.defaultEditor = true;

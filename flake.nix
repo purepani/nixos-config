@@ -22,6 +22,7 @@
     home-manager,
     nixos-wsl,
     vscode-server,
+    wslpath,
     ...
   }: {
     nixosConfigurations = {
@@ -47,6 +48,7 @@
             home-manager.extraSpecialArgs = inputs;
           }
         ];
+        specialArgs.wslpath = wslpath;
       };
     };
   };
