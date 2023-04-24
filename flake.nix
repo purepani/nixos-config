@@ -2,8 +2,9 @@
   description = "NixOS configuration";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    home-manager.url = "github:nix-community/home-manager/release-22.11";
+    nixos.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    home-manager.url = "github:nix-community/home-manager"; #/release-22.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-flake.url = "github:jordanisaacs/neovim-flake";
     wslpath = {
@@ -23,10 +24,11 @@
     nixos-wsl,
     vscode-server,
     wslpath,
+    nixos,
     ...
   }: {
     nixosConfigurations = {
-      satwik-lenovo = nixpkgs.lib.nixosSystem {
+      satwik-lenovo = nixos.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./configuration.nix

@@ -19,9 +19,10 @@ in {
     #   nixos-wsl.nixosModules.wsl
 
     ./nix-ld-config.nix
+    ./cachix.nix
   ];
 
-  wsl = {
+  wsl = pkgs.lib.mkForce {
     enable = true;
 
     wslConf.automount.root = "/mnt";
@@ -29,6 +30,14 @@ in {
     startMenuLaunchers = true;
     nativeSystemd = false;
 
+    binShPkg =
+      pkgs.runCommand "nixos-wsl-bash-wrapper"
+      {
+        nativeBuildInputs = [pkgs.makeWrapper];
+      } ''
+        makeWrapper ${pkgs.bashInteractive}/bin/sh $out/bin/sh \
+          --prefix PATH ':' ${pkgs.lib.makeBinPath (with pkgs; [systemd gnugrep coreutils])}
+      '';
     # Enable native Docker support
     # docker-native.enable = true;
 

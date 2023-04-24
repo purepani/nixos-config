@@ -37,11 +37,11 @@
         };
         rust.enable = true;
         python = true;
-        clang.enable = true;
-        sql = true;
+        clang.enable = false;
+        sql = false;
         ts = true;
         go = false;
-        zig.enable = true;
+        zig.enable = false;
       };
       vim.visuals = {
         enable = true;
@@ -140,17 +140,14 @@ in {
     [
       openssl
       ranger
-      #arduino
       linuxConsoleTools
       rust-analyzer
-      #graphviz
       bash
       gcc
       nerdfonts
       ledger
       fd
       unzip
-      nodejs
     ]
     ++ [customNeovim.neovim];
 
