@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  options,
   neovim-flake,
   ...
 }: let
@@ -21,79 +20,8 @@
     # Add any custom options (and feel free to upstream them!)
     # options = ...
     config = {
-      vim.viAlias = false;
-      vim.vimAlias = true;
-      vim.lsp = {
-        enable = true;
-        formatOnSave = true;
-        lightbulb.enable = true;
-        lspsaga.enable = false;
-        nvimCodeActionMenu.enable = true;
-        trouble.enable = true;
-        lspSignature.enable = true;
-        nix = {
-          enable = true;
-          formatter = "alejandra";
-        };
-        rust.enable = true;
-        python = true;
-        clang.enable = false;
-        sql = false;
-        ts = true;
-        go = false;
-        zig.enable = false;
-      };
-      vim.visuals = {
-        enable = true;
-        nvimWebDevicons.enable = true;
-        lspkind.enable = true;
-        indentBlankline = {
-          enable = true;
-          fillChar = "";
-          eolChar = "";
-          showCurrContext = true;
-        };
-        cursorWordline = {
-          enable = true;
-          lineTimeout = 0;
-        };
-      };
-      vim.statusline.lualine = {
-        enable = true;
-        theme = "onedark";
-      };
-      vim.theme = {
-        enable = true;
-        name = "onedark";
-        style = "darker";
-      };
-      vim.autopairs.enable = true;
-      vim.autocomplete = {
-        enable = true;
-        type = "nvim-cmp";
-      };
-      vim.filetree.nvimTreeLua.enable = true;
-      vim.tabline.nvimBufferline.enable = true;
-      vim.treesitter = {
-        enable = true;
-        context.enable = true;
-      };
-      vim.keys = {
-        enable = true;
-        whichKey.enable = true;
-      };
-      vim.telescope = {
-        enable = true;
-      };
-      vim.markdown = {
-        enable = true;
-        glow.enable = true;
-      };
-      vim.git = {
-        enable = true;
-        gitsigns.enable = true;
-      };
-    };
+    	vim.theme.enable = true;
+	};
   };
 
   customNeovim = neovim-flake.lib.neovimConfiguration {
@@ -108,15 +36,15 @@ in {
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "nixos";
-  home.homeDirectory = "/home/nixos";
+  home.username = "satwik";
+  home.homeDirectory = "/home/satwik";
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwyards
   # incompatible changes.
 
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.05";
 
   #
   # You can update Home Manager without changing this value. See

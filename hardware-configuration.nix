@@ -4,85 +4,34 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules = [ "virtio_pci" ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/sdc";
+    { device = "/dev/disk/by-uuid/b3077380-f235-4796-9a90-639a882449e8";
       fsType = "ext4";
     };
 
-  fileSystems."/usr/lib/wsl/drivers" =
-    { device = "none";
-      fsType = "9p";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/5824-10D5";
+      fsType = "vfat";
     };
 
-  fileSystems."/usr/lib/wsl/lib" =
-    { device = "none";
-      fsType = "overlay";
-    };
-
-  fileSystems."/mnt/wsl" =
-    { device = "none";
-      fsType = "tmpfs";
-    };
-
-  fileSystems."/mnt/wslg" =
-    { device = "none";
-      fsType = "tmpfs";
-    };
-
-  fileSystems."/mnt/wslg/distro" =
-    { device = "";
-      fsType = "none";
-      options = [ "bind" ];
-    };
-
-  fileSystems."/mnt/wslg/doc" =
-    { device = "none";
-      fsType = "overlay";
-    };
-
-  fileSystems."/tmp/.X11-unix" =
-    { device = "/mnt/wslg/.X11-unix";
-      fsType = "none";
-      options = [ "bind", "remount", "rw" ];
-    };
-
-  fileSystems."/mnt/c" =
-    { device = "drvfs";
-      fsType = "9p";
-    };
-
-  fileSystems."/mnt/g" =
-    { device = "drvfs";
-      fsType = "9p";
-    };
-
-  fileSystems."/mnt/h" =
-    { device = "drvfs";
-      fsType = "9p";
-    };
-
-  swapDevices =
-    [ { device = "/dev/sdb"; }
-    ];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.bond0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.bonding_masters.useDHCP = lib.mkDefault true;
-  # networking.interfaces.dummy0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.eth0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.sit0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.tunl0.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
 
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
