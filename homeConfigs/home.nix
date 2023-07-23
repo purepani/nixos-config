@@ -2,8 +2,10 @@
   config,
   pkgs,
   neovim-flake,
+  pianoteq,
   ...
 }: let
+  system = "x86_64-linux";
   customPylsp = pkgs.python39Packages.python-lsp-server.override {
     withAutopep8 = true;
     withFlake8 = true;
@@ -19,21 +21,25 @@
   configModule = {
     # Add any custom options (and feel free to upstream them!)
     # options = ...
-    config = {
-    	vim.theme.enable = true;
-	};
+    #config.build.rawPlugins = {nvim-lilypond-suite = {src = nvim-lilypond-suite;};};
   };
 
-  customNeovim = neovim-flake.lib.neovimConfiguration {
-    modules = [configModule];
-    inherit pkgs;
-  };
+  maximalNeovim = neovim-flake.packages.${system}.maximal;
+  #Neovim = neovim-flake.lib.neovimConfiguration.extendConfiguration {
+  #  modules = [configModule];
+  #};
+  Neovim = maximalNeovim;
 in {
   # Let Home Manager install and manage itself.
 
-  #nix.nixPath = options.nix.nixPath.default ++ [ "nixpkgs-overlays=${nixpkgs-overlays}/overlays.nix" ];
   programs.home-manager.enable = true;
 
+  services.easyeffects = {
+    enable = true;
+    package = pkgs.easyeffects.override {
+      speexdsp = pkgs.speexdsp.overrideAttrs (old: {configureFlags = [];});
+    };
+  };
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "satwik";
@@ -66,6 +72,20 @@ in {
   };
   home.packages = with pkgs;
     [
+      kicad
+      xclip
+      discord
+      soundux
+      zoom
+      zotero
+      slack
+      obs-studio
+
+      #teams
+      zoom
+      wireplumber
+      helvum
+      webcord
       openssl
       ranger
       linuxConsoleTools
@@ -76,8 +96,16 @@ in {
       ledger
       fd
       unzip
+      libguestfs
+      qpwgraph
+      zrythm
+      reaper
+      godot_4
+      minecraft
+      prismlauncher
+      musescore
     ]
-    ++ [customNeovim.neovim];
+    ++ [Neovim pianoteq.packages.x86_64-linux.default];
 
   imports = [
   ];
