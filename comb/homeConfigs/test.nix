@@ -29,7 +29,9 @@
   #  modules = [configModule];
   #};
   Neovim = maximalNeovim;
-in {
+in 
+{
+satwik={
   # Let Home Manager install and manage itself.
 
   programs.home-manager.enable = true;
@@ -109,4 +111,5 @@ in {
 
   imports = [
   ];
+}
 }

@@ -9,40 +9,35 @@
     neovim-flake.url = "github:jordanisaacs/neovim-flake";
     pianoteq.url = "path:/home/satwik/nixos-config/nix-pianoteq7";
     musnix.url = "github:musnix/musnix";
+
+    std.url = "github:divnix/std";
+    std.inputs.nixpkgs.follows = "nixpkgs";
+
+    hive.url = "github:divnix/hive";
+    hive.inputs.nixpkgs.follows = "nixpkgs";
+
     #nvim-lilypond-suite = {
     #  url = "github:martineausimon/nvim-lilypond-suite";
     #  flake = false;
     #};
   };
   outputs = inputs @ {
-    nixos,
-    nixpkgs,
-    home-manager,
-    musnix,
+    std,
+    hive,
+    self,
     ...
-  }: {
-    nixosConfigurations = {
-      satwik-lenovo = nixos.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          musnix.nixosModules.musnix
-          {
-            musnix.enable = true;
-            musnix.kernel.realtime = false;
-          }
-
-          ./configuration.nix
-
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.satwik = import ./homeConfigs/home.nix;
-
-            home-manager.extraSpecialArgs = inputs;
-          }
-        ];
-      };
+  }:
+    hive.growOn {
+      inherit inputs;
+      cellsFrom = ./comb;
+      cellBlocks = with std.blockTypes;
+      with hive.blockTypes; [
+        nixosConfigurations
+        homeConfigurations
+      ];
+    }
+    {
+      nixosConfigurations = hive.collect self "nixosConfigurations";
+      homeConfigurations = hive.collect self "homeConfigurations";
     };
-  };
 }

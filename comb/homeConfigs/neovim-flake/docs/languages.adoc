@@ -1,0 +1,17 @@
+[[ch-languages]]
+== Language Support
+
+Language specific support means there is a combination of language specific plugins, `treesitter` support, `nvim-lspconfig` language servers, and `null-ls` integration. This gets you capabilities ranging from autocompletion to formatting to diagnostics. The following languages have sections under the `vim.languages` attribute. See the configuration docs for details.
+
+* Rust: <<opt-vim.languages.rust.enable>>
+* Nix: <<opt-vim.languages.nix.enable>>
+* SQL: <<opt-vim.languages.sql.enable>>
+* C/C++: <<opt-vim.languages.clang.enable>>
+* Typescript/Javascript: <<opt-vim.languages.ts.enable>>
+* Python: <<opt-vim.languages.python.enable>>:
+* Zig: <<opt-vim.languages.zig.enable>>
+* Markdown: <<opt-vim.languages.markdown.enable>>
+* PlantUML: <<opt-vim.languages.plantuml.enable>>
+* HTML: <<opt-vim.languages.html.enable>>
+
+Adding support for more languages, and improving support for existing ones are great places where you can contribute with a PR.
