@@ -15,7 +15,7 @@
 
     imports = [
       # Include the results of the hardware scan.
-      cell.hardware-configuration
+      ./hardware-configuration.nix
     ];
     nix.settings = {
       experimental-features = "nix-command flakes";
@@ -131,12 +131,11 @@
     services.xserver.displayManager.autoLogin.enable = true;
     services.xserver.displayManager.autoLogin.user = "satwik";
 
-    # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+    # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229.nix
     systemd.services."getty@tty1".enable = false;
     systemd.services."autovt@tty1".enable = false;
 
     # Allow unfree packages
-    nixpkgs.config.allowUnfree = true;
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
