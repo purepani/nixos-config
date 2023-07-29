@@ -7,7 +7,7 @@
 }: {
   satwik-lenovo = {pkgs, ...}: {
     bee.system = "x86_64-linux";
-    bee.pkgs = import inputs.nixos-22-11 {
+    bee.pkgs = import inputs.nixos {
       inherit (inputs.nixpkgs) system;
       config.allowUnfree = true;
       overlays = [];
@@ -15,7 +15,7 @@
 
     imports = [
       # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+      cell.hardware-configuration
     ];
     nix.settings = {
       experimental-features = "nix-command flakes";

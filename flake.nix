@@ -27,7 +27,7 @@
     self,
     ...
   }:
-    hive.growOn {
+    std.growOn {
       inherit inputs;
       cellsFrom = ./comb;
       cellBlocks = with std.blockTypes;
