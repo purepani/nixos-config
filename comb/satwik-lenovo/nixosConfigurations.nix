@@ -4,15 +4,16 @@
 {
   inputs,
   cell,
-}: {
-  satwik-lenovo = {pkgs, ...}: {
-    bee.system = "x86_64-linux";
-    bee.pkgs = import inputs.nixos {
-      inherit (inputs.nixpkgs) system;
-      config.allowUnfree = true;
-      overlays = [];
-    };
-
+}: let
+  bee.system = "x86_64-linux";
+  bee.pkgs = import inputs.nixos {
+    inherit (inputs.nixpkgs) system;
+    config.allowUnfree = true;
+    overlays = [];
+  };
+in {
+  satwik-lenovo = {
+    inherit bee;
     imports = [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -118,7 +119,7 @@
       isNormalUser = true;
       description = "Satwik Pani";
       extraGroups = ["networkmanager" "wheel" "libvirtd" "audio"];
-      packages = with pkgs; [
+      packages = with bee.pkgs; [
         gnomeExtensions.gsconnect
         kitty
         git
@@ -139,7 +140,7 @@
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
-    environment.systemPackages = with pkgs; [
+    environment.systemPackages = with bee.pkgs; [
       vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       wget
       virt-manager
@@ -147,7 +148,7 @@
     ];
 
     environment.etc = let
-      json = pkgs.formats.json {};
+      json = bee.pkgs.formats.json {};
     in {
       "pipewire/pipewire.d/92-low-latency.conf".source = json.generate "92-low-latency.conf" {
         context.properties = {
@@ -169,7 +170,7 @@
     #                    xwayland.enable=true;};
     xdg.portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+      extraPortals = [bee.pkgs.xdg-desktop-portal-gnome];
     };
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.
