@@ -7,7 +7,7 @@
 }: let
    bee = {
  	system = "x86_64-linux";	
-	pkgs = inputs.nixpkgs;
+	pkgs = inputs.nixos;
 	home = inputs.home-manager;
 	};
    pkgs = bee.pkgs;

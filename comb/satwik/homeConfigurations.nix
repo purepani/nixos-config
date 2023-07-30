@@ -28,26 +28,30 @@
     html.enable = false; # saves space
     json.enable = false; # don't know what to do with this
   };
-  bee = {
+  bee = rec {
     system = "x86_64-linux";
-    inherit (inputs) home;
-    pkgs = inputs.nix;
+    #inherit (inputs) home;
+    pkgs = import inputs.nixpkgs {
+	inherit system;
+	config.allowUnfree=true;
+	};
     home = inputs.home-manager;
   };
  
 in {
 
-  satwik = {pkgs, system,  ...}: 
+  satwik = 
 	let
-	  Neovim = inputs.neovim-flake.packages.${system}.maximal;
+	  Neovim = inputs.neovim-flake.packages.${bee.system}.maximal;
 	in {
+    inherit bee;
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
 
     services.easyeffects = {
       enable = true;
-      package = pkgs.easyeffects.override {
-        speexdsp = pkgs.speexdsp.overrideAttrs (old: {configureFlags = [];});
+      package = bee.pkgs.easyeffects.override {
+        speexdsp = bee.pkgs.speexdsp.overrideAttrs (old: {configureFlags = [];});
       };
     };
     # Home Manager needs a bit of information about you and the
@@ -80,7 +84,8 @@ in {
         eval "$(direnv hook bash)"
       '';
     };
-    home.packages = with pkgs;
+
+    home.packages = with bee.pkgs;
       [
         kicad
         xclip
@@ -115,7 +120,7 @@ in {
         prismlauncher
         musescore
       ]
-      ++ [Neovim pianoteq.packages.x86_64-linux.default];
+      ++ [Neovim inputs.pianoteq.packages.x86_64-linux.default];
 
     imports = [
     ];
