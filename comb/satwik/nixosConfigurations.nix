@@ -5,19 +5,21 @@
   inputs,
   cell,
 }: let
-  bee.system = "x86_64-linux";
-  bee.pkgs = import inputs.nixos {
-    inherit (inputs.nixpkgs) system;
-    config.allowUnfree = true;
-    overlays = [];
-  };
+   bee = {
+ 	system = "x86_64-linux";	
+	pkgs = inputs.nixpkgs;
+	home = inputs.home-manager;
+	};
+   pkgs = bee.pkgs;
 in {
-  satwik-lenovo = {
+  laptop =  {
     inherit bee;
     imports = [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
+	bee.home.nixosModules.home-manager
     ];
+    #home-manager.users = cell.homeConfigurations;
     nix.settings = {
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
@@ -119,7 +121,7 @@ in {
       isNormalUser = true;
       description = "Satwik Pani";
       extraGroups = ["networkmanager" "wheel" "libvirtd" "audio"];
-      packages = with bee.pkgs; [
+      packages = with pkgs; [
         gnomeExtensions.gsconnect
         kitty
         git
@@ -140,7 +142,7 @@ in {
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
-    environment.systemPackages = with bee.pkgs; [
+    environment.systemPackages = with pkgs; [
       vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       wget
       virt-manager
@@ -148,7 +150,7 @@ in {
     ];
 
     environment.etc = let
-      json = bee.pkgs.formats.json {};
+      json = pkgs.formats.json {};
     in {
       "pipewire/pipewire.d/92-low-latency.conf".source = json.generate "92-low-latency.conf" {
         context.properties = {
@@ -170,7 +172,7 @@ in {
     #                    xwayland.enable=true;};
     xdg.portal = {
       enable = true;
-      extraPortals = [bee.pkgs.xdg-desktop-portal-gnome];
+      extraPortals = [pkgs.xdg-desktop-portal-gnome];
     };
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.

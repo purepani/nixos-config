@@ -1,6 +1,6 @@
 {
   inputs,
-  cell,
+  cell
 }: let
   name = "Satwik Pani";
   # email = "dgx.arnold@gmail.com";
@@ -18,11 +18,6 @@
       };
     };
   };
-  bee = {
-    system = "x86_64-linux";
-    inherit (inputs) home;
-    pkgs = inputs.nix;
-  };
   home = rec {
     homeDirectory = "/home/${username}";
     stateVersion = "23.05";
@@ -33,24 +28,26 @@
     html.enable = false; # saves space
     json.enable = false; # don't know what to do with this
   };
-
-  Neovim = inputs.neovim-flake.packages.${bee.system}.maximal;
-in {
-  satwik-lenovo = {
-    inherit programs bee home manual;
-    targets.genericLinux.enable = true;
-    #imports = with cell.homeProfiles; [gui shell];
+  bee = {
+    system = "x86_64-linux";
+    inherit (inputs) home;
+    pkgs = inputs.nix;
+    home = inputs.home-manager;
   };
+ 
+in {
 
-  satwik = {
+  satwik = {pkgs, system,  ...}: 
+	let
+	  Neovim = inputs.neovim-flake.packages.${system}.maximal;
+	in {
     # Let Home Manager install and manage itself.
-    inherit bee;
     programs.home-manager.enable = true;
 
     services.easyeffects = {
       enable = true;
-      package = bee.pkgs.easyeffects.override {
-        speexdsp = bee.pkgs.speexdsp.overrideAttrs (old: {configureFlags = [];});
+      package = pkgs.easyeffects.override {
+        speexdsp = pkgs.speexdsp.overrideAttrs (old: {configureFlags = [];});
       };
     };
     # Home Manager needs a bit of information about you and the
@@ -83,7 +80,7 @@ in {
         eval "$(direnv hook bash)"
       '';
     };
-    home.packages = with bee.pkgs;
+    home.packages = with pkgs;
       [
         kicad
         xclip
