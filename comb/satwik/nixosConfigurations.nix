@@ -5,12 +5,15 @@
   inputs,
   cell,
 }: let
-   bee = {
- 	system = "x86_64-linux";	
-	pkgs = inputs.nixos;
-	home = inputs.home-manager;
+   bee = rec {
+    system = "x86_64-linux";	
+    pkgs = import inputs.nixos {
+      inherit system;
+      allowUnfree = true;
+    };
+    home = inputs.home-manager;
 	};
-   pkgs = bee.pkgs;
+   pkgs = let inherit bee; in bee.pkgs;
 in {
   laptop =  {
     inherit bee;
@@ -28,6 +31,12 @@ in {
     boot.loader.systemd-boot.enable = true;
     boot.loader.efi = {
       canTouchEfiVariables = true;
+    };
+    services.zerotierone = {
+      enable=true;
+      joinNetworks= [
+        "e5cd7a9e1cefda64"
+      ];
     };
     boot.supportedFilesystems = ["ntfs"];
     networking.hostName = "satwik"; # Define your hostname.
@@ -122,7 +131,6 @@ in {
       description = "Satwik Pani";
       extraGroups = ["networkmanager" "wheel" "libvirtd" "audio"];
       packages = with pkgs; [
-        gnomeExtensions.gsconnect
         kitty
         git
         firefox
