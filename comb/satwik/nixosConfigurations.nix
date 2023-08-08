@@ -9,7 +9,7 @@
     system = "x86_64-linux";	
     pkgs = import inputs.nixos {
       inherit system;
-      allowUnfree = true;
+      config.allowUnfree = true;
     };
     home = inputs.home-manager;
 	};
@@ -40,6 +40,11 @@ in {
     };
     boot.supportedFilesystems = ["ntfs"];
     networking.hostName = "satwik"; # Define your hostname.
+   programs.steam = {
+     enable = true;
+     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+   };
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Configure network proxy if necessary
@@ -123,18 +128,19 @@ in {
     };
 
     # Enable touchpad support (enabled default in most desktopManager).
-    # services.xserver.libinput.enable = true;
+    services.xserver.libinput.enable = true;
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.satwik = {
       isNormalUser = true;
       description = "Satwik Pani";
-      extraGroups = ["networkmanager" "wheel" "libvirtd" "audio"];
+      extraGroups = ["networkmanager" "wheel" "libvirtd" "audio" "input"];
       packages = with pkgs; [
         kitty
         git
         firefox
         thunderbird
+        libinput-gestures
       ];
     };
 
@@ -180,7 +186,7 @@ in {
     #                    xwayland.enable=true;};
     xdg.portal = {
       enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gnome];
+      extraPortals = [pkgs.xdg-desktop-portal-kde];
     };
     # Some programs need SUID wrappers, can be configured further or are
     # started in user sessions.

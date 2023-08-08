@@ -1,6 +1,6 @@
 {
   inputs,
-  cell
+  cell,
 }: let
   name = "Satwik Pani";
   # email = "dgx.arnold@gmail.com";
@@ -32,18 +32,15 @@
     system = "x86_64-linux";
     #inherit (inputs) home;
     pkgs = import inputs.nixpkgs {
-	inherit system;
-	config.allowUnfree=true;
-	};
+      inherit system;
+      config.allowUnfree = true;
+    };
     home = inputs.home-manager;
   };
- 
 in {
-
-  satwik = 
-	let
-	  Neovim = inputs.neovim-flake.packages.${bee.system}.maximal;
-	in {
+  satwik = let
+    Neovim = inputs.neovim-flake.packages.${bee.system}.maximal;
+  in {
     inherit bee;
     # Let Home Manager install and manage itself.
     programs.home-manager.enable = true;
@@ -119,6 +116,10 @@ in {
         minecraft
         prismlauncher
         musescore
+        steam-run
+        steamcmd
+        xournalpp
+        steam-tui
       ]
       ++ [Neovim inputs.pianoteq.packages.x86_64-linux.default];
 
