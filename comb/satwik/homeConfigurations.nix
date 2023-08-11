@@ -1,7 +1,6 @@
 {
   inputs,
-  cell,
-}: let
+  cell, }: let
   name = "Satwik Pani";
   # email = "dgx.arnold@gmail.com";
   # gitSigningKey = "AB15A6AF1101390D";
@@ -88,13 +87,12 @@ in {
         xclip
         discord
         soundux
-        zoom
+        zoom-us
         zotero
         slack
         obs-studio
 
         #teams
-        zoom
         wireplumber
         helvum
         webcord
@@ -120,6 +118,7 @@ in {
         steamcmd
         xournalpp
         steam-tui
+        rclone
       ]
       ++ [Neovim inputs.pianoteq.packages.x86_64-linux.default];
 
