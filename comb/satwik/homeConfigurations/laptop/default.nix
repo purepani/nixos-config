@@ -36,6 +36,12 @@ in {
 
   home.stateVersion = "23.05";
 
+  manual = {
+    manpages.enable = false; # causes error
+    html.enable = false; # saves space
+    json.enable = false; # don't know what to do with this
+  };
+  targets.genericLinux.enable=true;
   #
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version

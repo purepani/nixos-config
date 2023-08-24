@@ -6,6 +6,6 @@
 laptop=inputs.hive.load {
   inherit cell;
   inherit inputs;
-  block = ./laptop;
+  src = ./laptop;
 };
 }
