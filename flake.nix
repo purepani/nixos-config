@@ -35,6 +35,7 @@
         nixosConfigurations
         #homeConfigurations
         (functions "nixosProfiles")
+        (functions "hardwareProfiles")
       ];
     }
     {
