@@ -644,7 +644,7 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1692860189,
+        "lastModified": 1692860605,
         "narHash": "sha256-5BWteN5np183DwGpUq3BamHW/eDcWau6BZpvneMJBEM=",
         "path": "/home/satwik/nixos-config/nix-pianoteq7",
         "type": "path"
