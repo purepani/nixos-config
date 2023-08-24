@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) system;
+  #inherit (inputs) system;
 in {
   home.packages = [inputs.pianoteq.pianoteq8];
 }

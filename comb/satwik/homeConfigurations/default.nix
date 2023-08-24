@@ -9,6 +9,7 @@
         inherit system;
         config.allowUnfree = true;
       };
+      home = inputs.home-manager;
     };
   };
 in
