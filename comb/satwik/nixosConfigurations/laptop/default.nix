@@ -1,7 +1,7 @@
 {inputs, cell}:
 let 
   inherit (inputs) common nixpkgs;
-  inherit (inputs.cells) nixosProfiles;
+  inherit (cell) nixosProfiles;
   inherit (nixpkgs) lib;
   hostname = "satwik";
 in
