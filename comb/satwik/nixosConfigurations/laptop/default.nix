@@ -3,22 +3,22 @@
   cell,
 }: let
   inherit (inputs) common;
-  inherit (cell) hardwareProfiles;
-  hostname = "satwik";
+  inherit (cell) hardwareProfiles nixosProfiles;
+  hostName = "satwik";
 in {
   inherit (common) bee;
-  networking = {inherit hostname;};
-  imports = [
+  networking = {inherit hostName;};
+  imports = with nixosProfiles; [
     hardwareProfiles.laptop
-    #extra
-    #nix
-    #desktop
-    #kdeconnect
-    #locale
-    #nix
-    #pipewire
-    #steam
-    #virtualization
-    #zerotier-one
+    extra
+    nix
+    desktop
+    kdeconnect
+    locale
+    nix
+    pipewire
+    steam
+    virtualization
+    zerotier-one
   ];
 }
