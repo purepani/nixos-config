@@ -644,8 +644,8 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1692860786,
-        "narHash": "sha256-5BWteN5np183DwGpUq3BamHW/eDcWau6BZpvneMJBEM=",
+        "lastModified": 1692912780,
+        "narHash": "sha256-pPmqkB6j2oJKD+wKDPjxWKpv8foWTgLh1/625yJTVX8=",
         "path": "/home/satwik/nixos-config/nix-pianoteq7",
         "type": "path"
       },
@@ -1530,11 +1530,11 @@
         "yants": "yants_2"
       },
       "locked": {
-        "lastModified": 1692787832,
-        "narHash": "sha256-pZ9IC4uBXlzT3L3rX4uLjJFxP16IT84YklKPnM02Nuw=",
+        "lastModified": 1692861655,
+        "narHash": "sha256-NVScyi+Gd7lf5bcH8vysGSqESNiZGrDgaxXY5KdO3iA=",
         "owner": "divnix",
         "repo": "std",
-        "rev": "16edd0fc1e98c28180d845ef1011610f7b800976",
+        "rev": "3ce88a33db33ae48ec0081f717e4f035812c3755",
         "type": "github"
       },
       "original": {

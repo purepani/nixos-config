@@ -33,13 +33,14 @@
       cellBlocks = with std.blockTypes;
       with hive.blockTypes; [
         nixosConfigurations
-        #homeConfigurations
+        homeConfigurations
         (functions "nixosProfiles")
+        (functions "homeProfiles")
         (functions "hardwareProfiles")
       ];
     }
     {
       nixosConfigurations = hive.collect self "nixosConfigurations";
-      #homeConfigurations = hive.collect self "homeConfigurations";
+      homeConfigurations = hive.collect self "homeConfigurations";
     };
 }
