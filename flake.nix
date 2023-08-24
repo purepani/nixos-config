@@ -34,6 +34,7 @@
       with hive.blockTypes; [
         nixosConfigurations
         homeConfigurations
+
         (functions "nixosProfiles")
         (functions "homeProfiles")
         (functions "hardwareProfiles")

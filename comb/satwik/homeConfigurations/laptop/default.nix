@@ -9,9 +9,9 @@ in {
     system = "x86_64-linux";
     pkgs = import inputs.nixpkgs {
       inherit system;
-      config.allowUnfree=true;
+      config.allowUnfree = true;
     };
-    home=inputs.home-manager;
+    home = inputs.home-manager;
   };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
