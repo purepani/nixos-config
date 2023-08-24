@@ -5,22 +5,22 @@
   inputs,
   cell,
 }: let
-   bee = rec {
-    system = "x86_64-linux";	
+  bee = rec {
+    system = "x86_64-linux";
     pkgs = import inputs.nixos {
       inherit system;
       config.allowUnfree = true;
     };
     home = inputs.home-manager;
-	};
-   pkgs = let inherit bee; in bee.pkgs;
+  };
+  pkgs = let inherit bee; in bee.pkgs;
 in {
-  laptop =  {
+  laptop = {
     inherit bee;
     imports = [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-	bee.home.nixosModules.home-manager
+      bee.home.nixosModules.home-manager
     ];
     #home-manager.users = cell.homeConfigurations;
     nix.settings = {
@@ -33,18 +33,18 @@ in {
       canTouchEfiVariables = true;
     };
     services.zerotierone = {
-      enable=true;
-      joinNetworks= [
+      enable = true;
+      joinNetworks = [
         "e5cd7a9e1cefda64"
       ];
     };
     boot.supportedFilesystems = ["ntfs"];
     networking.hostName = "satwik"; # Define your hostname.
-   programs.steam = {
-     enable = true;
-     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-   };
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    };
     # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
     # Configure network proxy if necessary
@@ -73,7 +73,6 @@ in {
       LC_TELEPHONE = "en_US.UTF-8";
       LC_TIME = "en_US.UTF-8";
     };
-
     services.logind = {
       lidSwitch = "suspend";
       lidSwitchDocked = "suspend";

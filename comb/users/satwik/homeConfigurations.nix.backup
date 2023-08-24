@@ -119,6 +119,8 @@ in {
         xournalpp
         steam-tui
         rclone
+        x2goclient
+        vlc
       ]
       ++ [Neovim inputs.pianoteq.packages.x86_64-linux.default];
 
