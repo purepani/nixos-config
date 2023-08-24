@@ -4,7 +4,7 @@
 }: 
 let 
   inherit (cell) homeProfiles;
-  inherit (inputs.common) bee;
+  #inherit (inputs.common) bee;
 in {
 
   # Let Home Manager install and manage itself.
