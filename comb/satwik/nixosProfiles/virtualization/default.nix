@@ -1,4 +1,4 @@
-{inputs, cells}:
+{inputs, cell}:
 {
 
   virtualisation.libvirtd.enable = true;
