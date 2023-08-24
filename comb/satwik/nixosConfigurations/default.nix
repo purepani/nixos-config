@@ -5,10 +5,7 @@
   common = {
     bee = rec {
       system = "x86_64-linux";
-      pkgs = import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      pkgs = inputs.nixpkgs;
     };
   };
 in
