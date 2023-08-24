@@ -14,6 +14,6 @@
 in
   inputs.hive.findLoad {
     inherit cell;
-    inputs = inputs // {inherit (common) bee;};
+    inputs = inputs // {inherit common;};
     block = ./.;
   }
