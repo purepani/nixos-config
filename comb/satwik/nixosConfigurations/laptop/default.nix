@@ -11,7 +11,8 @@ in
     imports = with nixosProfiles; [
       ./hardware-configuration.nix  
       extra
-      nixdesktop
+      nix
+      desktop
       kdeconnect
       locale
       nix
