@@ -39,7 +39,7 @@
 
         (functions "nixosProfiles")
         (functions "homeProfiles")
-        (functions "hardwareProfiles")
+        #(functions "hardwareProfiles")
       ];
     }
     {

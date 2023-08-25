@@ -10,7 +10,7 @@ in {
   inherit  bee;
   imports = [
     #hardwareProfiles.laptop
-    ./hardware-configuration.nix
+    #./hardware-configuration.nix
     #extra
     #nix
     #desktop
