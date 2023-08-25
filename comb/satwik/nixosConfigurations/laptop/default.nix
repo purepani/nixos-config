@@ -3,12 +3,12 @@
   cell,
 }: let
   inherit (inputs) common;
-  inherit (cell) hardwareProfiles nixosProfiles;
+  inherit (cell)  nixosProfiles;
   inherit (common) bee;
   inherit (bee) pkgs;
 in {
   inherit  bee;
-  imports = with nixosProfiles; [
+  imports = [
     #hardwareProfiles.laptop
     ./hardware-configuration.nix
     #extra
@@ -19,9 +19,10 @@ in {
     #nix
     #pipewire
     #steam
-    #virtualization #zerotier-one
+    #virtualization 
+    #zerotier-one
   ];
- nix.settings = {
+  nix.settings = {
       experimental-features = "nix-command flakes";
       auto-optimise-store = true;
     };
