@@ -430,6 +430,22 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1692952286,
+        "narHash": "sha256-TsrtPv3+Q1KR0avZxpiJH+b6fX/R/hEQVHbjl1ebotY=",
+        "owner": "NixOS",
+        "repo": "nixos-hardware",
+        "rev": "817e297fc3352fadc15f2c5306909aa9192d7d97",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "master",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1690272529,
@@ -644,7 +660,7 @@
         "nixpkgs": "nixpkgs_5"
       },
       "locked": {
-        "lastModified": 1692918290,
+        "lastModified": 1692988632,
         "narHash": "sha256-pPmqkB6j2oJKD+wKDPjxWKpv8foWTgLh1/625yJTVX8=",
         "path": "/home/satwik/nixos-config/nix-pianoteq7",
         "type": "path"
@@ -1456,6 +1472,7 @@
         "musnix": "musnix",
         "neovim-flake": "neovim-flake",
         "nixos": "nixos",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_4",
         "pianoteq": "pianoteq",
         "std": "std"

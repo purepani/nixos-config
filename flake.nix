@@ -1,7 +1,6 @@
 {
   description = "NixOS configuration";
 
-
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
@@ -10,7 +9,7 @@
     neovim-flake.url = "github:jordanisaacs/neovim-flake";
     pianoteq.url = "path:/home/satwik/nixos-config/nix-pianoteq7";
     musnix.url = "github:musnix/musnix";
-
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     std.url = "github:divnix/std";
     std.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -33,13 +32,13 @@
       cellsFrom = ./comb;
       nixpkgsConfig = {allowUnfree = true;};
       cellBlocks = with std.blockTypes;
-        with hive.blockTypes; [
+      with hive.blockTypes; [
         nixosConfigurations
         homeConfigurations
 
         (functions "nixosProfiles")
         (functions "homeProfiles")
-        #(functions "hardwareProfiles")
+        (functions "hardwareProfiles")
       ];
     }
     {
