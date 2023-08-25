@@ -9,17 +9,17 @@
 in {
   inherit  bee;
   imports = with nixosProfiles; [
-    hardwareProfiles.laptop
-    extra
-    nix
-    desktop
-    kdeconnect
-    locale
-    nix
-    pipewire
-    steam
-    virtualization
-    zerotier-one
+    #hardwareProfiles.laptop
+    ./hardware-configuration.nix
+    #extra
+    #nix
+    #desktop
+    #kdeconnect
+    #locale
+    #nix
+    #pipewire
+    #steam
+    #virtualization #zerotier-one
   ];
  nix.settings = {
       experimental-features = "nix-command flakes";
