@@ -1,3 +1,4 @@
+
 {inputs, cell}:
 {
     home.packages = with inputs.nixpkgs;
@@ -11,7 +12,7 @@
         slack
         obs-studio
 
-        #teams
+        teams
         wireplumber
         helvum
         webcord

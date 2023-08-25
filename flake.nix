@@ -31,8 +31,9 @@
     std.growOn {
       inherit inputs;
       cellsFrom = ./comb;
+      nixpkgsConfig = {allowUnfree = true;};
       cellBlocks = with std.blockTypes;
-      with hive.blockTypes; [
+        with hive.blockTypes; [
         nixosConfigurations
         homeConfigurations
 
