@@ -6,7 +6,8 @@
 }: 
 let 
   inherit (cell) hardwareProfiles nixosProfiles; 
-  inherit (inputs.common) bee;
+  inherit (inputs) common;
+  inherit (common) bee;
   inherit (bee) pkgs;
 in {
   inherit bee;
@@ -14,20 +15,20 @@ in {
   imports = with hardwareProfiles; [
     server 
   ];
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelParams = [
-    "psmouse.synaptics_intertouch=0"
-    "mem_sleep_default=deep"
-    "intel_iommu=on"
-    "pcie_aspm=off"
-    "i8042.dumpkbd=1"
-  ];
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelParams = [
+  #  "psmouse.synaptics_intertouch=0"
+  #  "mem_sleep_default=deep"
+  #  "intel_iommu=on"
+  #  "pcie_aspm=off"
+  #  "i8042.dumpkbd=1"
+  #];
 
-  boot.initrd.kernelModules = ["amdgpu" "vfio-pci" "kvm-intel"];
+  #boot.initrd.kernelModules = ["amdgpu" "vfio-pci" "kvm-intel"];
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  #boot.loader.systemd-boot.enable = true;
+  #kboot.loader.efi.canTouchEfiVariables = true;
 
   services.zerotierone = {
     enable = true;
