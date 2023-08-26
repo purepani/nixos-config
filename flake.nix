@@ -15,6 +15,8 @@
 
     hive.url = "github:divnix/hive";
     hive.inputs.nixpkgs.follows = "nixpkgs";
+    hive.inputs.colmena.url = "github:zhaofengli/colmena";
+    colmena.url =  "github:zhaofengli/colmena";
 
     #nvim-lilypond-suite = {
     #  url = "github:martineausimon/nvim-lilypond-suite";
@@ -35,6 +37,7 @@
       with hive.blockTypes; [
         nixosConfigurations
         homeConfigurations
+        colmenaConfigurations
 
         (functions "nixosProfiles")
         (functions "homeProfiles")
@@ -44,5 +47,6 @@
     {
       nixosConfigurations = hive.collect self "nixosConfigurations";
       homeConfigurations = hive.collect self "homeConfigurations";
+      colmenaHive = hive.collect self "colmenaConfigurations";
     };
 }
