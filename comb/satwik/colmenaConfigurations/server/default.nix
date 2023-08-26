@@ -5,7 +5,6 @@
   inputs,
   cell,
 }: {
-  inherit (inputs) bee;
   deployment = {
     targetHost = "172.108.101.1";
     replaceUnknownProfiles = true;
