@@ -14,7 +14,7 @@ l.mapAttrs (_: std.std.lib.mkShell) {
   # This is our only development shell, so we name it "default". The
   # numtide/devshell `mkShell` function uses modules, so the `{ ... }` here is
   # simply boilerplate.
-  default = { ... }: {
+  default = {
     name = "Nixos Config Devshell";
 
     imports = [ std.std.devshellProfiles.default ];
@@ -27,7 +27,7 @@ l.mapAttrs (_: std.std.lib.mkShell) {
     # cell block and then access it from `cell.toolchain`. This is a direct
     # benefit from standardizing our project!
     packages = [
-      inputs.colmena
+      #inputs.colmena
     ];
 
     # This is a list of "commands" that will be available inside our development
