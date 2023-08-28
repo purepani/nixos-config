@@ -15,20 +15,21 @@ in {
   imports = with hardwareProfiles; [
     server 
   ];
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelParams = [
-  #  "psmouse.synaptics_intertouch=0"
-  #  "mem_sleep_default=deep"
-  #  "intel_iommu=on"
-  #  "pcie_aspm=off"
-  #  "i8042.dumpkbd=1"
-  #];
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [
+    "psmouse.synaptics_intertouch=0"
+    "mem_sleep_default=deep"
+    "intel_iommu=on"
+    "pcie_aspm=off"
+    "i8042.dumpkbd=1"
+  ];
+  services.openssh.enable=true;
 
-  #boot.initrd.kernelModules = ["amdgpu" "vfio-pci" "kvm-intel"];
+  boot.initrd.kernelModules = ["amdgpu" "vfio-pci" "kvm-intel"];
 
   # Use the systemd-boot EFI boot loader.
-  #boot.loader.systemd-boot.enable = true;
-  #kboot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   services.zerotierone = {
     enable = true;
@@ -82,7 +83,7 @@ in {
 
   services.xserver.videoDrivers = ["modesetting"];
 
-  nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.allowUnfree = true;
   programs.adb.enable = true;
   programs.dconf.enable = true;
   services.udisks2.enable = true;
@@ -120,9 +121,6 @@ in {
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
     wget
-    libvirt
-    virt-manager
-    qemu
     kmod
     pciutils
   ];
@@ -134,6 +132,7 @@ in {
   nix = {
     settings = {
       auto-optimise-store = true;
+      trusted-users = ["root" "@wheel"];
     };
     package = pkgs.nixFlakes;
     extraOptions = ''
@@ -143,13 +142,7 @@ in {
       allow-import-from-derivation = true
     '';
   };
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu.ovmf.enable = true;
-    qemu.runAsRoot = false;
-  };
-  users.extraGroups.vboxusers.members = ["satwik"];
+  security.sudo.wheelNeedsPassword=false;
 
   system.stateVersion = "21.05"; # Did you read the comment?
 

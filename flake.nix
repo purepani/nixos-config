@@ -38,15 +38,17 @@
         nixosConfigurations
         homeConfigurations
         colmenaConfigurations
-
         (functions "nixosProfiles")
         (functions "homeProfiles")
         (functions "hardwareProfiles")
+
+        (devshells "devshells")
       ];
     }
     {
       nixosConfigurations = hive.collect self "nixosConfigurations";
       homeConfigurations = hive.collect self "homeConfigurations";
       colmenaHive = hive.collect self "colmenaConfigurations";
+      devShells = std.harvest self ["repo" "devshells"];
     };
 }
