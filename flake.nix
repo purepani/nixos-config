@@ -1,5 +1,4 @@
-{
-  description = "NixOS configuration";
+{ description = "NixOS configuration";
 
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -31,6 +30,9 @@
   }:
     std.growOn {
       inherit inputs;
+      systems = [
+        "x86_64-linux"
+      ];
       cellsFrom = ./comb;
       nixpkgsConfig = {allowUnfree = true;};
       cellBlocks = with std.blockTypes;
@@ -46,11 +48,13 @@
       ];
     }
     {
+      devShells = hive.harvest self ["repo" "devshells"];
+    }
+    {
       nixosConfigurations = hive.collect self "nixosConfigurations";
       homeConfigurations = hive.collect self "homeConfigurations";
       colmenaHive = hive.collect self "colmenaConfigurations";
     }
-    {
-      devShells = std.harvest self ["repo" "devshells"];
-    };
+    
+    ;
 }
