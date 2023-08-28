@@ -10,11 +10,11 @@ in
   # provides integration with `nixago`, which we'll see in a later part. The
   # result of this map is a attribute set where the value is a proper
   # development shell derivation.
-l.mapAttrs (_: std.std.lib.mkShell) {
+l.mapAttrs (_: std.lib.mkShell) {
   # This is our only development shell, so we name it "default". The
   # numtide/devshell `mkShell` function uses modules, so the `{ ... }` here is
   # simply boilerplate.
-  default = {
+  default = {...}: {
     name = "Nixos Config Devshell";
 
     imports = [ std.std.devshellProfiles.default ];

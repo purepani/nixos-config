@@ -14,6 +14,7 @@
 
     hive.url = "github:divnix/hive";
     hive.inputs.nixpkgs.follows = "nixpkgs";
+
     hive.inputs.colmena.url = "github:zhaofengli/colmena";
     colmena.url =  "github:zhaofengli/colmena";
 
@@ -28,7 +29,7 @@
     self,
     ...
   }:
-    std.growOn {
+    hive.growOn {
       inherit inputs;
       systems = [
         "x86_64-linux"
