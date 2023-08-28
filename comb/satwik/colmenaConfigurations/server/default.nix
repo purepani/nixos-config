@@ -6,7 +6,8 @@
   cell,
 }: {
   deployment = {
-    targetHost = "172.108.101.1";
+    targetUser = "satwik";
+    targetHost = "172.28.101.1";
     replaceUnknownProfiles = true;
   };
   imports = [

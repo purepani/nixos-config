@@ -1,6 +1,5 @@
 { inputs
-, cell
-}:
+, cell }:
 let
   inherit (inputs) nixpkgs std;
   l = nixpkgs.lib // builtins;
@@ -10,7 +9,7 @@ in
   # provides integration with `nixago`, which we'll see in a later part. The
   # result of this map is a attribute set where the value is a proper
   # development shell derivation.
-l.mapAttrs (_: std.lib.mkShell) {
+l.mapAttrs (_: std.lib.dev.mkShell) {
   # This is our only development shell, so we name it "default". The
   # numtide/devshell `mkShell` function uses modules, so the `{ ... }` here is
   # simply boilerplate.
@@ -27,7 +26,7 @@ l.mapAttrs (_: std.lib.mkShell) {
     # cell block and then access it from `cell.toolchain`. This is a direct
     # benefit from standardizing our project!
     packages = [
-      #inputs.colmena
+      inputs.colmena.packages.colmena
     ];
 
     # This is a list of "commands" that will be available inside our development
@@ -37,12 +36,12 @@ l.mapAttrs (_: std.lib.mkShell) {
     # to them from the CLI. For example, running `tests` in side of our shell
     # will in turn call `cargo test` for us.
     commands = [
-      #{
-      #  name = "tests";
-      #  command = "cargo test";
-      #  help = "run the unit tests";
-      #  category = "Testing";
-      #}
+      {
+        name = "switch";
+        command = "nixos-rebuild switch --flake";
+        help = "Rebuild system configuration";
+        category = "Deployment";
+      }
     ];
   };
 }

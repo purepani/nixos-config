@@ -18,6 +18,7 @@
     hive.inputs.colmena.url = "github:zhaofengli/colmena";
     colmena.url =  "github:zhaofengli/colmena";
 
+    std.inputs.devshell.url = "github:numtide/devshell";
     #nvim-lilypond-suite = {
     #  url = "github:martineausimon/nvim-lilypond-suite";
     #  flake = false;

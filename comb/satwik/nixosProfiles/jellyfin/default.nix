@@ -1,4 +1,9 @@
-{inputs, cell}:
 {
-  services.jellyfin.enable=true;
+  inputs,
+  cell,
+}: {
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+  };
 }

@@ -12,8 +12,9 @@ let
 in {
   inherit bee;
 
-  imports = with hardwareProfiles; [
+  imports = with hardwareProfiles; with nixosProfiles;[
     server 
+    jellyfin
   ];
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
