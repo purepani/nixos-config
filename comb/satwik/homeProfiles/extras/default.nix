@@ -40,6 +40,7 @@
         steam-tui
         rclone
         x2goclient
+        remmina
         vlc
       ];
 }
