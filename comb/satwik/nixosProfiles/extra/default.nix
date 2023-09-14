@@ -1,6 +1,7 @@
-{inputs, cell}:
 {
-
+  inputs,
+  cell,
+}: {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi = {
     canTouchEfiVariables = true;
@@ -16,7 +17,7 @@
   users.users.satwik = {
     isNormalUser = true;
     description = "Satwik Pani";
-    extraGroups = ["networkmanager" "wheel" "libvirtd" "audio" "input"];
+    extraGroups = ["networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout"];
     packages = with inputs.nixpkgs; [
       kitty
       git
@@ -26,9 +27,9 @@
     ];
   };
 
-    services.logind = {
-      lidSwitch = "suspend";
-      lidSwitchDocked = "suspend";
-    };
+  services.logind = {
+    lidSwitch = "suspend";
+    lidSwitchDocked = "suspend";
+  };
   system.stateVersion = "23.05"; # Did you read the comment?
 }

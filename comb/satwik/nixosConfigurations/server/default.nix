@@ -2,20 +2,34 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 {
-  inputs, cell
-}: 
-let 
-  inherit (cell) hardwareProfiles nixosProfiles; 
+  inputs,
+  cell,
+}: let
+  inherit (cell) hardwareProfiles nixosProfiles;
   inherit (inputs) common;
   inherit (common) bee;
   inherit (bee) pkgs;
 in {
   inherit bee;
 
-  imports = with hardwareProfiles; with nixosProfiles;[
-    server 
+  imports = with hardwareProfiles;
+  with nixosProfiles; [
+    server
     jellyfin
+    sonarr
+    radarr
+    bazarr
+    prowlarr
+    qbittorrent
+    firefly-iii
+    netdata
   ];
+
+  services.qbittorrent = {
+    enable = true;
+    openFirewall = true;
+    port = 58080;
+  };
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
     "psmouse.synaptics_intertouch=0"
@@ -24,7 +38,7 @@ in {
     "pcie_aspm=off"
     "i8042.dumpkbd=1"
   ];
-  services.openssh.enable=true;
+  services.openssh.enable = true;
 
   boot.initrd.kernelModules = ["amdgpu" "vfio-pci" "kvm-intel"];
 
@@ -48,20 +62,18 @@ in {
   networking.networkmanager = {
     enable = true;
   };
-
+  # 1. enable vaapi on OS-level
 
   hardware.opengl = {
     enable = true;
-    #package = pkgs.mesa.drivers;
     extraPackages = with pkgs; [
-      amdvlk
-      rocm-opencl-icd
-      rocm-opencl-runtime
+      #intel-media-driver
+      #vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+      #intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
     ];
-    #driSupport32Bit = true;
-    #package32 = pkgs.pkgsi686Linux.mesa.drivers;
   };
-
 
   services.dbus = {
     enable = true;
@@ -72,17 +84,8 @@ in {
 
   services.xserver = {
     enable = true;
-    desktopManager = {
-      xterm.enable = false;
-      #xfce.enable = true;
-      plasma5.enable = true;
-    };
-    displayManager = {
-      sddm.enable = true;
-    };
+    videoDrivers = ["modesetting"];
   };
-
-  services.xserver.videoDrivers = ["modesetting"];
 
   #nixpkgs.config.allowUnfree = true;
   programs.adb.enable = true;
@@ -100,8 +103,6 @@ in {
   #sound.enable = true;
   #hardware.pulseaudio.enable = true;
 
-
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.satwik = {
     isNormalUser = true;
@@ -115,9 +116,8 @@ in {
     ]; # Enable ‘sudo’ for the user.
   };
 
-  # List packages installed in system profile. To search, run:
+  users.groups.media.members = ["jellyfin" "sonarr" "radarr" "bazarr" "rtorrent" "qbittorrent"];
 
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
@@ -143,9 +143,9 @@ in {
       allow-import-from-derivation = true
     '';
   };
-  security.sudo.wheelNeedsPassword=false;
+  security.sudo.wheelNeedsPassword = false;
 
-  system.stateVersion = "21.05"; # Did you read the comment?
+  system.stateVersion = "23.05"; # Did you read the comment?
 
   # Binary Cache for Haskell.nix
   nix.settings.trusted-public-keys = [

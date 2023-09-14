@@ -8,7 +8,7 @@
   inherit (bee) pkgs;
 in {
   inherit bee;
-
+programs.dconf.enable=true;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -24,5 +24,6 @@ in {
     steam
     virtualization
     zerotier-one
+    udev
   ];
 }

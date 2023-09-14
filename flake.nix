@@ -1,4 +1,5 @@
-{ description = "NixOS configuration";
+{
+  description = "NixOS configuration";
 
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
@@ -16,7 +17,7 @@
     hive.inputs.nixpkgs.follows = "nixpkgs";
 
     hive.inputs.colmena.url = "github:zhaofengli/colmena";
-    colmena.url =  "github:zhaofengli/colmena";
+    colmena.url = "github:zhaofengli/colmena";
 
     std.inputs.devshell.url = "github:numtide/devshell";
     #nvim-lilypond-suite = {
@@ -36,7 +37,20 @@
         "x86_64-linux"
       ];
       cellsFrom = ./comb;
-      nixpkgsConfig = {allowUnfree = true;};
+      nixpkgsConfig = {
+        allowUnfree = true;
+        overlays = [
+          (final: prev: {
+            bazarr = prev.bazarr.overrideAttrs (old: {
+              buildInputs =
+                [
+                  (prev.python3.withPackages (ps: [ps.lxml ps.numpy ps.gevent ps.gevent-websocket ps.pillow ps.setuptools]))
+                ]
+                ++ [prev.ffmpeg prev.unar];
+            });
+          })
+        ];
+      };
       cellBlocks = with std.blockTypes;
       with hive.blockTypes; [
         nixosConfigurations
@@ -56,7 +70,5 @@
       nixosConfigurations = hive.collect self "nixosConfigurations";
       homeConfigurations = hive.collect self "homeConfigurations";
       colmenaHive = hive.collect self "colmenaConfigurations";
-    }
-    
-    ;
+    };
 }
