@@ -8,6 +8,7 @@
   deployment = {
     targetUser = "satwik";
     targetHost = "172.28.101.1";
+    #targetHost = "192.168.88.8";
     replaceUnknownProfiles = true;
   };
   imports = [

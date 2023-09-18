@@ -21,7 +21,7 @@ in {
     bazarr
     prowlarr
     qbittorrent
-    firefly-iii
+    #firefly-iii
     netdata
   ];
 
@@ -29,6 +29,7 @@ in {
     enable = true;
     openFirewall = true;
     port = 58080;
+    dataDir = "/media/downloads";
   };
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelParams = [
@@ -126,7 +127,6 @@ in {
     pciutils
   ];
 
-  #For pipewire
   programs.neovim.defaultEditor = true;
 
   services.fwupd.enable = true;
@@ -154,4 +154,37 @@ in {
   nix.settings.substituters = [
     "https://cache.iog.io"
   ];
+  #networking.firewall = {
+  #  allowedUDPPorts = [51820]; # Clients and peers can use the same port, see listenport
+  #};
+  # Enable WireGuard
+  networking.wg-quick.interfaces = {
+    givingfrog = {
+      # Determines the IP address and subnet of the client's end of the tunnel interface.
+      address = ["10.68.127.131/32" "fc00:bbbb:bbbb:bb01::5:7f82/128"];
+      listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
+      dns = ["100.64.0.1"];
+      privateKeyFile = "/home/satwik/wireguard-keys/private";
+
+      peers = [
+        # For a client configuration, one peer entry for the server will suffice.
+
+        {
+          # Public key of the server (not a file path).
+          publicKey = "/WirOQ8FNF9tD1+/MYgIAWpjFKiJYhJJ7/w2QmKBrVo=";
+
+          # Forward all the traffic via VPN.
+          allowedIPs = ["0.0.0.0/0" "::0/0"];
+          # Or forward only particular subnets
+          #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
+
+          # Set this to the server IP and port.
+          endpoint = "66.63.167.146:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
+
+          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
+          persistentKeepalive = 25;
+        }
+      ];
+    };
+  };
 }
