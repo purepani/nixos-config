@@ -2,16 +2,15 @@
   inputs,
   cell,
 }: let
-  inherit (inputs) common;
   inherit (cell) nixosProfiles hardwareProfiles;
-  inherit (common) bee;
-  inherit (bee) pkgs;
+  inherit (inputs.common.bee) pkgs;
 in {
-  inherit bee;
-programs.dconf.enable=true;
+  inherit (inputs.common) bee;
+  programs.dconf.enable = true;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages-rt_latest;
   imports = with nixosProfiles; [
     hardwareProfiles.laptop
     extra
@@ -19,11 +18,23 @@ programs.dconf.enable=true;
     desktop
     kdeconnect
     locale
-    nix
     pipewire
     steam
     virtualization
     zerotier-one
     udev
+    NetworkManager
+    #musnix
+    netmaker
+    inputs.musnix.nixosModules.musnix
+    resolved
+  ];
+  musnix = {
+    enable = true;
+  };
+  networking.nameservers = [
+  "1.1.1.1"
+  "1.1.1.2"
+
   ];
 }

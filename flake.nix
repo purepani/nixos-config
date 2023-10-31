@@ -7,23 +7,24 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-flake.url = "github:jordanisaacs/neovim-flake";
-    pianoteq.url = "path:/home/satwik/nixos-config/nix-pianoteq7";
-    musnix.url = "github:musnix/musnix";
+    pianoteq.url = "github:purepani/pianoteq.nix";
+    musnix.url = "github:purepani/musnix";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     std.url = "github:divnix/std";
     std.inputs.nixpkgs.follows = "nixpkgs";
 
-    hive.url = "github:divnix/hive";
+    hive.url = "github:whs-dot-hk/hive/remove-nixpkgs-config";
+    #hive.url = "github:divnix/hive";
     hive.inputs.nixpkgs.follows = "nixpkgs";
 
     hive.inputs.colmena.url = "github:zhaofengli/colmena";
     colmena.url = "github:zhaofengli/colmena";
 
     std.inputs.devshell.url = "github:numtide/devshell";
-    #nvim-lilypond-suite = {
-    #  url = "github:martineausimon/nvim-lilypond-suite";
-    #  flake = false;
-    #};
+    plugin-nvim-lilypond-suite = {
+      url = "github:martineausimon/nvim-lilypond-suite";
+      flake = false;
+    };
   };
   outputs = inputs @ {
     std,
@@ -37,20 +38,7 @@
         "x86_64-linux"
       ];
       cellsFrom = ./comb;
-      nixpkgsConfig = {
-        allowUnfree = true;
-        overlays = [
-          (final: prev: {
-            bazarr = prev.bazarr.overrideAttrs (old: {
-              buildInputs =
-                [
-                  (prev.python3.withPackages (ps: [ps.lxml ps.numpy ps.gevent ps.gevent-websocket ps.pillow ps.setuptools]))
-                ]
-                ++ [prev.ffmpeg prev.unar];
-            });
-          })
-        ];
-      };
+      #nixpkgsConfig = ;
       cellBlocks = with std.blockTypes;
       with hive.blockTypes; [
         nixosConfigurations
@@ -59,6 +47,11 @@
         (functions "nixosProfiles")
         (functions "homeProfiles")
         (functions "hardwareProfiles")
+        #(installables "package")
+        #(functions "module")
+        (functions "neovim")
+        (functions "nixosModules")
+        (installables "packages")
 
         (devshells "devshells")
       ];

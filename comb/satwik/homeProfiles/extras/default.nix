@@ -1,19 +1,20 @@
 {
   inputs,
   cell,
+  ...
 }: {
   home.packages = with inputs.nixpkgs; [
+    reaper
     bitwarden
     kicad
     xclip
-    discord
+    discord-canary
     soundux
     zoom-us
     zotero
     slack
     obs-studio
 
-    teams
     wireplumber
     helvum
     webcord
@@ -32,16 +33,17 @@
     zrythm
     reaper
     godot_4
-    minecraft
+    #minecraft
     prismlauncher
     musescore
-    steam-run
-    steamcmd
+    #steam-run
+    #steamcmd
     xournalpp
-    steam-tui
+    #steam-tui
     rclone
     x2goclient
     remmina
     vlc
+    ffmpeg-full
   ];
 }

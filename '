@@ -24,9 +24,9 @@ in {
     #firefly-iii
     netdata
     netmaker
-    dashy
-    caddy
+#    dashy
   ];
+
 
   services.qbittorrent = {
     enable = true;

@@ -2,10 +2,8 @@
   inputs,
   cell,
 }:
-{
-laptop=inputs.hive.load {
+inputs.hive.findLoad {
   inherit cell;
   inherit inputs;
-  src = ./laptop;
-};
+   block = ./.;
 }

@@ -1,0 +1,11 @@
+{
+  inputs,
+  cell,
+}: {
+  imports = [
+    ./module.nix
+  ];
+  services.dashy = {
+    enable = true;
+  };
+}

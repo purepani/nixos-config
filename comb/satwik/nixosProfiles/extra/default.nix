@@ -10,7 +10,6 @@
   services.printing.enable = true;
   security.polkit.enable = true;
 
-  networking.networkmanager.enable = true;
   hardware.bluetooth.enable = true;
   time.timeZone = "America/Chicago";
   networking.hostName = "satwik"; # Define your hostname.
@@ -26,7 +25,10 @@
       libinput-gestures
     ];
   };
-
+  nix.envVars = {
+    NIX_MODARTT_USERNAME = "purewaterisme@gmail.com";
+    NIX_MODARTT_PASSWORD = "Tu9Y%MGWLpefto";
+  };
   services.logind = {
     lidSwitch = "suspend";
     lidSwitchDocked = "suspend";

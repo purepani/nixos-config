@@ -21,7 +21,9 @@ in {
     easyeffects
     git
     neovim
+    fluidsynth
     pianoteq
+    lilypond
     extras
   ];
   # Home Manager needs a bit of information about you and the
@@ -41,7 +43,7 @@ in {
     html.enable = false; # saves space
     json.enable = false; # don't know what to do with this
   };
-  targets.genericLinux.enable=true;
+  targets.genericLinux.enable = true;
   #
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version

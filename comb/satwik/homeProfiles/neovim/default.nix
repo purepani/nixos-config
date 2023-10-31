@@ -73,10 +73,14 @@
       gitsigns.codeActions = true;
     };
   };
+
   module = {inherit config;};
   Neovim = inputs.neovim-flake.lib.neovimConfiguration {
-    modules = [module];
-    pkgs= inputs.nixpkgs;
+    modules = [
+      inputs.cells.satwik.neovim.lilypond
+      module
+    ];
+    pkgs = inputs.nixpkgs;
   };
 in {
   home.packages = [Neovim];
