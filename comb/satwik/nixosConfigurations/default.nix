@@ -9,9 +9,9 @@
       pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        #config.packageOverrides = pkgs: {
-        #  vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
-        #};
+        config.packageOverrides = pkgs: {
+          vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+        };
       };
     };
   };

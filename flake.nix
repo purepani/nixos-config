@@ -19,6 +19,7 @@
 
     hive.inputs.colmena.url = "github:zhaofengli/colmena";
     colmena.url = "github:zhaofengli/colmena";
+    haumea.url = "github:nix-community/haumea";
 
     std.inputs.devshell.url = "github:numtide/devshell";
     plugin-nvim-lilypond-suite = {
@@ -31,14 +32,22 @@
     hive,
     self,
     ...
-  }:
+  }: let
+    lib = inputs.nixpkgs.lib // builtins;
+  in
     hive.growOn {
       inherit inputs;
       systems = [
         "x86_64-linux"
       ];
       cellsFrom = ./comb;
-      #nixpkgsConfig = ;
+      nixpkgsConfig.allowUnfreePredicate = pkg:
+        lib.elem (lib.getName pkg) [
+          "reaper"
+          "zoom"
+          "slack"
+          "discord-canary"
+        ];
       cellBlocks = with std.blockTypes;
       with hive.blockTypes; [
         nixosConfigurations

@@ -1,48 +1,59 @@
 {
+  lib,
+  mkYarnPackage,
   fetchFromGitHub,
   fetchYarnDeps,
   makeWrapper,
   nodejs,
-  yarn2nix-moretea,
+  writeText,
   ...
 }: let
-  version = "2.1.1";
-  src = fetchFromGitHub {
-    owner = "Lissy93";
-    repo = "dashy";
-    rev = version;
-    sha256 = "sha256-8+J0maC8M2m+raiIlAl0Bo4HOvuuapiBhoSb0fM8f9M=";
-  };
-  yarn2nix = yarn2nix-moretea.override {
-    inherit nodejs;
-    inherit (nodejs.pkgs) yarn;
-  };
+  defaultConfig = builtins.readFile ./conf.yml.default;
 in
-  yarn2nix.mkYarnPackage {
-    pname = "dashy";
-    inherit version src;
+  mkYarnPackage rec {
+    name = "dashy";
+    version = "2.1.1";
+    src = fetchFromGitHub {
+      owner = "Lissy93";
+      repo = name;
+      rev = "2ec404121a3b14fe4497996c8786fb5d4eda14e5";
+      fetchSubmodules = false;
+      sha256 = "sha256-kW/4eAswWboLSwmHpkPOUoOFWxOyxkqb7QBKM/ZTJKw=";
+    };
 
-    yarnOfflineCache = fetchYarnDeps {
-      yarnLock = src + "/yarn.lock";
-      sha256 = "sha256-RxreSjhbWovPbqjK6L9GdIEhH4uVY+RvWyJYwIytn4g=";
+    NODE_OPTIONS = "--openssl-legacy-provider";
+
+    offlineCache = fetchYarnDeps {
+      yarnLock = "${src}/yarn.lock";
+      sha256 = "sha256-fyHgMLAZBL0hifUguWe465X6qSX5pOwoX2dQPHEF6hU";
     };
 
     nativeBuildInputs = [makeWrapper];
+
+    configFile = writeText "conf.yml" defaultConfig;
+
     patches = [./dashy.patch];
-
-    # https://stackoverflow.com/questions/74726224/opensslerrorstack-error03000086digital-envelope-routinesinitialization-e
-    NODE_OPTIONS = "--openssl-legacy-provider";
-
+    preConfigure = ''
+      rm public/conf.yml
+      ln -s $configFile public/conf.yml
+    '';
     buildPhase = ''
       export HOME=$(mktemp -d)
       # https://stackoverflow.com/questions/49709252/no-postcss-config-found
       echo 'module.exports = {};' > postcss.config.js
       yarn --offline build --mode production
-
-      runHook postInstall
     '';
 
     postInstall = ''
       makeWrapper '${nodejs}/bin/node' "$out/bin/dashy" --add-flags "$out/libexec/Dashy/deps/Dashy/server.js"
     '';
+
+    dontFixup = true;
+    distPhase = "true";
+
+    meta = with lib; {
+      description = "A self-hostable personal dashboard built for you. Includes status-checking, widgets, themes, icon packs, a UI editor and tons more!";
+      homepage = "https://dashy.to/";
+      license = licenses.mit;
+    };
   }

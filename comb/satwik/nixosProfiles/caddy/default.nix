@@ -3,7 +3,7 @@
   cell,
 }: {
   networking.firewall = {
-    allowedTCPPorts = [80 443];
+    allowedTCPPorts = [80 443 4000];
   };
 
   services.caddy = {
@@ -11,7 +11,14 @@
     virtualHosts = {
       "http://veneprodigy.com" = {
         extraConfig = ''
-          reverse_proxy 127.0.0.1:8096
+          reverse_proxy 127.0.0.1:4000
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
+            
+      "http://jellyfin.veneprodigy.com" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8086
         '';
         #serverAlias = ["www.veneprodigy.com"];
       };

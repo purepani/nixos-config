@@ -1,6 +1,5 @@
 # Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
+# your system.  Help is available in the configuration.nix(5) man page and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   inputs,
   cell,
@@ -23,9 +22,12 @@ in {
     qbittorrent
     #firefly-iii
     netdata
-    netmaker
+    #netmaker
+    netbird
     dashy
+    coredns
     caddy
+    glances
   ];
 
   services.qbittorrent = {
@@ -44,7 +46,7 @@ in {
   ];
   services.openssh.enable = true;
 
-  boot.initrd.kernelModules = ["amdgpu" "vfio-pci" "kvm-intel"];
+  boot.initrd.kernelModules = ["amdgpu"]; # "vfio-pci" "kvm-intel"];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -73,8 +75,12 @@ in {
     extraPackages = with pkgs; [
       #intel-media-driver
       #vaapiIntel
+      rocm-opencl-icd
+      rocm-opencl-runtime
       vaapiVdpau
+      libva
       libvdpau-va-gl
+      #mesa.drivers
       #intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
     ];
   };
@@ -128,6 +134,7 @@ in {
     wget
     kmod
     pciutils
+    libva-utils
   ];
 
   programs.neovim.defaultEditor = true;
@@ -157,6 +164,7 @@ in {
   nix.settings.substituters = [
     "https://cache.iog.io"
   ];
+  networking.nameservers = ["1.1.1.1" "9.9.9.9"];
   #  networking.firewall.allowedTCPPorts = [80 443];
   #  security.acme = {
   #    acceptTerms = true;
@@ -185,16 +193,18 @@ in {
   #        locations."/".proxyPass = "http://127.0.0.1:8096/";
   #      };
   #  };
+  # "fc00:bbbb:bbbb:bb01::5:7f82/128"
   #networking.firewall = {
-  #  allowedUDPPorts = [51820]; # Clients and peers can use the same port, see listenport
+  #allowedUDPPorts = [51819 51820]; # Clients and peers can use the same port, see listenport
   #};
   # Enable WireGuard
+
   networking.wg-quick.interfaces = {
     givingfrog = {
       # Determines the IP address and subnet of the client's end of the tunnel interface.
-      address = ["10.68.127.131/32" "fc00:bbbb:bbbb:bb01::5:7f82/128"];
-      listenPort = 51820; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
-      dns = ["100.64.0.1"];
+      address = ["10.65.127.131/32"];
+      listenPort = 51819; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
+      #dns = ["10.64.0.1"];
       privateKeyFile = "/home/satwik/wireguard-keys/private";
 
       peers = [
@@ -205,9 +215,9 @@ in {
           publicKey = "/WirOQ8FNF9tD1+/MYgIAWpjFKiJYhJJ7/w2QmKBrVo=";
 
           # Forward all the traffic via VPN.
-          allowedIPs = ["0.0.0.0/0" "::0/0"];
+          #allowedIPs = ["0.0.0.0/0" "::0/0"];
           # Or forward only particular subnets
-          #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ];
+          allowedIPs = ["10.64.0.1" "10.65.0.1/16" "91.108.12.0/22"];
 
           # Set this to the server IP and port.
           endpoint = "66.63.167.146:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577

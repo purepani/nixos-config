@@ -1,8 +1,8 @@
 {
   inputs,
   cell,
-}: 
-  inputs.hive.findLoad {
-    inherit cell inputs;
-    block = ./.;
-  }
+}:
+inputs.hive.findLoad {
+  inherit cell inputs;
+  block = ./.;
+}

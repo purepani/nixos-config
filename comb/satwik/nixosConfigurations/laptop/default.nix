@@ -27,14 +27,14 @@ in {
     #musnix
     netmaker
     inputs.musnix.nixosModules.musnix
+    netbird
     resolved
   ];
   musnix = {
     enable = true;
   };
   networking.nameservers = [
-  "1.1.1.1"
-  "1.1.1.2"
-
+    "1.1.1.1"
+    "1.1.1.2"
   ];
 }

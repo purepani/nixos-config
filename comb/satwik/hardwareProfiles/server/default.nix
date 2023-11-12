@@ -20,9 +20,8 @@ in {
   # This will save you money and possibly your life!
   services.thermald.enable = lib.mkDefault true;
   boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel" "amdgpu"];
-  boot.extraModulePackages = [];
+  #boot.kernelModules = ["kvm-intel" "amdgpu"];
+  #boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/347c9a30-d22d-467a-b5e2-b54d3e580686";
