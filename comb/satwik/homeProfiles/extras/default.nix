@@ -4,14 +4,16 @@
   ...
 }: {
   home.packages = with inputs.nixpkgs; [
+    vesktop
+    armcord
     reaper
     bitwarden
     kicad
     xclip
-    discord-canary
+    #discord-canary
     soundux
     zoom-us
-    zotero
+    #wqzotero
     slack
     obs-studio
 

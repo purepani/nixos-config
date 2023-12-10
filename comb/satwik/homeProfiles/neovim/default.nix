@@ -20,6 +20,7 @@
         enable = true;
         crates.enable = true;
       };
+      svelte.enable = true;
       ts.enable = true;
       go.enable = true;
       zig.enable = true;
@@ -78,6 +79,7 @@
   Neovim = inputs.neovim-flake.lib.neovimConfiguration {
     modules = [
       inputs.cells.satwik.neovim.lilypond
+      inputs.cells.satwik.neovim.svelte
       module
     ];
     pkgs = inputs.nixpkgs;

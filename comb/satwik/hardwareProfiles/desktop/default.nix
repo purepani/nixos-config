@@ -10,18 +10,18 @@
 in {
   imports = [
     #(modulesPath + "/installer/scan/not-detected.nix")
-    #inputs.nixos-hardware.nixosModules.lenovo-legion-16ach6h-hybrid
-    #inputs.nixos-hardware.nixosModules.common-cpu-amd
-    #inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
-    #inputs.nixos-hardware.nixosModules.common-gpu-nvidia
+    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     #inputs.nixos-hardware.nixosModules.common-hidpi
-    #inputs.nixos-hardware.nixosModules.common-pc-laptop
-    #inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
+  #boot.kernelParams = ["usbcore.autosuspend=-1"];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/25230606-7211-400a-b701-da35819b17ff";
@@ -33,10 +33,10 @@ in {
     fsType = "vfat";
   };
 
-  #hardware.nvidia.prime = {
-  ##  amdgpuBusId = "PCI:4:0:0";
-  #  nvidiaBusId = "PCI:1:0:0";
-  #};
+  hardware.nvidia.prime = {
+    #  amdgpuBusId = "PCI:4:0:0";
+    nvidiaBusId = "PCI:1:0:0";
+  };
 
   #services.thermald.enable = lib.mkDefault true;
 
