@@ -25,10 +25,6 @@
       libinput-gestures
     ];
   };
-  nix.envVars = {
-    NIX_MODARTT_USERNAME = "purewaterisme@gmail.com";
-    NIX_MODARTT_PASSWORD = "Tu9Y%MGWLpefto";
-  };
   services.logind = {
     lidSwitch = "suspend";
     lidSwitchDocked = "suspend";
