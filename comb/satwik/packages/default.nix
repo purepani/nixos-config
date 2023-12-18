@@ -9,7 +9,7 @@ in
     inputs =
       {
         inherit inputs cell;
-        inherit (cell.packages) deepfilter;
+        deepfilter = cell.packages.deepfilter.package;
       }
       // (removeAttrs pkgs ["self" "super" "root"]);
     loader = inputs.hive.loaders.callPackage;

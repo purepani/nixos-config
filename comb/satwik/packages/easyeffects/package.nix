@@ -2,7 +2,7 @@
   lib,
   stdenv,
   appstream-glib,
-  deepfliter,
+  deepfilter,
   desktop-file-utils,
   fetchFromGitHub,
   calf,
@@ -96,7 +96,7 @@ stdenv.mkDerivation rec {
     ];
     ladspaPlugins = [
       rubberband # pitch shifting
-      deepfliter
+      deepfilter
     ];
   in ''
     gappsWrapperArgs+=(
