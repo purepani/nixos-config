@@ -33,10 +33,6 @@ in {
     fsType = "vfat";
   };
 
-  fileSystems."/media" = {
-    device = "/dev/sda1";
-    fsType = "ext4";
-  };
   swapDevices = [];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";

@@ -14,6 +14,7 @@ in {
   security.sudo.enable = true;
   imports = with nixosProfiles; [
     hardwareProfiles.desktop
+    nfs
     extra
     nix
     desktop

@@ -45,6 +45,7 @@ in {
     "i8042.dumpkbd=1"
   ];
   services.openssh.enable = true;
+  systemd.enableEmergencyMode = false;
 
   boot.initrd.kernelModules = ["amdgpu"]; # "vfio-pci" "kvm-intel"];
 
@@ -198,6 +199,11 @@ in {
   #allowedUDPPorts = [51819 51820]; # Clients and peers can use the same port, see listenport
   #};
   # Enable WireGuard
+
+  fileSystems."/media" = {
+    device = "192.168.88.6:/media";
+    fsType = "nfs";
+  };
 
   networking.wg-quick.interfaces = {
     givingfrog = {
