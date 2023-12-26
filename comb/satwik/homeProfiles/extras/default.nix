@@ -13,7 +13,7 @@
     #discord-canary
     soundux
     zoom-us
-    #wqzotero
+    #zotero
     slack
     obs-studio
 
