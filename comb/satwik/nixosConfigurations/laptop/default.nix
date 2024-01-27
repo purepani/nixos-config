@@ -10,7 +10,7 @@ in {
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages-rt_latest;
+  #boot.kernelPackages = pkgs.linuxPackages-rt_latest;
   imports = with nixosProfiles; [
     hardwareProfiles.laptop
     extra
@@ -29,7 +29,14 @@ in {
     inputs.musnix.nixosModules.musnix
     netbird
     resolved
+    qbittorrent
   ];
+
+  services.qbittorrent = {
+    enable = true;
+    openFirewall = true;
+    port = 58080;
+  };
   musnix = {
     enable = true;
   };
