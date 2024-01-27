@@ -3,7 +3,7 @@
 
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/452b8162ecc995793d906cde424b652fa3dd1314";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-flake.url = "github:jordanisaacs/neovim-flake";

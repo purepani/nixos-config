@@ -2,8 +2,13 @@
   inputs,
   cell,
   ...
-}: {
-  home.packages = with inputs.nixpkgs; [
+}: let
+  pkgs = import inputs.nixpkgs {
+    system = inputs.nixpkgs.system;
+    config.allowUnfree = true;
+  };
+in {
+  home.packages = with pkgs; [
     vesktop
     armcord
     reaper
@@ -39,9 +44,9 @@
     prismlauncher
     musescore
     #steam-run
-    #steamcmd
+    steamcmd
     xournalpp
-    #steam-tui
+    steam-tui
     rclone
     x2goclient
     remmina

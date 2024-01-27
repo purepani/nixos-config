@@ -9,9 +9,17 @@
       pkgs = import inputs.nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        config.packageOverrides = pkgs: {
-          vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
-        };
+        config.overlays = [
+          (final: prev: {
+            steam = prev.steam.override ({extraPkgs ? pkgs': [], ...}: {
+              extraPkgs = pkgs':
+                (extraPkgs pkgs')
+                ++ (with pkgs'; [
+                  libxml2
+                ]);
+            });
+          })
+        ];
       };
     };
   };

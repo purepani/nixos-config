@@ -4,7 +4,6 @@
 }: let
   inherit (cell) homeProfiles;
   #inherit (inputs.common) bee;
-in {
   bee = rec {
     system = "x86_64-linux";
     pkgs = import inputs.nixpkgs {
@@ -13,6 +12,8 @@ in {
     };
     home = inputs.home-manager;
   };
+in {
+  inherit bee;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
