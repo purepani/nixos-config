@@ -4,12 +4,15 @@
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/452b8162ecc995793d906cde424b652fa3dd1314";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-flake.url = "github:jordanisaacs/neovim-flake";
     pianoteq.url = "github:purepani/pianoteq.nix";
     musnix.url = "github:purepani/musnix";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    authentik-nix. url = "github:nix-community/authentik-nix";
+
     std.url = "github:divnix/std";
     std.inputs.nixpkgs.follows = "nixpkgs";
 
