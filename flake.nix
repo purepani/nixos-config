@@ -72,5 +72,6 @@
       nixosConfigurations = hive.collect self "nixosConfigurations";
       homeConfigurations = hive.collect self "homeConfigurations";
       colmenaHive = hive.collect self "colmenaConfigurations";
+      packages = std.harvest self ["satwik" "packages"];
     };
 }
