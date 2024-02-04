@@ -49,6 +49,7 @@ in {
     };
   };
 
+  programs.nix-ld.enable = true;
   networking.nat = {
     enable = true;
     internalInterfaces = ["ve-+"];
@@ -56,106 +57,16 @@ in {
     #externalInterface = "wlp8s0";
     # Lazy IPv6 connectivity for the container
   };
-  networking.networkmanager.unmanaged = ["interface-name:ve-*"];
-  containers.server = {
-    bindMounts = {
-      "/media" = {
-        hostPath = "/media";
-        isReadOnly = false;
-      };
-    };
-    autoStart = true;
-    privateNetwork = true;
-    hostAddress = "192.168.100.10";
-    localAddress = "192.168.100.11";
-    config = {
-      config,
-      pkgs,
-      lib,
-      ...
-    }: {
-      imports = with nixosProfiles; [
-        jellyfin
-        sonarr
-        radarr
-        bazarr
-        prowlarr
-        qbittorrent
-        #firefly-iii
-        netdata
-        #netmaker
-        netbird
-        dashy
-        coredns
-        caddy
-        glances
+
+  nix = {
+    settings = {
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
       ];
-
-      services.qbittorrent = {
-        enable = true;
-        openFirewall = true;
-        port = 58080;
-        dataDir = "/media/downloads";
-      };
-
-      services.openssh.enable = true;
-
-      networking.firewall.enable = false;
-
-      networking.networkmanager = {
-        enable = true;
-      };
-      networking.hostName = "satwik-nixos"; # Define your hostname.
-      networking.useHostResolvConf = lib.mkForce false;
-
-      services.fwupd.enable = true;
-      services.resolved.enable = true;
-      #Set your time zone.
-      time.timeZone = "America/Chicago";
-
-      users.users.satwik = {
-        isNormalUser = true;
-        extraGroups = [
-          "wheel"
-          "adbusers"
-          "dialout"
-          "video"
-          "vboxusers"
-          "libvirtd"
-        ]; # Enable ‘sudo’ for the user.
-      };
-
-      users.groups.media.members = ["jellyfin" "sonarr" "radarr" "bazarr" "rtorrent" "qbittorrent"];
-
-      networking.wg-quick.interfaces = {
-        givingfrog = {
-          # Determines the IP address and subnet of the client's end of the tunnel interface.
-          address = ["10.65.127.131/32"];
-          listenPort = 51819; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
-          #dns = ["10.64.0.1"];
-          privateKeyFile = "/home/satwik/wireguard-keys/private";
-
-          peers = [
-            # For a client configuration, one peer entry for the server will suffice.
-
-            {
-              # Public key of the server (not a file path).
-              publicKey = "/WirOQ8FNF9tD1+/MYgIAWpjFKiJYhJJ7/w2QmKBrVo=";
-
-              # Forward all the traffic via VPN.
-              #allowedIPs = ["0.0.0.0/0" "::0/0"];
-              # Or forward only particular subnets
-              allowedIPs = ["10.64.0.1" "10.65.0.1/16" "91.108.12.0/22"];
-
-              # Set this to the server IP and port.
-              endpoint = "66.63.167.146:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
-
-              # Send keepalives every 25 seconds. Important to keep NAT tables alive.
-              persistentKeepalive = 25;
-            }
-          ];
-        };
-      };
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
     };
   };
 

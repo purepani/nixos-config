@@ -3,7 +3,7 @@
 
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/452b8162ecc995793d906cde424b652fa3dd1314";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     neovim-flake.url = "github:jordanisaacs/neovim-flake";
@@ -26,6 +26,7 @@
       url = "github:martineausimon/nvim-lilypond-suite";
       flake = false;
     };
+    kde2nix.url = "github:nix-community/kde2nix";
   };
   outputs = inputs @ {
     std,
@@ -72,5 +73,15 @@
       nixosConfigurations = hive.collect self "nixosConfigurations";
       homeConfigurations = hive.collect self "homeConfigurations";
       colmenaHive = hive.collect self "colmenaConfigurations";
+
+      nixConfig = {
+        extra-substituters = [
+          "https://nix-community.cachix.org"
+          "https://cache.nixos.org/"
+        ];
+        extra-trusted-public-keys = [
+          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        ];
+      };
     };
 }

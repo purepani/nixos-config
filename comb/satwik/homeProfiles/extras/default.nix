@@ -10,13 +10,12 @@
 in {
   home.packages = with pkgs; [
     vesktop
-    armcord
     reaper
     bitwarden
     kicad
     xclip
     #discord-canary
-    soundux
+    #soundux # Currently Depreciated
     zoom-us
     #zotero
     slack
@@ -24,7 +23,6 @@ in {
 
     wireplumber
     helvum
-    webcord
     openssl
     ranger
     linuxConsoleTools
@@ -37,7 +35,7 @@ in {
     unzip
     libguestfs
     qpwgraph
-    zrythm
+    #zrythm
     reaper
     godot_4
     #minecraft
@@ -51,6 +49,6 @@ in {
     x2goclient
     remmina
     vlc
-    ffmpeg-full
+    #cloudcompare
   ];
 }

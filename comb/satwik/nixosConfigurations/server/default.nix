@@ -15,6 +15,7 @@ in {
   with nixosProfiles; [
     server
     jellyfin
+    jellyseerr
     sonarr
     radarr
     bazarr
@@ -26,8 +27,9 @@ in {
     netbird
     dashy
     coredns
-    caddy
+    #caddy
     glances
+    actual-server
   ];
 
   services.qbittorrent = {
@@ -47,8 +49,6 @@ in {
   services.openssh.enable = true;
   systemd.enableEmergencyMode = false;
 
-  boot.initrd.kernelModules = ["amdgpu"]; # "vfio-pci" "kvm-intel"];
-
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -65,7 +65,7 @@ in {
   #Set your time zone.
   time.timeZone = "America/Chicago";
 
-  networking.interfaces.wlp2s0.useDHCP = true;
+  networking.interfaces.eno1.useDHCP = true;
   networking.networkmanager = {
     enable = true;
   };
@@ -74,15 +74,11 @@ in {
   hardware.opengl = {
     enable = true;
     extraPackages = with pkgs; [
-      #intel-media-driver
-      #vaapiIntel
-      rocm-opencl-icd
-      rocm-opencl-runtime
+      intel-media-driver
+      vaapiIntel
       vaapiVdpau
-      libva
       libvdpau-va-gl
-      #mesa.drivers
-      #intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
+      intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
     ];
   };
 
@@ -195,20 +191,15 @@ in {
   #      };
   #  };
   # "fc00:bbbb:bbbb:bb01::5:7f82/128"
-  #networking.firewall = {
-  #allowedUDPPorts = [51819 51820]; # Clients and peers can use the same port, see listenport
-  #};
-  # Enable WireGuard
-
-  fileSystems."/media" = {
-    device = "192.168.88.6:/media";
-    fsType = "nfs";
+  networking.firewall = {
+    allowedUDPPorts = [51819 51820]; # Clients and peers can use the same port, see listenport
   };
+  # Enable WireGuard
 
   networking.wg-quick.interfaces = {
     givingfrog = {
       # Determines the IP address and subnet of the client's end of the tunnel interface.
-      address = ["10.65.127.131/32"];
+      address = ["10.68.127.131/32"];
       listenPort = 51819; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
       #dns = ["10.64.0.1"];
       privateKeyFile = "/home/satwik/wireguard-keys/private";
@@ -221,9 +212,9 @@ in {
           publicKey = "/WirOQ8FNF9tD1+/MYgIAWpjFKiJYhJJ7/w2QmKBrVo=";
 
           # Forward all the traffic via VPN.
-          #allowedIPs = ["0.0.0.0/0" "::0/0"];
+          allowedIPs = ["0.0.0.0/0" "::0/0"];
           # Or forward only particular subnets
-          allowedIPs = ["10.64.0.1" "10.65.0.1/16" "91.108.12.0/22"];
+          #allowedIPs = ["10.64.0.1" "10.65.0.1/16" "10.68.127.131/32" "91.108.12.0/22" "66.63.167.146"];
 
           # Set this to the server IP and port.
           endpoint = "66.63.167.146:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577

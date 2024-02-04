@@ -9,34 +9,35 @@
 in {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel
-    inputs.nixos-hardware.nixosModules.common-gpu-intel
-    inputs.nixos-hardware.nixosModules.common-gpu-intel
-    inputs.nixos-hardware.nixosModules.common-pc-laptop
-    inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
   ];
-  # Solution to rcu_sched freezing
-  boot.kernelParams = ["acpi_rev_override"];
 
-  # This will save you money and possibly your life!
-  services.thermald.enable = lib.mkDefault true;
-  boot.initrd.availableKernelModules = ["xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
-  #boot.kernelModules = ["kvm-intel" "amdgpu"];
-  #boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = ["vmd" "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod"];
+  boot.initrd.kernelModules = [];
+  boot.kernelModules = ["kvm-intel"];
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/347c9a30-d22d-467a-b5e2-b54d3e580686";
+    device = "/dev/disk/by-uuid/47d6c4b7-0f41-4bcf-9f32-9b8529c974eb";
     fsType = "ext4";
   };
 
   fileSystems."/boot" = {
-    device = "/dev/nvme0n1p1";
+    device = "/dev/disk/by-uuid/4B1F-39F8";
     fsType = "vfat";
   };
 
   swapDevices = [];
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
+  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
+  # (the default) this is the recommended approach. When using systemd-networkd it's
+  # still possible to use this option, but it's recommended to use it in conjunction
+  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
+  networking.useDHCP = lib.mkDefault true;
+  # networking.interfaces.eno1.useDHCP = lib.mkDefault true;
+  # networking.interfaces.wlp6s0.useDHCP = lib.mkDefault true;
 
-  hardware.cpu.amd.updateMicrocode = true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = true;
+
   hardware.enableRedistributableFirmware = true;
 }
