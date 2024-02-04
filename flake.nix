@@ -6,6 +6,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/NUR";
     neovim-flake.url = "github:jordanisaacs/neovim-flake";
     pianoteq.url = "github:purepani/pianoteq.nix";
     musnix.url = "github:purepani/musnix";
