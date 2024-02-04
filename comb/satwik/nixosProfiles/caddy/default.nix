@@ -8,15 +8,17 @@
 
   services.caddy = {
     enable = true;
-    package = cell.packages.caddy.package.override {
+    package = cell.packages.caddy.override {
       externalPlugins = [
         {
-          name = "dns.providers.cloudflare";
-          repo = "github.com/caddy-dns/cloudflare";
-          version = "8789126791ed250b532e1d7d512256737625e6e0";
+          name = "godaddy";
+          repo = "github.com/caddy-dns/godaddy";
+          version = "7634a752ba5bda3977b461c60f5936eba3d02426";
+          #version = "1.0.3";
+          #version = "8789126791ed250b532e1d7d512256737625e6e0";
         }
       ];
-      vendorHash = "sha256-IiOHPTaR7tMahS4xpVJ7H1f7PSZCM+C/mURjBNUTvxo=";
+      vendorHash = "sha256-hVRMAzLqHo8dk2ni1bZvoJwrjWhCeRNS9+JDZB/eYus=";
     };
     virtualHosts = {
       "http://veneprodigy.com" = {
@@ -33,8 +35,8 @@
         #serverAlias = ["www.veneprodigy.com"];
       };
     };
-    globalConfig = ''
-      acme_dns cloudflare {env.CF_API_TOKEN}
-    '';
+    #globalConfig = ''
+    #  acme_dns cloudflare {env.CF_API_TOKEN}
+    #'';
   };
 }
