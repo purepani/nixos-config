@@ -6,6 +6,8 @@
   nixosTests,
   caddy,
   testers,
+  autoPatchelfHook,
+  nssTools,
   installShellFiles,
   externalPlugins ? [],
   vendorHash ? "sha256-Sr3jAogrsYKqRN2PExP3KGCtbuVtAT7LshKFka9S2Zk=",
@@ -52,8 +54,9 @@ in
       "-w"
       "-X github.com/caddyserver/caddy/v2.CustomVersion=${version}"
     ];
+    buildInputs = [nssTools];
 
-    nativeBuildInputs = [gnused installShellFiles];
+    nativeBuildInputs = [gnused installShellFiles autoPatchelfHook];
 
     modBuildPhase = ''
       for module in ${builtins.toString (attrsToModules externalPlugins)}; do

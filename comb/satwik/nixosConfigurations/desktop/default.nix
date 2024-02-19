@@ -27,8 +27,9 @@ in {
     udev
     NetworkManager
     #musnix
-    netmaker
+    #netmaker
     inputs.musnix.nixosModules.musnix
+    inputs.sops-nix.nixosModules.sops
     netbird
     resolved
   ];
@@ -48,6 +49,8 @@ in {
       u2fAuth = true;
     };
   };
+  services.openssh.enable = true;
+  programs.gamemode.enable = true;
 
   programs.nix-ld.enable = true;
   networking.nat = {

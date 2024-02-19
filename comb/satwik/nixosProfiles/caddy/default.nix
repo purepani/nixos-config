@@ -21,20 +21,50 @@
     virtualHosts = {
       "veneprodigy.com" = {
         extraConfig = ''
-          reverse_proxy 127.0.0.1:4000
+          reverse_proxy 127.0.0.1:8096
         '';
         #serverAlias = ["www.veneprodigy.com"];
       };
 
       "jellyfin.veneprodigy.com" = {
         extraConfig = ''
-          reverse_proxy 127.0.0.1:8086
+          reverse_proxy 127.0.0.1:8096
         '';
         #serverAlias = ["www.veneprodigy.com"];
+      };
+
+      "sonarr.veneprodigy.com" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8989
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
+
+      "torrent.veneprodigy.com" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:58080
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
+
+      "jellyseerr.veneprodigy.com" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:5055
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
+
+      "actual.veneprodigy.com" = {
+        extraConfig = ''
+          encode gzip zstd
+          reverse_proxy 127.0.0.1:5006
+        '';
+        #serverAlias = ["actualbudget.veneprodigy.com"];
       };
     };
     globalConfig = ''
       acme_dns godaddy {env.GODADDY_TOKEN}
     '';
   };
+  systemd.services.caddy.serviceConfig.EnvironmentFile = "/home/satwik/secrets/caddy";
 }

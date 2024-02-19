@@ -10,7 +10,7 @@
 in {
   imports = [
     #(modulesPath + "/installer/scan/not-detected.nix")
-    inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
+    #inputs.nixos-hardware.nixosModules.common-cpu-amd-pstate
     inputs.nixos-hardware.nixosModules.common-cpu-amd
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia-nonprime
     #inputs.nixos-hardware.nixosModules.common-hidpi
@@ -38,10 +38,10 @@ in {
     fsType = "vfat";
   };
 
-  hardware.nvidia.prime = {
-    #  amdgpuBusId = "PCI:4:0:0";
-    nvidiaBusId = "PCI:1:0:0";
-  };
+  #hardware.nvidia.prime = {
+  #  amdgpuBusId = "PCI:4:0:0";
+  #  nvidiaBusId = "PCI:1:0:0";
+  #};
 
   #services.thermald.enable = lib.mkDefault true;
 

@@ -7,8 +7,8 @@
 }: {
   deployment = {
     targetUser = "satwik";
-    #targetHost = "100.65.209.20";
-    targetHost = "192.168.1.7";
+    targetHost = "100.65.122.59";
+    #targetHost = "192.168.1.7";
     replaceUnknownProfiles = true;
   };
   imports = [

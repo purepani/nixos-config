@@ -8,7 +8,7 @@ in {
   imports = [cell.nixosModules.dashy];
   services.dashy = {
     enable = true;
-    inherit (cell.packages.dashy) package;
+    package = cell.packages.dashy;
     #port = 8082;
     settings = {
       pageInfo = {

@@ -4,6 +4,7 @@
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    sops-nix.url = "github:Mic92/sops-nix";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -30,7 +31,6 @@
       url = "github:martineausimon/nvim-lilypond-suite";
       flake = false;
     };
-    kde2nix.url = "github:nix-community/kde2nix";
   };
   outputs = inputs @ {
     std,

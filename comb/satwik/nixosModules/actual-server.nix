@@ -38,9 +38,21 @@ in {
       description = lib.mdDoc "Group under which Actual runs.";
     };
 
+    dataDir = lib.mkOption {
+      type = lib.types.str;
+      default = "/data";
+      description = "Directory for user files.";
+    };
+
+    serverFiles = lib.mkOption {
+      type = lib.types.str;
+      default = "${cfg.dataDir}/server-files";
+      description = "Directory for user files.";
+    };
+
     userFiles = lib.mkOption {
       type = lib.types.str;
-      default = "/var/lib/actual-server";
+      default = "${cfg.dataDir}/user-files";
       description = "Directory for user files.";
     };
 
@@ -69,7 +81,10 @@ in {
     environment.systemPackages = [cfg.package];
 
     systemd.tmpfiles.rules = [
-      "d '${cfg.userFiles}' 0700 ${cfg.user} ${cfg.group} - -"
+      "d '${cfg.dataDir}' 0755 ${cfg.user} ${cfg.group} - -"
+      "f '${cfg.dataDir}/.migrations' 0755 ${cfg.user} ${cfg.group} - -"
+      "d '${cfg.serverFiles}' 0755 ${cfg.user} ${cfg.group} - -"
+      "d '${cfg.userFiles}' 0755 ${cfg.user} ${cfg.group} - -"
     ];
 
     systemd.services.actual-server = {
@@ -77,28 +92,28 @@ in {
       after = ["network.target"];
       wantedBy = ["multi-user.target"];
       serviceConfig = {
-        #StateDirectory = "actual-server";
         User = cfg.user;
         Group = cfg.group;
         ExecStart = "${cfg.package}/bin/actual-server";
         Restart = "always";
         Environment = lib.attrsets.mapAttrsToList (key: val: "\"${key}=${toString val}\"") {
           # Set environment variables from configuration options here
+          DEBUG = "actual:config";
           ACTUAL_HOSTNAME = cfg.hostname;
           ACTUAL_PORT = toString cfg.port;
-          ACTUAL_USER_FILES = cfg.userFiles;
-          ACTUAL_SERVER_FILES = cfg.userFiles;
+          #ACTUAL_USER_FILES = "${cfg.userFiles}";
+          #ACTUAL_SERVER_FILES = "${cfg.serverFiles}";
           # For uploads, set the respective environment variables.
-          ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB = toString (cfg.upload.fileSizeSyncLimitMB or "");
-          ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SIZE_LIMIT_MB = toString (cfg.upload.syncEncryptedFileSizeLimitMB or "");
-          ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB = toString (cfg.upload.fileSizeLimitMB or "");
+          #ACTUAL_UPLOAD_FILE_SYNC_SIZE_LIMIT_MB = toString (cfg.upload.fileSizeSyncLimitMB or "");
+          #ACTUAL_UPLOAD_SYNC_ENCRYPTED_FILE_SIZE_LIMIT_MB = toString (cfg.upload.syncEncryptedFileSizeLimitMB or "");
+          #ACTUAL_UPLOAD_FILE_SIZE_LIMIT_MB = toString (cfg.upload.fileSizeLimitMB or "");
         };
       };
     };
     users.users = lib.mkIf (cfg.user == "actual") {
       actual = {
         group = cfg.group;
-        home = cfg.userFiles;
+        #home = cfg.dataDir;
         isNormalUser = true;
       };
     };

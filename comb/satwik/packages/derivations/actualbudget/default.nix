@@ -9,37 +9,38 @@
 }:
 buildNpmPackage rec {
   pname = "actual-server";
-  version = "23.11.0";
+  version = "24.2.0";
 
   src = fetchFromGitHub {
     owner = "actualbudget";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-S2d3vcu/z6uLq6dIlDf33GngAoORaBKd1Q8Q6LZuxxU=";
+    hash = "sha256-9Dx6FxWZvGAgJfYYuEgkLr5dhpe5P+bdiSQWhPVeUu8=";
   };
 
-  npmDepsHash = "sha256-ID6WP/WTPYPQkV8Y0WRaSWtmE+MCfgTxkE3HoqP2MxI=";
+  npmDepsHash = "sha256-0cP0gGgVsjFry23xOSfk/JR8dF8V1F9Ui+r2aj2o0A0=";
 
-  nativeBuildInputs = [
-    python3
-  ];
+  #nativeBuildInputs = [
+  #  python3
+  #];
 
-  postUnpack = ''
-    rm -rf yarn.lock
-  '';
+  #postUnpack = ''
+  #  rm -rf yarn.lock
+  #'';
 
   postPatch = ''
     cp ${./package-lock.json} package-lock.json
   '';
 
-  dontNpmBuild = true;
+  #dontNpmBuild = true;
 
   postInstall = ''
     # Make an executable to run the server
     mkdir -p $out/bin
     cat <<EOF > $out/bin/actual-server
     #!${runtimeShell}
-    exec ${nodejs}/bin/node $out/lib/node_modules/actual-sync/app.js "\$@"
+    cd $out/lib/node_modules/actual-sync
+    exec ${nodejs}/bin/node app.js "\$@"
     EOF
     chmod +x $out/bin/actual-server
   '';

@@ -11,6 +11,6 @@
     #  .override {
     #    speexdsp = inputs.nixpkgs.speexdsp.overrideAttrs (_: {configureFlags = [];});
     #  };
-    package = cell.packages.easyeffects.package;
+    #package = cell.packages.easyeffects;
   };
 }

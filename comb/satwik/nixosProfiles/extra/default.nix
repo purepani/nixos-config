@@ -25,9 +25,9 @@
       libinput-gestures
     ];
   };
-  services.logind = {
-    lidSwitch = "suspend";
-    lidSwitchDocked = "suspend";
-  };
+  #services.logind = {
+  #  lidSwitch = "suspend";
+  #  lidSwitchDocked = "suspend";
+  #};
   system.stateVersion = "23.05"; # Did you read the comment?
 }

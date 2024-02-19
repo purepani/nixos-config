@@ -49,6 +49,7 @@ in {
     x2goclient
     remmina
     vlc
+    citrix_workspace
     #cloudcompare
   ];
 }

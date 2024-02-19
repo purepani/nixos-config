@@ -18,7 +18,7 @@
           #        libxml2
           #      ]);
           #  });
-            #vaapiIntel = prev.vaapiIntel.override {enableHybridCodec = true;};
+          #vaapiIntel = prev.vaapiIntel.override {enableHybridCodec = true;};
           #})
         ];
       };
