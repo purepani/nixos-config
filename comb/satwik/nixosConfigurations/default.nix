@@ -3,25 +3,20 @@
   cell,
 }: let
   system = "x86_64-linux";
+  nixpkgs-patched = (import inputs.nixpkgs {inherit system;}).applyPatches {
+    name = "nixpkgs-patched-13145";
+    src = inputs.nixpkgs;
+    patches = [
+      (inputs.nixpkgs.fetchpatch {
+        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/286522.patch";
+        hash = "sha256-gKR+/liurhuaRPk2PTit5sqEdvBIERZWhjjHna/Nfyg=";
+      })
+    ];
+  };
   common = {
     bee = {
       inherit system;
-      pkgs = import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = [
-          #(final: prev: {
-          #  steam = prev.steam.override ({extraPkgs ? pkgs': [], ...}: {
-          #    extraPkgs = pkgs':
-          #      (extraPkgs pkgs')
-          #      ++ (with pkgs'; [
-          #        libxml2
-          #      ]);
-          #  });
-          #vaapiIntel = prev.vaapiIntel.override {enableHybridCodec = true;};
-          #})
-        ];
-      };
+      pkgs = cell.nixpkgs.pkgs;
     };
   };
 in

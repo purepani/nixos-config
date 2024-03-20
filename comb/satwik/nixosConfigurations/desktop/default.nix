@@ -6,7 +6,7 @@
   inherit (inputs.common.bee) pkgs;
 in {
   inherit (inputs.common) bee;
-  programs.dconf.enable = true;
+  #programs.dconf.enable = true;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -14,6 +14,7 @@ in {
   security.sudo.enable = true;
   imports = with nixosProfiles; [
     hardwareProfiles.desktop
+    android
     nfs
     extra
     nix
@@ -29,7 +30,7 @@ in {
     #musnix
     #netmaker
     inputs.musnix.nixosModules.musnix
-    inputs.sops-nix.nixosModules.sops
+    #inputs.sops-nix.nixosModules.sops
     netbird
     resolved
   ];
@@ -51,8 +52,8 @@ in {
   };
   services.openssh.enable = true;
   programs.gamemode.enable = true;
-
   programs.nix-ld.enable = true;
+
   networking.nat = {
     enable = true;
     internalInterfaces = ["ve-+"];
@@ -63,6 +64,7 @@ in {
 
   nix = {
     settings = {
+      trusted-users = ["satwik"];
       substituters = [
         "https://nix-community.cachix.org"
         "https://cache.nixos.org/"
@@ -73,42 +75,42 @@ in {
     };
   };
 
-  environment.etc = let
-    json = pkgs.formats.json {};
-  in {
-    "pipewire/pipewire.d/91-null-sinks.conf".source = json.generate "91-null-sinks.conf" {
-      context.objects = [
-        {
-          # A default dummy driver. This handles nodes marked with the "node.always-driver"
-          # properyty when no other driver is currently active. JACK clients need this.
-          factory = "spa-node-factory";
-          args = {
-            factory.name = "support.node.driver";
-            node.name = "Dummy-Driver";
-            priority.driver = 8000;
-          };
-        }
-        {
-          factory = "adapter";
-          args = {
-            factory.name = "support.null-audio-sink";
-            node.name = "Microphone-Proxy";
-            node.description = "Microphone";
-            media.class = "Audio/Source/Virtual";
-            audio.position = "MONO";
-          };
-        }
-        {
-          factory = "adapter";
-          args = {
-            factory.name = "support.null-audio-sink";
-            node.name = "pipewire";
-            node.description = "Main Output";
-            media.class = "Audio/Sink";
-            audio.position = "FL,FR";
-          };
-        }
-      ];
-    };
-  };
+  #environment.etc = let
+  #  json = pkgs.formats.json {};
+  #in {
+  #  "pipewire/pipewire.d/91-null-sinks.conf".source = json.generate "91-null-sinks.conf" {
+  #    context.objects = [
+  #      {
+  #        # A default dummy driver. This handles nodes marked with the "node.always-driver"
+  #        # properyty when no other driver is currently active. JACK clients need this.
+  #        factory = "spa-node-factory";
+  #        args = {
+  #          factory.name = "support.node.driver";
+  #          node.name = "Dummy-Driver";
+  #          priority.driver = 8000;
+  #        };
+  #      }
+  #      {
+  #        factory = "adapter";
+  #        args = {
+  #          factory.name = "support.null-audio-sink";
+  #          node.name = "Microphone-Proxy";
+  #          node.description = "Microphone";
+  #          media.class = "Audio/Source/Virtual";
+  #          audio.position = "MONO";
+  #        };
+  #      }
+  #      {
+  #        factory = "adapter";
+  #        args = {
+  #          factory.name = "support.null-audio-sink";
+  #          node.name = "pipewire";
+  #          node.description = "Main Output";
+  #          media.class = "Audio/Sink";
+  #          audio.position = "FL,FR";
+  #        };
+  #      }
+  #    ];
+  #  };
+  #};
 }

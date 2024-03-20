@@ -4,15 +4,11 @@
 }: let
   inherit (cell) homeProfiles;
   #inherit (inputs.common) bee;
+
+  system = "x86_64-linux";
   bee = rec {
     system = "x86_64-linux";
-    pkgs = import inputs.nixpkgs {
-      inherit system;
-
-      config.allowUnfree = true;
-      overlays = [
-      ];
-    };
+    pkgs = cell.nixpkgs.pkgs;
     home = inputs.home-manager;
   };
 in {
@@ -24,11 +20,13 @@ in {
     direnv
     easyeffects
     git
+    discord
     neovim
     fluidsynth
     pianoteq
     lilypond
     extras
+    nix-index
   ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -39,6 +37,7 @@ in {
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwyards
   # incompatible changes.
+  home.keyboard = null;
 
   home.stateVersion = "23.05";
 

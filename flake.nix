@@ -9,11 +9,15 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nur.url = "github:nix-community/NUR";
-    neovim-flake.url = "github:jordanisaacs/neovim-flake";
     pianoteq.url = "github:purepani/pianoteq.nix";
     musnix.url = "github:purepani/musnix";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     authentik-nix. url = "github:nix-community/authentik-nix";
+    nixvim = {
+    	url = "github:nix-community/nixvim";
+	inputs.nixpkgs.follows = "nixpkgs";
+	};
+
 
     std.url = "github:divnix/std";
     std.inputs.nixpkgs.follows = "nixpkgs";
@@ -65,6 +69,7 @@
         #(functions "module")
         (functions "neovim")
         (functions "nixosModules")
+        (functions "nixpkgs")
         (installables "packages")
 
         (devshells "devshells")

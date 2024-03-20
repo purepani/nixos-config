@@ -39,6 +39,13 @@
         '';
         #serverAlias = ["www.veneprodigy.com"];
       };
+      
+      "prowlarr.veneprodigy.com" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:9696
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
 
       "torrent.veneprodigy.com" = {
         extraConfig = ''

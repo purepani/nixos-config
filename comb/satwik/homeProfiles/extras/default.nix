@@ -3,17 +3,13 @@
   cell,
   ...
 }: let
-  pkgs = import inputs.nixpkgs {
-    system = inputs.nixpkgs.system;
-    config.allowUnfree = true;
-  };
+  pkgs = cell.nixpkgs.pkgs;
 in {
   home.packages = with pkgs; [
-    vesktop
     reaper
     bitwarden
     kicad
-    xclip
+    #xclip
     #discord-canary
     #soundux # Currently Depreciated
     zoom-us
@@ -36,20 +32,21 @@ in {
     libguestfs
     qpwgraph
     #zrythm
-    reaper
+    #reaper
     godot_4
     #minecraft
     prismlauncher
-    musescore
-    #steam-run
+    #musescore
+    steam-run
     steamcmd
     xournalpp
     steam-tui
     rclone
-    x2goclient
+    #x2goclient
     remmina
     vlc
-    citrix_workspace
+    #citrix_workspace
     #cloudcompare
+    cachix
   ];
 }

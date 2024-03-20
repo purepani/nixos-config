@@ -16,13 +16,13 @@
   users.users.satwik = {
     isNormalUser = true;
     description = "Satwik Pani";
-    extraGroups = ["networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout"];
+    extraGroups = ["networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout" "adbusers"];
     packages = with inputs.nixpkgs; [
       kitty
       git
       firefox
-      thunderbird
-      libinput-gestures
+      #thunderbird
+      #libinput-gestures
     ];
   };
   #services.logind = {
