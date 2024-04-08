@@ -19,9 +19,10 @@ in {
   ];
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
   boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-amd"];
+  boot.kernelModules = ["amdgpu" "kvm-amd"];
 
-  services.xserver.videoDrivers = ["nvidia"];
+
+  services.xserver.videoDrivers = ["amdgpu"];
   hardware.nvidia.modesetting.enable = true;
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
   boot.kernelParams = ["fbdev=1"];

@@ -13,7 +13,7 @@ in {
     #discord-canary
     #soundux # Currently Depreciated
     zoom-us
-    #zotero
+    zotero
     slack
     obs-studio
 

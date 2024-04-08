@@ -15,6 +15,7 @@ let
  in {
   programs.nixvim = {
     enable = true;
+    #globals.mapleader = ";";
     colorschemes.onedark.enable = true;
     clipboard.providers.wl-copy.enable = true;
     options.number = true;
@@ -28,6 +29,12 @@ let
       dap.enable = true;
       debugprint.enable = true;
       diffview.enable = true;
+      image = {
+      		enable=true;
+		integrations = {
+			neorg.enabled=true;
+		};
+	};
 
       lsp = {
         enable = true;
@@ -107,11 +114,54 @@ let
       #lsp-lines.enable=true;
       lspkind.enable = true;
       lspsaga.enable=true;
+      luasnip.enable=true;
       lualine.enable = true;
       molten.enable = true;
       #neocord.enable = true;
       neogit.enable = true;
-      neorg.enable = true;
+      neorg = {
+      		enable = true;
+		modules = {
+			"core.defaults" = {
+				__empty = null;
+			};
+			"core.autocommands" = { };
+			"core.integrations.treesitter" = {};
+			"core.integrations.telescope" = {};
+			"core.integrations.image" = {};
+			"core.neorgcmd" = {};
+			"core.dirman" = {
+				config = {
+					workspaces = {
+						main="~/notes";
+					};
+				};
+			};
+			#"core.latex.renderer" = {
+				#config = {
+					#conceal = true;
+					#render_on_enter = true;
+				#};
+			#};
+			"core.completion" = {
+				config = {
+					engine = "nvim-cmp";
+				};
+			};
+			"core.concealer" = {
+				config = {
+					folds = true;
+					icon_preset = "basic";
+				};
+			};
+			"core.summary" = {
+				config = {
+					strategy="default";
+				};
+			};
+		};
+
+	};
       neotest = {
       	enable=true;
 	adapters = {
@@ -122,7 +172,6 @@ let
       nix-develop.enable = true;
       none-ls.enable = true;
       nvim-autopairs.enable = true;
-      #cmp-nvim-lsp.enable = true;
       cmp-nvim-lsp-document-symbol.enable = true;
       cmp-nvim-lsp-signature-help.enable = true;
       cmp = {
@@ -133,10 +182,14 @@ let
 		sources = [
 			{name = "nvim_lsp";}
 			{name = "treesitter";}
+			{name = "neorg";}
+			{name = "luasnip";}
 			{name = "path";}
 			{name = "buffer";}
-			{name = "luasnip";}
 		];
+		snippet = {
+			    expand = "function(args) require('luasnip').lsp_expand(args.body) end";
+			  };
 	      mapping = 
 			{
 			  "<C-Space>" = "cmp.mapping.complete()";
@@ -159,7 +212,7 @@ let
       #oil.enable = true;
       project-nvim.enable = true; 
       rustaceanvim.enable = true;
-      specs.enable = true;
+      #specs.enable = true;
       rainbow-delimiters.enable = true; 
 
       telescope = {

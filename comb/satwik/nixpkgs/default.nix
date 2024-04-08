@@ -19,6 +19,7 @@ in {
     inherit system;
     config.allowUnfree = true;
     overlays = [
+      inputs.neovim-nightly-overlay.overlay 	
       (final: prev: {
         cloudcompare = prev.cloudcompare.overrideAttrs (old: {
           nativeBuildInputs = old.nativeBuildInputs ++ [prev.copyDesktopItems];

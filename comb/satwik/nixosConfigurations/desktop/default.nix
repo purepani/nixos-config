@@ -35,6 +35,10 @@ in {
     resolved
   ];
 
+  services.udev.extraRules = ''
+  	ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="666" TAG+="uaccess"
+'';
+
   hardware.opengl = {
     enable = true;
   };
