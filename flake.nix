@@ -4,6 +4,8 @@
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-old.url = "github:nixos/nixpkgs/700db686fdd9bab4829b1413db8c223e79f4c9f0";
+    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
     sops-nix.url = "github:Mic92/sops-nix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
 

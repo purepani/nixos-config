@@ -15,24 +15,29 @@ let
  in {
   programs.nixvim = {
     enable = true;
+    #extraLuaPackages = [cell.packages.luaPackages.nvim-nio cell.packages.luaPackages.neorg];
     #globals.mapleader = ";";
     colorschemes.onedark.enable = true;
     clipboard.providers.wl-copy.enable = true;
-    options.number = true;
+    opts.number = true;
 
     plugins = {
       fidget = {
       	enable = true;
 	notification.overrideVimNotify = true;
       };
-      comment-nvim.enable = true;
+      comment.enable = true;
       dap.enable = true;
       debugprint.enable = true;
       diffview.enable = true;
       image = {
-      		enable=true;
+      		enable = true;
+		backend="kitty";
 		integrations = {
-			neorg.enabled=true;
+			neorg = { 
+				enabled=true; 
+				filetypes = ["norg"];
+				};
 		};
 	};
 
@@ -76,6 +81,7 @@ let
 	  #pylyzer.enable=true;
 	  pylsp = {
 	  	enable = true;
+		#package = pkgs.python312Packages.python-lsp-server; 
 		settings = {
 			plugins = {
 				#black.enabled=true;
@@ -89,7 +95,7 @@ let
 				pylsp_mypy = {
 					enabled=true;
 					report_progress=true;
-					overrides = ["--python-executable" (helpers.mkRaw "py_path") true];
+					overrides = ["--python-executable" (helpers.mkRaw "py_path") true] ;
 				};
 				
 				rope.enabled=true;
@@ -104,7 +110,10 @@ let
           #  installCargo = true;
           #  installRustc = true;
           #};
-          svelte.enable = true;
+          svelte = {
+	  	enable = true;
+		package=cell.packages.svelte-language-server;
+		};
           tailwindcss.enable = true;
           tsserver.enable = true;
           zls.enable = true;
@@ -121,6 +130,7 @@ let
       neogit.enable = true;
       neorg = {
       		enable = true;
+		package = cell.nixpkgs.pkgs.vimPlugins.neorg;
 		modules = {
 			"core.defaults" = {
 				__empty = null;
@@ -128,7 +138,6 @@ let
 			"core.autocommands" = { };
 			"core.integrations.treesitter" = {};
 			"core.integrations.telescope" = {};
-			"core.integrations.image" = {};
 			"core.neorgcmd" = {};
 			"core.dirman" = {
 				config = {
@@ -137,12 +146,13 @@ let
 					};
 				};
 			};
-			#"core.latex.renderer" = {
-				#config = {
-					#conceal = true;
-					#render_on_enter = true;
-				#};
-			#};
+			"core.latex.renderer" = {
+				config = {
+					conceal = true;
+					render_on_enter = true;
+					renderer="core.integrations.image";
+				};
+			};
 			"core.completion" = {
 				config = {
 					engine = "nvim-cmp";
@@ -210,7 +220,11 @@ let
 	openOnSetupFile = true;
 	};
       #oil.enable = true;
-      project-nvim.enable = true; 
+      project-nvim = {
+      	enable = true;
+	enableTelescope = true;
+
+	};
       rustaceanvim.enable = true;
       #specs.enable = true;
       rainbow-delimiters.enable = true; 
@@ -218,11 +232,11 @@ let
       telescope = {
         enable = true;
         extensions = {
-          file_browser.enable = true;
-          frecency.enable = true;
+          #file_browser.enable = true;
+          #frecency.enable = true;
           fzf-native.enable = true;
-          media_files.enable = true;
-          project-nvim.enable = true;
+          media-files.enable = true;
+          #project-nvim.enable = true;
           ui-select.enable = true;
         };
       };
@@ -255,6 +269,7 @@ let
 	else
 	  py_path = vim.g.python3_host_prog
 	end
+	print(py_path)
 	'';
 
     extraConfigLua = ''

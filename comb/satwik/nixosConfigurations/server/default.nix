@@ -3,6 +3,8 @@
 {
   inputs,
   cell,
+  config,
+  ...
 }: let
   inherit (cell) hardwareProfiles nixosProfiles;
   inherit (inputs) common;
@@ -18,6 +20,7 @@ in {
     jellyseerr
     sonarr
     radarr
+    recyclarr
     bazarr
     prowlarr
     qbittorrent
@@ -38,7 +41,8 @@ in {
     port = 58080;
     dataDir = "/media/downloads";
   };
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   boot.kernelParams = [
     "psmouse.synaptics_intertouch=0"
     "mem_sleep_default=deep"
@@ -46,6 +50,11 @@ in {
     "pcie_aspm=off"
     "i8042.dumpkbd=1"
   ];
+
+boot.supportedFilesystems = ["zfs"];
+boot.zfs.forceImportRoot = false;
+networking.hostId = "95c4a621";
+
   services.openssh.enable = true;
   systemd.enableEmergencyMode = false;
 

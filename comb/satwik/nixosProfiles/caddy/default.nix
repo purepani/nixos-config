@@ -12,11 +12,11 @@
       externalPlugins = [
         {
           name = "godaddy";
-          repo = "github.com/caddy-dns/godaddy";
-          version = "7634a752ba5bda3977b461c60f5936eba3d02426";
+          repo = "github.com/caddy-dns/cloudflare";
+          version = "44030f9306f4815aceed3b042c7f3d2c2b110c97";
         }
       ];
-      vendorHash = "sha256-hVRMAzLqHo8dk2ni1bZvoJwrjWhCeRNS9+JDZB/eYus=";
+      vendorHash = "sha256-C7JOGd4sXsRZL561oP84V2/pTg7szEgF4OFOw35yS1s=";
     };
     virtualHosts = {
       "veneprodigy.com" = {
@@ -40,6 +40,13 @@
         #serverAlias = ["www.veneprodigy.com"];
       };
       
+      "radarr.veneprodigy.com" = {
+        extraConfig = ''
+          reverse_proxy localhost:7878
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
+
       "prowlarr.veneprodigy.com" = {
         extraConfig = ''
           reverse_proxy 127.0.0.1:9696
@@ -49,7 +56,7 @@
 
       "torrent.veneprodigy.com" = {
         extraConfig = ''
-          reverse_proxy 127.0.0.1:58080
+          reverse_proxy localhost:58080
         '';
         #serverAlias = ["www.veneprodigy.com"];
       };
@@ -70,7 +77,7 @@
       };
     };
     globalConfig = ''
-      acme_dns godaddy {env.GODADDY_TOKEN}
+      acme_dns cloudflare {env.CF_API_TOKEN}
     '';
   };
   systemd.services.caddy.serviceConfig.EnvironmentFile = "/home/satwik/secrets/caddy";

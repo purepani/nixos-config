@@ -35,13 +35,21 @@ in {
     resolved
   ];
 
+  systemd.tmpfiles.rules = [
+    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
+  ];
+
   services.udev.extraRules = ''
   	ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="666" TAG+="uaccess"
 '';
 
   hardware.opengl = {
     enable = true;
+    extraPackages = [
+    	pkgs.rocmPackages.clr.icd
+    ];
   };
+
   musnix = {
     enable = true;
   };

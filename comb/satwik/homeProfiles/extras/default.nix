@@ -36,7 +36,7 @@ in {
     godot_4
     #minecraft
     prismlauncher
-    #musescore
+    musescore
     steam-run
     steamcmd
     xournalpp
@@ -48,5 +48,6 @@ in {
     #citrix_workspace
     #cloudcompare
     cachix
+    blender-hip
   ];
 }

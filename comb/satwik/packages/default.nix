@@ -4,7 +4,7 @@
 }: let
   pkgs = inputs.nixpkgs;
 in
-  inputs.hive.load {
+  (inputs.hive.load {
     src = ./derivations;
     inputs =
       {
@@ -14,4 +14,10 @@ in
       // (removeAttrs pkgs ["self" "super" "root"]);
     loader = inputs.hive.loaders.callPackage;
     transformer = [inputs.hive.transformers.liftDefault];
+  }) //{
+  	luaPackages = inputs.hive.load {
+		src = ./luaPackages;
+		loader = inputs.hive.loaders.verbatim;
+	};
+
   }

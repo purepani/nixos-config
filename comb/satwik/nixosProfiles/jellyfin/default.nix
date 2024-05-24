@@ -7,4 +7,6 @@
     package = inputs.nixpkgs.jellyfin.override {ffmpeg = inputs.nixpkgs.jellyfin-ffmpeg;};
     openFirewall = true;
   };
+
+  systemd.services.jellyfin.after = ["caddy.target"];
 }

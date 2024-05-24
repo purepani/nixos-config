@@ -73,7 +73,7 @@ in {
       # https://github.com/qbittorrent/qBittorrent/blob/master/dist/unix/systemd/qbittorrent-nox%40.service.in
       description = "qBittorrent-nox service";
       documentation = ["man:qbittorrent-nox(1)"];
-      after = ["network.target"];
+      after = ["network.target" "caddy.target"];
       wantedBy = ["multi-user.target"];
 
       serviceConfig = {

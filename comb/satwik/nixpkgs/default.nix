@@ -5,12 +5,12 @@
   system = "x86_64-linux";
 
   patched = (import inputs.nixpkgs {inherit system;}).applyPatches {
-    name = "nixpkgs-patched-286522";
+    name = "nixpkgs-patched-302442";
     src = inputs.nixpkgs;
     patches = [
       (inputs.nixpkgs.fetchpatch {
-        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/286522.patch";
-        hash = "sha256-E9oKjgCUVKggGBP3rb0asrbrvOPhmdj6xET4JsRUf2E=";
+        url = "https://patch-diff.githubusercontent.com/raw/NixOS/nixpkgs/pull/302442.patch";
+        hash = "sha256-s6GwYpvPgH5V1VrkqeCVgEr8+Y67nP5YmO2H74JZsC0=";
       })
     ];
   };
@@ -20,36 +20,7 @@ in {
     config.allowUnfree = true;
     overlays = [
       inputs.neovim-nightly-overlay.overlay 	
-      (final: prev: {
-        cloudcompare = prev.cloudcompare.overrideAttrs (old: {
-          nativeBuildInputs = old.nativeBuildInputs ++ [prev.copyDesktopItems];
-          desktopItems = [
-            (prev.makeDesktopItem {
-              name = "CloudCompare";
-              exec = "cloudcompare";
-              icon = "cc_icon_256";
-              comment = old.meta.description;
-              desktopName = "CloudCompare";
-              genericName = "CloudCompare";
-              categories = ["Graphics"];
-            })
-
-            (prev.makeDesktopItem {
-              name = "CloudCompare Viewer";
-              exec = "ccViewer";
-              icon = "cc_viewer_icon_256";
-              comment = old.meta.description;
-              desktopName = "CloudCompare Viewer";
-              genericName = "CloudCompare Viewer";
-              categories = ["Graphics"];
-            })
-          ];
-          postInstall = ''
-            install -Dm444 $src/qCC/images/icon/{cc_viewer,cc}_icon_256.png -t $out/share/icons/hicolor/256x256/apps
-            copyDesktopItems
-          '';
-        });
-      })
+      inputs.neorg-overlay.overlays.default
     ];
   };
 }
