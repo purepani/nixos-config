@@ -24,7 +24,9 @@ in {
     bazarr
     prowlarr
     qbittorrent
+    suwayomi
     #firefly-iii
+    jitsi-meet
     netdata
     #netmaker
     netbird
@@ -84,7 +86,7 @@ networking.hostId = "95c4a621";
     enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
-      vaapiIntel
+      vaapiIntel 
       vaapiVdpau
       libvdpau-va-gl
       intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)

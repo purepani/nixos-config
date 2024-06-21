@@ -16,6 +16,8 @@ in {
     zotero
     slack
     obs-studio
+    rquickshare
+    kdePackages.neochat
 
     wireplumber
     helvum
@@ -44,6 +46,7 @@ in {
     rclone
     #x2goclient
     remmina
+    freerdp3
     vlc
     #citrix_workspace
     #cloudcompare

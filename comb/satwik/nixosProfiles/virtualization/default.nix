@@ -2,7 +2,7 @@
 {
 
   virtualisation.libvirtd.enable = true;
-  environment.systemPackages = with inputs.nixpkgs; [
+  environment.systemPackages = with cell.nixpkgs.pkgs; [
     virt-manager
     virtiofsd
   ];

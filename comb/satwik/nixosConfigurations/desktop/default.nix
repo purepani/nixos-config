@@ -13,6 +13,9 @@ in {
   #boot.kernelPackages = pkgs.linuxPackages-rt_latest;
   security.sudo.enable = true;
   imports = with nixosProfiles; [
+  #({config, options, lib,...}: {
+  #	options.system.nixos.codeName = lib.mkOption {readOnly=false;};
+  #})
     hardwareProfiles.desktop
     android
     nfs
@@ -47,8 +50,11 @@ in {
     enable = true;
     extraPackages = [
     	pkgs.rocmPackages.clr.icd
+	pkgs.intel-compute-runtime
     ];
   };
+  #Temporarily change name to fix dotnet cli: https://github.com/NixOS/nixpkgs/issues/315574
+  #system.nixos.codeName = pkgs.lib.mkForce "Vicuna";
 
   musnix = {
     enable = true;
@@ -86,6 +92,9 @@ in {
       ];
     };
   };
+  services.resolved.enable = true;
+  services.avahi.enable = true;
+  networking.networkmanager.connectionConfig."connection.mdns" = 2;
 
   #environment.etc = let
   #  json = pkgs.formats.json {};

@@ -17,7 +17,7 @@
     isNormalUser = true;
     description = "Satwik Pani";
     extraGroups = ["networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout" "adbusers"];
-    packages = with inputs.nixpkgs; [
+    packages = with cell.nixpkgs.pkgs; [
       kitty
       git
       firefox

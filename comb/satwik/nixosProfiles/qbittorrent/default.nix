@@ -4,8 +4,8 @@
   config,
   ...
 }:
-with inputs.nixpkgs.lib; let
-  pkgs = inputs.nixpkgs;
+with cell.nixpkgs.pkgs.lib; let
+  pkgs = cell.nixpkgs.pkgs;
   cfg = config.services.qbittorrent;
   UID = 888;
   GID = 888;

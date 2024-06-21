@@ -5,7 +5,7 @@
   inputs,
   cell,
 }: let
-  lib = inputs.nixpkgs.lib // builtins;
+  lib = cell.nixpkgs.pkgs.lib // builtins;
 in {
   imports = [
     inputs.nixos-hardware.nixosModules.common-cpu-intel

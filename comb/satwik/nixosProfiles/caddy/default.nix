@@ -1,6 +1,7 @@
 {
   inputs,
   cell,
+  config,
 }: {
   networking.firewall = {
     allowedTCPPorts = [80 443 4000];
@@ -68,12 +69,22 @@
         #serverAlias = ["www.veneprodigy.com"];
       };
 
+      "suwayomi.veneprodigy.com" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8080
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
+
       "actual.veneprodigy.com" = {
         extraConfig = ''
           encode gzip zstd
           reverse_proxy 127.0.0.1:5006
         '';
         #serverAlias = ["actualbudget.veneprodigy.com"];
+      };
+      "${config.services.jitsi-meet.hostName}" = {
+      	
       };
     };
     globalConfig = ''

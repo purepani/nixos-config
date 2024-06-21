@@ -16,10 +16,14 @@ let
   programs.nixvim = {
     enable = true;
     #extraLuaPackages = [cell.packages.luaPackages.nvim-nio cell.packages.luaPackages.neorg];
+    extraPackages = [cell.nixpkgs.pkgs.texlive.combined.scheme-full];
     #globals.mapleader = ";";
     colorschemes.onedark.enable = true;
     clipboard.providers.wl-copy.enable = true;
-    opts.number = true;
+    opts = {
+    	number = true;
+	signcolumn = "yes:1";
+	};
 
     plugins = {
       fidget = {
@@ -112,7 +116,6 @@ let
           #};
           svelte = {
 	  	enable = true;
-		package=cell.packages.svelte-language-server;
 		};
           tailwindcss.enable = true;
           tsserver.enable = true;
@@ -146,6 +149,7 @@ let
 					};
 				};
 			};
+			"core.integrations.image" = {};
 			"core.latex.renderer" = {
 				config = {
 					conceal = true;
@@ -213,7 +217,40 @@ let
 	      };
       };
       cmp-nvim-lsp.enable=true;
-      nvim-lightbulb.enable = true;
+      nvim-lightbulb = {
+      	enable = false;
+	settings = {
+		  autocmd = {
+		    enabled = true;
+		    updatetime = 200;
+		  };
+		  float = {
+		    enabled = false;
+		    text = " 󰌶 ";
+		    win_opts = {
+		      border = "rounded";
+		    };
+		  };
+		  line = {
+		    enabled = false;
+		  };
+		  number = {
+		    enabled = false;
+		  };
+		  sign = {
+		    enabled = false;
+		    text = "󰌶";
+		  };
+		  status_text = {
+		    enabled = false;
+		    text = " 󰌶 ";
+		  };
+		  virtual_text = {
+		    enabled = true;
+		    text = "󰌶";
+		  };
+		};
+	};
       nvim-tree = {
       	enable = true;
 	openOnSetup = true;
@@ -259,12 +296,12 @@ let
     ];
 
     extraConfigLuaPre = ''
-	local venv_path = os.getenv('VIRTUAL_ENV') -- or vim.fn.exepath('python')
+	--local venv_path = os.getenv('VIRTUAL_ENV') -- or vim.fn.exepath('python')
 	local path_python = vim.fn.exepath('python')
 	local py_path = nil
-	if venv_path ~= nil then
-	  py_path = venv_path .. "/bin/python3"
-	elseif path_python ~=nil then
+	--if venv_path ~= nil then
+	--  py_path = venv_path .. "/bin/python3"
+	if path_python ~=nil then
 	  py_path = path_python
 	else
 	  py_path = vim.g.python3_host_prog
