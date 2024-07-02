@@ -4,7 +4,7 @@
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-old.url = "github:nixos/nixpkgs/700db686fdd9bab4829b1413db8c223e79f4c9f0";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
     sops-nix.url = "github:Mic92/sops-nix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
@@ -16,8 +16,12 @@
     musnix.url = "github:purepani/musnix";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     authentik-nix. url = "github:nix-community/authentik-nix";
+    #nixvim = {
+    #	url = "github:nix-community/nixvim";
+#	inputs.nixpkgs.follows = "nixpkgs";
+#	};
     nixvim = {
-    	url = "github:nix-community/nixvim";
+    	url = "github:purepani/nixvim/add_pylsp_python_option";
 	inputs.nixpkgs.follows = "nixpkgs";
 	};
 
@@ -25,12 +29,15 @@
     std.url = "github:divnix/std";
     std.inputs.nixpkgs.follows = "nixpkgs";
 
-    hive.url = "github:whs-dot-hk/hive/remove-nixpkgs-config";
-    #hive.url = "github:divnix/hive";
-    hive.inputs.nixpkgs.follows = "nixpkgs";
+    #hive.url = "github:whs-dot-hk/hive/remove-nixpkgs-config";
 
-    hive.inputs.colmena.url = "github:zhaofengli/colmena";
     colmena.url = "github:zhaofengli/colmena";
+    colmena.inputs.nixpkgs.follows = "nixpkgs";
+
+    hive.url = "github:divnix/hive";
+    hive.inputs.nixpkgs.follows = "nixpkgs";
+    hive.inputs.colmena.follows = "colmena";
+    hive.inputs.colmena.inputs.nixpkgs.follows = "nixpkgs";
     haumea.url = "github:nix-community/haumea";
 
     std.inputs.devshell.url = "github:numtide/devshell";

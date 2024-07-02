@@ -6,7 +6,8 @@
   inherit (inputs.common.bee) pkgs;
 in {
   inherit (inputs.common) bee;
-  #programs.dconf.enable = true;
+  #needed for easyeffects
+  programs.dconf.enable = true;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -27,7 +28,6 @@ in {
     pipewire
     steam
     virtualization
-    zerotier-one
     udev
     NetworkManager
     #musnix
@@ -46,7 +46,7 @@ in {
   	ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="666" TAG+="uaccess"
 '';
 
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
     extraPackages = [
     	pkgs.rocmPackages.clr.icd
@@ -57,7 +57,7 @@ in {
   #system.nixos.codeName = pkgs.lib.mkForce "Vicuna";
 
   musnix = {
-    enable = true;
+    enable = false;
   };
   networking.nameservers = [
     "1.1.1.1"
@@ -131,7 +131,7 @@ in {
   #          audio.position = "FL,FR";
   #        };
   #      }
-  #    ];
+  #   ];
   #  };
   #};
 }

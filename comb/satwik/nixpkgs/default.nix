@@ -10,6 +10,7 @@ in {
     overlays = [
       inputs.neovim-nightly-overlay.overlays.default 	
       inputs.neorg-overlay.overlays.default
+      inputs.nix-minecraft.overlays.default
       #(final: prev: {
       #	vaapiIntel = prev.vaapiIntel.override {enableHybridCodec = true;};
       #})

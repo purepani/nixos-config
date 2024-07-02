@@ -86,6 +86,7 @@ let
 	  pylsp = {
 	  	enable = true;
 		#package = pkgs.python312Packages.python-lsp-server; 
+		pythonPackage = pkgs.python312;
 		settings = {
 			plugins = {
 				#black.enabled=true;
@@ -131,6 +132,7 @@ let
       molten.enable = true;
       #neocord.enable = true;
       neogit.enable = true;
+      neogen.enable = true;
       neorg = {
       		enable = true;
 		package = cell.nixpkgs.pkgs.vimPlugins.neorg;

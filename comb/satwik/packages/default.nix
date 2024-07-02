@@ -4,20 +4,21 @@
 }: let
   pkgs = inputs.nixpkgs;
 in
-  (inputs.hive.load {
+  (inputs.haumea.lib.load {
     src = ./derivations;
+    #inherit  cell;
     inputs =
       {
-        inherit inputs cell;
+        inherit inputs;
         deepfilter = cell.packages.deepfilter;
       }
       // (removeAttrs pkgs ["self" "super" "root"]);
-    loader = inputs.hive.loaders.callPackage;
-    transformer = [inputs.hive.transformers.liftDefault];
+    loader = inputs.haumea.lib.loaders.callPackage;
+    transformer = [inputs.haumea.lib.transformers.liftDefault];
   }) //{
-  	luaPackages = inputs.hive.load {
+  	luaPackages = inputs.haumea.lib.load {
 		src = ./luaPackages;
-		loader = inputs.hive.loaders.verbatim;
+		loader = inputs.haumea.lib.loaders.verbatim;
 	};
 
   }

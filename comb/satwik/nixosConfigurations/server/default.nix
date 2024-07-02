@@ -25,6 +25,7 @@ in {
     prowlarr
     qbittorrent
     suwayomi
+    minecraft-server
     #firefly-iii
     jitsi-meet
     netdata
@@ -51,10 +52,13 @@ in {
     "intel_iommu=on"
     "pcie_aspm=off"
     "i8042.dumpkbd=1"
+    "i915.enable_guc=2"
   ];
+
 
 boot.supportedFilesystems = ["zfs"];
 boot.zfs.forceImportRoot = false;
+boot.zfs.extraPools = ["zpool"];
 networking.hostId = "95c4a621";
 
   services.openssh.enable = true;
@@ -65,7 +69,7 @@ networking.hostId = "95c4a621";
   boot.loader.efi.canTouchEfiVariables = true;
 
   services.zerotierone = {
-    enable = true;
+    enable = false;
     joinNetworks = [
       "e5cd7a9e1cefda64"
     ];
@@ -82,12 +86,11 @@ networking.hostId = "95c4a621";
   #};
   # 1. enable vaapi on OS-level
 
-  hardware.opengl = {
-    enable = true;
+  hardware.graphics = {
+    enable= true;
     extraPackages = with pkgs; [
-      intel-media-driver
-      vaapiIntel 
-      vaapiVdpau
+ 	vpl-gpu-rt
+      intel-vaapi-driver
       libvdpau-va-gl
       intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
     ];
@@ -102,7 +105,6 @@ networking.hostId = "95c4a621";
 
   services.xserver = {
     enable = true;
-    videoDrivers = ["modesetting"];
   };
 
   #nixpkgs.config.allowUnfree = true;
@@ -204,7 +206,7 @@ networking.hostId = "95c4a621";
   networking.nameservers = ["1.1.1.1" "9.9.9.9"];
   networking.firewall = {
     enable = false;
-    allowedTCPPorts = [80 443];
+    allowedTCPPorts = [80 443 25565];
     allowedUDPPorts = [51819 51820]; # Clients and peers can use the same port, see listenport
   };
   networking.nftables = {
@@ -237,7 +239,7 @@ networking.hostId = "95c4a621";
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 80, 443} accept
+            tcp dport {22, 80, 443, 25565} accept
             udp dport {51820, 51819} accept
 
             # count and drop any other traffic

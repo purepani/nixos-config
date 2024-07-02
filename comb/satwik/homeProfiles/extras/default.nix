@@ -18,7 +18,10 @@ in {
     obs-studio
     rquickshare
     kdePackages.neochat
-
+    kdePackages.kmail
+    kdePackages.akonadi
+    kdePackages.kmail-account-wizard
+    nixpkgs-review
     wireplumber
     helvum
     openssl

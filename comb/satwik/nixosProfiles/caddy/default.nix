@@ -4,7 +4,7 @@
   config,
 }: {
   networking.firewall = {
-    allowedTCPPorts = [80 443 4000];
+    allowedTCPPorts = [80 443 4000 25565];
   };
 
   services.caddy = {
