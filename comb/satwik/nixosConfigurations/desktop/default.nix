@@ -117,7 +117,9 @@ in {
   #          factory.name = "support.null-audio-sink";
   #          node.name = "Microphone-Proxy";
   #          node.description = "Microphone";
-  #          media.class = "Audio/Source/Virtual";
+  #          media.class 
+
+      # We're not using the upstream unit, so copy these: https://github.com/sddm/sddm/blob/develop/services/sddm.service.in= "Audio/Source/Virtual";
   #          audio.position = "MONO";
   #        };
   #      }

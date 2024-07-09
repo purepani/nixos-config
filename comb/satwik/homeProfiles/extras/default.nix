@@ -7,8 +7,8 @@
 in {
   home.packages = with pkgs; [
     reaper
-    bitwarden
-    kicad
+    #bitwarden
+    #kicad
     #xclip
     #discord-canary
     #soundux # Currently Depreciated
@@ -54,6 +54,6 @@ in {
     #citrix_workspace
     #cloudcompare
     cachix
-    blender-hip
+    #blender-hip
   ];
 }

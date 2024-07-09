@@ -20,8 +20,8 @@ in {
     locale
     pipewire
     steam
-    virtualization
-    zerotier-one
+    #virtualization
+    #zerotier-one
     udev
     NetworkManager
     #musnix

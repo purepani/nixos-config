@@ -20,7 +20,7 @@ in {
     direnv
     easyeffects
     git
-    discord
+    #discord
     neovim
     fluidsynth
     pianoteq
