@@ -51,7 +51,9 @@ in {
     remmina
     freerdp3
     vlc
-    #citrix_workspace
+    (citrix_workspace_23_11_0.override {
+    	extraCerts=[./vmsctx01-hap1009-onprem-varian-com.pem];
+    })
     #cloudcompare
     cachix
     #blender-hip

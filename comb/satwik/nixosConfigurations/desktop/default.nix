@@ -27,7 +27,7 @@ in {
     locale
     pipewire
     steam
-    virtualization
+    #virtualization
     udev
     NetworkManager
     #musnix
@@ -49,8 +49,8 @@ in {
   hardware.graphics = {
     enable = true;
     extraPackages = [
-    	pkgs.rocmPackages.clr.icd
-	pkgs.intel-compute-runtime
+    	#pkgs.rocmPackages.clr.icd
+	#pkgs.intel-compute-runtime
     ];
   };
   #Temporarily change name to fix dotnet cli: https://github.com/NixOS/nixpkgs/issues/315574
