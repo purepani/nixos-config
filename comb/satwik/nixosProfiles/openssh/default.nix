@@ -1,10 +1,15 @@
-{inputs,cell}:
+{inputs, cell}:
 {
 services.openssh = {
   enable = true;
   # require public key authentication for better security
-  #settings.PasswordAuthentication = false;
-  #settings.KbdInteractiveAuthentication = false;
-  #settings.PermitRootLogin = "yes";
+  openFirewall=true;
+  settings = { 
+#	  PasswordAuthentication = false;
+#	  KbdInteractiveAuthentication = false;
+#	  PermitRootLogin = "yes";
+	  PrintMotd = true;
+	};
   };
+  users.motd = "Purewater's server.";
 }

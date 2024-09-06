@@ -2,8 +2,8 @@
   inputs,
   cell,
 }: {
-  fileSystems."/export/media" = {
-    device = "/media";
+  fileSystems."/export/storage" = {
+    device = "/storage";
     options = ["bind"];
   };
   services.nfs.server = {
@@ -11,9 +11,7 @@
   };
 
   services.nfs.server.exports = ''
-    /export         192.168.88.8(rw,fsid=0,no_subtree_check)
-    /export/media  192.168.88.8(rw,nohide,insecure,no_subtree_check)
+    	/storage  192.168.1.50(rw,fsid=0,no_subtree_check)
   '';
 
-  networking.firewall.allowedTCPPorts = [2049];
 }

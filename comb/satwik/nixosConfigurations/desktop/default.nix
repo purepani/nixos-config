@@ -1,22 +1,27 @@
-{
-  inputs,
-  cell,
-}: let
+{ inputs
+, cell
+,
+}:
+let
   inherit (cell) nixosProfiles hardwareProfiles;
   inherit (inputs.common.bee) pkgs;
-in {
+in
+{
   inherit (inputs.common) bee;
   #needed for easyeffects
   programs.dconf.enable = true;
+  nix.package = pkgs.nixVersions.latest;
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+
   #boot.kernelPackages = pkgs.linuxPackages-rt_latest;
+
   security.sudo.enable = true;
   imports = with nixosProfiles; [
-  #({config, options, lib,...}: {
-  #	options.system.nixos.codeName = lib.mkOption {readOnly=false;};
-  #})
+    #({config, options, lib,...}: {
+    #	options.system.nixos.codeName = lib.mkOption {readOnly=false;};
+    #})
     hardwareProfiles.desktop
     android
     nfs
@@ -26,6 +31,7 @@ in {
     kdeconnect
     locale
     pipewire
+    printers
     steam
     #virtualization
     udev
@@ -43,14 +49,14 @@ in {
   ];
 
   services.udev.extraRules = ''
-  	ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="666" TAG+="uaccess"
-'';
+    	ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="666" TAG+="uaccess"
+  '';
 
   hardware.graphics = {
     enable = true;
     extraPackages = [
-    	#pkgs.rocmPackages.clr.icd
-	#pkgs.intel-compute-runtime
+      #pkgs.rocmPackages.clr.icd
+      #pkgs.intel-compute-runtime
     ];
   };
   #Temporarily change name to fix dotnet cli: https://github.com/NixOS/nixpkgs/issues/315574
@@ -74,7 +80,7 @@ in {
 
   networking.nat = {
     enable = true;
-    internalInterfaces = ["ve-+"];
+    internalInterfaces = [ "ve-+" ];
     externalInterface = "eno1";
     #externalInterface = "wlp8s0";
     # Lazy IPv6 connectivity for the container
@@ -82,7 +88,7 @@ in {
 
   nix = {
     settings = {
-      trusted-users = ["satwik"];
+      trusted-users = [ "satwik" ];
       substituters = [
         "https://nix-community.cachix.org"
         "https://cache.nixos.org/"
@@ -119,7 +125,7 @@ in {
   #          node.description = "Microphone";
   #          media.class 
 
-      # We're not using the upstream unit, so copy these: https://github.com/sddm/sddm/blob/develop/services/sddm.service.in= "Audio/Source/Virtual";
+  # We're not using the upstream unit, so copy these: https://github.com/sddm/sddm/blob/develop/services/sddm.service.in= "Audio/Source/Virtual";
   #          audio.position = "MONO";
   #        };
   #      }

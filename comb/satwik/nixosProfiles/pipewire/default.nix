@@ -2,7 +2,7 @@
   inputs,
   cell,
 }: {
-  sound.enable = false;
+  #sound.enable = false;
 
   security.rtkit.enable = true;
 

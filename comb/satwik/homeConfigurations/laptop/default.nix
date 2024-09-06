@@ -1,7 +1,8 @@
-{
-  inputs,
-  cell,
-}: let
+{ inputs
+, cell
+,
+}:
+let
   inherit (cell) homeProfiles;
   #inherit (inputs.common) bee;
 
@@ -11,16 +12,21 @@
     pkgs = cell.nixpkgs.pkgs;
     home = inputs.home-manager;
   };
-in {
+in
+{
   inherit bee;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+  programs.fish.enable = true;
 
   imports = with homeProfiles; [
     direnv
     easyeffects
     git
-    #discord
+    discord
+    ssh
+    wezterm
+    kitty
     neovim
     fluidsynth
     pianoteq

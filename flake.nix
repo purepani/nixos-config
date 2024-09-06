@@ -4,6 +4,7 @@
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs-update.url = "github:nix-community/nixpkgs-update";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
     sops-nix.url = "github:Mic92/sops-nix";
@@ -16,14 +17,11 @@
     musnix.url = "github:purepani/musnix";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     authentik-nix. url = "github:nix-community/authentik-nix";
-    #nixvim = {
-    #	url = "github:nix-community/nixvim";
-#	inputs.nixpkgs.follows = "nixpkgs";
-#	};
     nixvim = {
-    	url = "github:purepani/nixvim/add_pylsp_python_option";
-	inputs.nixpkgs.follows = "nixpkgs";
-	};
+      url = "github:nix-community/nixvim";
+      #url = "github:PerchunPak/nixvim/fix-python-lsp-plugins";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
 
     std.url = "github:divnix/std";
@@ -46,62 +44,64 @@
       flake = false;
     };
   };
-  outputs = inputs @ {
-    std,
-    hive,
-    self,
-    ...
-  }: let
-    lib = inputs.nixpkgs.lib // builtins;
-  in
-    hive.growOn {
-      inherit inputs;
-      systems = [
-        "x86_64-linux"
-      ];
-      cellsFrom = ./comb;
-      nixpkgsConfig.allowUnfreePredicate = pkg:
-        lib.elem (lib.getName pkg) [
-          "reaper"
-          "zoom"
-          "slack"
-          "discord-canary"
+  outputs =
+    inputs @ { std
+    , hive
+    , self
+    , ...
+    }:
+    let
+      lib = inputs.nixpkgs.lib // builtins;
+    in
+    hive.growOn
+      {
+        inherit inputs;
+        systems = [
+          "x86_64-linux"
         ];
-      cellBlocks = with std.blockTypes;
-      with hive.blockTypes; [
-        nixosConfigurations
-        homeConfigurations
-        colmenaConfigurations
-        (functions "nixosProfiles")
-        (functions "homeProfiles")
-        (functions "hardwareProfiles")
-        #(installables "package")
-        #(functions "module")
-        (functions "neovim")
-        (functions "nixosModules")
-        (functions "nixpkgs")
-        (installables "packages")
+        cellsFrom = ./comb;
+        nixpkgsConfig.allowUnfreePredicate = pkg:
+          lib.elem (lib.getName pkg) [
+            "reaper"
+            "zoom"
+            "slack"
+            "discord-canary"
+          ];
+        cellBlocks = with std.blockTypes;
+          with hive.blockTypes; [
+            nixosConfigurations
+            homeConfigurations
+            colmenaConfigurations
+            (functions "nixosProfiles")
+            (functions "homeProfiles")
+            (functions "hardwareProfiles")
+            #(installables "package")
+            #(functions "module")
+            (functions "neovim")
+            (functions "nixosModules")
+            (functions "nixpkgs")
+            (installables "packages")
 
-        (devshells "devshells")
-      ];
-    }
-    {
-      devShells = hive.harvest self ["repo" "devshells"];
-    }
-    {
-      nixosConfigurations = hive.collect self "nixosConfigurations";
-      homeConfigurations = hive.collect self "homeConfigurations";
-      colmenaHive = hive.collect self "colmenaConfigurations";
-      packages = std.harvest self ["satwik" "packages"];
+            (devshells "devshells")
+          ];
+      }
+      {
+        devShells = hive.harvest self [ "repo" "devshells" ];
+      }
+      {
+        nixosConfigurations = hive.collect self "nixosConfigurations";
+        homeConfigurations = hive.collect self "homeConfigurations";
+        colmenaHive = hive.collect self "colmenaConfigurations";
+        packages = std.harvest self [ "satwik" "packages" ];
 
-      nixConfig = {
-        extra-substituters = [
-          "https://nix-community.cachix.org"
-          "https://cache.nixos.org/"
-        ];
-        extra-trusted-public-keys = [
-          "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-        ];
+        nixConfig = {
+          extra-substituters = [
+            "https://nix-community.cachix.org"
+            "https://cache.nixos.org/"
+          ];
+          extra-trusted-public-keys = [
+            "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+          ];
+        };
       };
-    };
 }

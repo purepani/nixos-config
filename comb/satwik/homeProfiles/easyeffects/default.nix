@@ -3,7 +3,7 @@
   cell,
 }: {
   services.easyeffects = {
-    enable = false;
+    enable = true;
     #package =
     #  (inputs.nixpkgs.easyeffects.overrideAttrs (old: {
     #    buildInputs = old.buildInputs ++ [cell.packages.deepfilter.package];

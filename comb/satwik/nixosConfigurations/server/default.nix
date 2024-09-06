@@ -36,8 +36,9 @@ in {
     caddy
     glances
     actual-server
+    nfs
   ];
-
+  #services.nfs.server.enable = true;	
   services.qbittorrent = {
     enable = true;
     openFirewall = true;
@@ -100,28 +101,21 @@ networking.hostId = "95c4a621";
     enable = true;
     packages = [];
   };
-  # Enable the X11 windowing system.
-  #services.xserver.enable = true;
 
   services.xserver = {
     enable = true;
   };
 
-  #nixpkgs.config.allowUnfree = true;
   programs.adb.enable = true;
   programs.dconf.enable = true;
   services.udisks2.enable = true;
 
   # Configure keymap in X11
   services.xserver.layout = "us";
-  # services.xserver.xkbOptions = "eurosign:e";
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  # Enable sound.
-  #sound.enable = true;
-  #hardware.pulseaudio.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.satwik = {
@@ -134,9 +128,14 @@ networking.hostId = "95c4a621";
       "vboxusers"
       "libvirtd"
     ]; # Enable ‘sudo’ for the user.
+    openssh.authorizedKeys.keyFiles = [
+    	./__public_ssh/satwik/personal_server.pub
+    ];
   };
 
   users.groups.media.members = ["jellyfin" "sonarr" "radarr" "bazarr" "rtorrent" "qbittorrent"];
+
+
 
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -167,41 +166,7 @@ networking.hostId = "95c4a621";
 
   system.stateVersion = "23.05"; # Did you read the comment?
 
-  # Binary Cache for Haskell.nix
-  #nix.settings.trusted-public-keys = [
-  #"hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-  #];
-  #nix.settings.substituters = [
-  #"https://cache.iog.io"
-  #];
-  #  security.acme = {
-  #    acceptTerms = true;
-  #    email = "admin+acme@box.pb";
-  #  };
 
-  #services.nginx.virtualHosts = let
-  #  SSL = {
-  #    enableACME = true;
-  #    forceSSL = true;
-  #  };
-  #in {
-  #  "box.pb" =
-  #    SSL
-  #    // {
-  #      locations."/".proxyPass = "http://127.0.0.1:8096/";
-  #
-  #        serverAliases = [
-  #          "www.box.pb"
-  #        ];
-  #      };
-  #
-  #    "jellyfin.box.pb" =
-  #      SSL
-  #      // {
-  #        locations."/".proxyPass = "http://127.0.0.1:8096/";
-  #      };
-  #  };
-  # "fc00:bbbb:bbbb:bb01::5:7f82/128"
 
   networking.nameservers = ["1.1.1.1" "9.9.9.9"];
   networking.firewall = {
@@ -239,7 +204,7 @@ networking.hostId = "95c4a621";
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 80, 443, 25565} accept
+            tcp dport {22, 80, 443, 25565, 2049} accept
             udp dport {51820, 51819} accept
 
             # count and drop any other traffic
@@ -261,38 +226,6 @@ networking.hostId = "95c4a621";
       };
     };
   };
-  # Enable WireGuard
-
-  #networking.wg-quick.interfaces = {
-  #  givingfrog = {
-  #    # Determines the IP address and subnet of the client's end of the tunnel interface.
-  #    address = ["10.68.127.131/32"];
-  #    listenPort = 51819; # to match firewall allowedUDPPorts (without this wg uses random port numbers)
-  #    #dns = ["10.64.0.1"];
-  #    privateKeyFile = "/home/satwik/wireguard-keys/private";
-  #
-  #      peers = [
-  #        # For a client configuration, one peer entry for the server will suffice.
-  #
-  #        {
-  #          # Public key of the server (not a file path).
-  #          publicKey = "/WirOQ8FNF9tD1+/MYgIAWpjFKiJYhJJ7/w2QmKBrVo=";
-  #
-  #          # Forward all the traffic via VPN.
-  #          allowedIPs = ["0.0.0.1/0"];
-  #          #allowedIPs = ["10.68.127.131/32"];
-  #          # Or forward only particular subnets
-  #          #allowedIPs = ["10.64.0.1" "10.65.0.1/16" "10.68.127.131/32" "91.108.12.0/22" "66.63.167.146"];
-  #
-  #          # Set this to the server IP and port.
-  #          endpoint = "66.63.167.146:51820"; # ToDo: route to endpoint not automatically configured https://wiki.archlinux.org/index.php/WireGuard#Loop_routing https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577
-  #
-  #          # Send keepalives every 25 seconds. Important to keep NAT tables alive.
-  #          persistentKeepalive = 25;
-  #        }
-  #      ];
-  #    };
-  #  };
   networking.useDHCP = false;
 
   systemd.network = {
