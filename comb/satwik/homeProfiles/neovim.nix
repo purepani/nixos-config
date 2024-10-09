@@ -3,17 +3,13 @@
 ,
 }:
 let
-  getHelpers = pkgs: _nixvimTests:
-    import "${inputs.nixvim}/lib/helpers.nix" {
-      inherit pkgs _nixvimTests;
-      inherit (pkgs) lib;
-    };
-  nixvim_config = { pkgs, ... }:
+  nixvim_config = { config, pkgs, ... }:
     let
-      helpers = getHelpers pkgs false;
+      helpers = config.lib.nixvim;
 
     in
     {
+
       programs.nixvim = {
         enable = true;
         #extraLuaPackages = [cell.packages.luaPackages.nvim-nio cell.packages.luaPackages.neorg];
@@ -48,6 +44,7 @@ let
 
           lsp = {
             enable = true;
+            inlayHints = true;
             keymaps = {
               diagnostic = {
                 "<leader>j" = "goto_next";
@@ -80,8 +77,11 @@ let
                   formatting.command = [ "nixpkgs-fmt" ];
                 };
               };
-              pyright = {
-                enable = false;
+              basedpyright = {
+                enable = true;
+                settings = {
+                  basedpyright.analysis.typeCheckingMode = "standard";
+                };
                 extraOptions = {
                   python = {
                     pythonPath = helpers.mkRaw "py_path";
@@ -104,8 +104,8 @@ let
                     #jedi_signature_help=true;
                     #jedi_symbols=true;
                     pylsp_mypy = {
-                      enabled = true;
-                      report_progress = true;
+                      enabled = false;
+                      report_progress = false;
                       overrides = [ "--python-executable" (helpers.mkRaw "py_path") true ];
                     };
 
@@ -117,7 +117,7 @@ let
                 };
               };
               rust-analyzer = {
-                enable = true;
+                enable = false;
                 installCargo = true;
                 installRustc = true;
               };
@@ -130,9 +130,11 @@ let
             };
           };
           lsp-format.enable = true;
-          #lsp-lines.enable=true;
+          lsp-lines.enable = true;
           lspkind.enable = true;
-          lspsaga.enable = true;
+          lspsaga = {
+            enable = true;
+          };
           luasnip.enable = true;
           lualine.enable = true;
           molten.enable = true;
@@ -185,10 +187,10 @@ let
 
           };
           neotest = {
-            enable = true;
+            enable = false;
             adapters = {
               python = {
-                enable = true;
+                enable = false;
                 settings = {
                   python = helpers.mkRaw "py_path";
                 };
@@ -275,7 +277,33 @@ let
             enableTelescope = true;
 
           };
-          #rustaceanvim.enable = true;
+          rustaceanvim = {
+            enable = true;
+            rustAnalyzerPackage = cell.nixpkgs.pkgs.rust-analyzer;
+            settings = {
+              server = {
+                default_settings = {
+                  rust-analyzer = {
+                    inlayHints = {
+                      typeHints = {
+                        enable = true;
+                      };
+                      chainingHints.enable = true;
+                      closureReturnTypeHints.enable = "always";
+                      closingBraceHints.enable = true;
+                      discriminantHints.enable = "always";
+                      parameterHints.enable = true;
+                      genericParameterHints = {
+                        const.enable = true;
+                        type.enable = true;
+                      };
+
+                    };
+                  };
+                };
+              };
+            };
+          };
           #specs.enable = true;
           rainbow-delimiters.enable = true;
 

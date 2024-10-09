@@ -14,7 +14,7 @@
       			window_frame = {
       				font_size=8.0,
       			},
-                            },
+                            }
       			
     '';
   };

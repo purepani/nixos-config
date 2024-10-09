@@ -22,9 +22,11 @@ in
   imports = with homeProfiles; [
     direnv
     easyeffects
+    rust
     git
     discord
     ssh
+    jujutsu
     wezterm
     kitty
     neovim
