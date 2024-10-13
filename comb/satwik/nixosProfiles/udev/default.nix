@@ -1,4 +1,4 @@
-{inputs, cell}:
+{ inputs, cell }:
 {
   services.udev = {
     enable = true;

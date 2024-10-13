@@ -1,43 +1,44 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  inputs,
-  cell,
-  config,
-  ...
-}: let
+{ inputs
+, cell
+, config
+, ...
+}:
+let
   inherit (cell) hardwareProfiles nixosProfiles;
   inherit (inputs) common;
   inherit (common) bee;
   inherit (bee) pkgs;
-in {
+in
+{
   inherit bee;
 
   imports = with hardwareProfiles;
-  with nixosProfiles; [
-    server
-    jellyfin
-    jellyseerr
-    sonarr
-    radarr
-    recyclarr
-    bazarr
-    prowlarr
-    qbittorrent
-    suwayomi
-    minecraft-server
-    #firefly-iii
-    jitsi-meet
-    netdata
-    #netmaker
-    netbird
-    dashy
-    #coredns
-    caddy
-    glances
-    actual-server
-    nfs
-  ];
+    with nixosProfiles; [
+      server
+      jellyfin
+      jellyseerr
+      sonarr
+      radarr
+      recyclarr
+      bazarr
+      prowlarr
+      qbittorrent
+      suwayomi
+      minecraft-server
+      #firefly-iii
+      jitsi-meet
+      netdata
+      #netmaker
+      netbird
+      dashy
+      #coredns
+      caddy
+      glances
+      actual-server
+      nfs
+    ];
   #services.nfs.server.enable = true;	
   services.qbittorrent = {
     enable = true;
@@ -57,10 +58,10 @@ in {
   ];
 
 
-boot.supportedFilesystems = ["zfs"];
-boot.zfs.forceImportRoot = false;
-boot.zfs.extraPools = ["zpool"];
-networking.hostId = "95c4a621";
+  boot.supportedFilesystems = [ "zfs" ];
+  boot.zfs.forceImportRoot = false;
+  boot.zfs.extraPools = [ "zpool" ];
+  networking.hostId = "95c4a621";
 
   services.openssh.enable = true;
   systemd.enableEmergencyMode = false;
@@ -88,9 +89,9 @@ networking.hostId = "95c4a621";
   # 1. enable vaapi on OS-level
 
   hardware.graphics = {
-    enable= true;
+    enable = true;
     extraPackages = with pkgs; [
- 	vpl-gpu-rt
+      vpl-gpu-rt
       intel-vaapi-driver
       libvdpau-va-gl
       intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
@@ -99,7 +100,7 @@ networking.hostId = "95c4a621";
 
   services.dbus = {
     enable = true;
-    packages = [];
+    packages = [ ];
   };
 
   services.xserver = {
@@ -129,11 +130,11 @@ networking.hostId = "95c4a621";
       "libvirtd"
     ]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keyFiles = [
-    	./__public_ssh/satwik/personal_server.pub
+      ./__public_ssh/satwik/personal_server.pub
     ];
   };
 
-  users.groups.media.members = ["jellyfin" "sonarr" "radarr" "bazarr" "rtorrent" "qbittorrent"];
+  users.groups.media.members = [ "jellyfin" "sonarr" "radarr" "bazarr" "rtorrent" "qbittorrent" ];
 
 
 
@@ -152,7 +153,7 @@ networking.hostId = "95c4a621";
   nix = {
     settings = {
       auto-optimise-store = true;
-      trusted-users = ["root" "@wheel"];
+      trusted-users = [ "root" "@wheel" ];
     };
     package = pkgs.nixFlakes;
     extraOptions = ''
@@ -168,11 +169,11 @@ networking.hostId = "95c4a621";
 
 
 
-  networking.nameservers = ["1.1.1.1" "9.9.9.9"];
+  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
   networking.firewall = {
     enable = false;
-    allowedTCPPorts = [80 443 25565];
-    allowedUDPPorts = [51819 51820]; # Clients and peers can use the same port, see listenport
+    allowedTCPPorts = [ 80 443 25565 ];
+    allowedUDPPorts = [ 51819 51820 ]; # Clients and peers can use the same port, see listenport
   };
   networking.nftables = {
     enable = true;
@@ -250,7 +251,7 @@ networking.hostId = "95c4a621";
               PublicKey = "T5aabskeYCd5dn81c3jOKVxGWQSLwpqHSHf6wButSgw=";
               #PublicKey = "/WirOQ8FNF9tD1+/MYgIAWpjFKiJYhJJ7/w2QmKBrVo=";
               #PublicKey = "Yn3d/LS8AAwHyAUH3cHBg0Z6pc9d4UuN5yF95nWXtwI=";
-              AllowedIPs = ["0.0.0.0/0"];
+              AllowedIPs = [ "0.0.0.0/0" ];
               Endpoint = "68.235.44.2:51820";
               #PresharedKeyFile = "/var/secrets/wireguard-keys/private";
               PersistentKeepalive = 25;
@@ -263,12 +264,12 @@ networking.hostId = "95c4a621";
     networks = {
       "10-wan" = {
         matchConfig.Name = "enp5s0";
+        # start a DHCP Client for IPv4 Addressing/Routing
+        DHCP = "yes";
+        # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
         networkConfig = {
-          # start a DHCP Client for IPv4 Addressing/Routing
-          DHCP = "yes";
-          # accept Router Advertisements for Stateless IPv6 Autoconfiguraton (SLAAC)
+          IPv4Forwarding = "yes";
           IPv6AcceptRA = true;
-          IPForward = "ipv4";
         };
         routes = [
           {
@@ -285,13 +286,13 @@ networking.hostId = "95c4a621";
       givingfrog = {
         # See also man systemd.network
         matchConfig.Name = "givingfrog";
-        # IP addresses the client interface will have
+        #IPMasquerade = "both";
         networkConfig = {
+          # IP addresses the client interface will have
           Address = "10.64.102.255/32";
-          #IPMasquerade = "both";
-          IPForward = "ipv4";
+          IPv4Forwarding = "yes";
         };
-        dns = ["10.64.0.1"];
+        dns = [ "10.64.0.1" ];
         routingPolicyRules = [
           {
             routingPolicyRuleConfig = {
@@ -313,9 +314,7 @@ networking.hostId = "95c4a621";
             };
           }
         ];
-        #networkConfig = {
         #  IPv6AcceptRA = false;
-        #};
         linkConfig.RequiredForOnline = "no";
       };
     };

@@ -1,16 +1,18 @@
-{
-  inputs,
-  cell,
+{ inputs
+, cell
+,
 }: {
   security.polkit.enable = true;
 
   #services.xserver.enable = true;
   services.displayManager.sddm = {
-  	enable = true;
-	wayland.enable = true;
-	};
+    enable = true;
+    wayland.enable = true;
+  };
   #services.xserver.desktopManager.plasma5.enable = true;
   services.desktopManager.plasma6.enable = true;
+
+
   services.displayManager.defaultSession = "plasma";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
@@ -27,4 +29,12 @@
     #cell.nixpkgs.pkgs.xdg-desktop-portal-gtk
     #];
   };
+
+
+
+
+  programs.hyprland.enable = true;
+  environment.systemPackages = [
+    cell.nixpkgs.pkgs.kitty
+  ];
 }

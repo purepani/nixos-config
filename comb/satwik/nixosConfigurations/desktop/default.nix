@@ -22,6 +22,7 @@ in
     #({config, options, lib,...}: {
     #	options.system.nixos.codeName = lib.mkOption {readOnly=false;};
     #})
+    inputs.home-manager.nixosModules.home-manager
     hardwareProfiles.desktop
     android
     nfs
@@ -43,6 +44,9 @@ in
     netbird
     resolved
   ];
+
+  home-manager.backupFileExtension = "backup";
+  home-manager.users.satwik = cell.homeConfigurations.laptop;
 
   systemd.tmpfiles.rules = [
     "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"

@@ -7,20 +7,21 @@ let
   #inherit (inputs.common) bee;
 
   system = "x86_64-linux";
-  bee = rec {
-    system = "x86_64-linux";
-    pkgs = cell.nixpkgs.pkgs;
-    home = inputs.home-manager;
-  };
+  #bee = rec {
+  #  system = "x86_64-linux";
+  #  pkgs = cell.nixpkgs.pkgs;
+  #  home = inputs.home-manager;
+  #};
 in
 {
-  inherit bee;
+  #inherit bee;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.fish.enable = true;
 
   imports = with homeProfiles; [
     direnv
+    hyprland
     easyeffects
     rust
     git
