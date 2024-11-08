@@ -15,7 +15,10 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  #boot.kernelPackages = pkgs.linuxPackages-rt_latest;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.extraModprobeConfig = ''
+    	options snd_usb_audio vid=0x1235 pid=0x8210 device_setup=1
+  '';
 
   security.sudo.enable = true;
   imports = with nixosProfiles; [
@@ -59,12 +62,15 @@ in
   hardware.graphics = {
     enable = true;
     extraPackages = [
-      #pkgs.rocmPackages.clr.icd
+      pkgs.rocmPackages.clr.icd
       #pkgs.intel-compute-runtime
     ];
   };
   #Temporarily change name to fix dotnet cli: https://github.com/NixOS/nixpkgs/issues/315574
   #system.nixos.codeName = pkgs.lib.mkForce "Vicuna";
+environment.systemPackages = with pkgs; [
+  clinfo
+];
 
   musnix = {
     enable = false;

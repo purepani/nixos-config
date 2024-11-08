@@ -6,6 +6,33 @@ let
   nixvim_config = { config, pkgs, ... }:
     let
       helpers = config.lib.nixvim;
+      distant_drv = {
+      	rustPlatform,
+	fetchFromGitHub,
+	cmake,
+	perl,
+	stdenv,
+      }: (rustPlatform.buildRustPackage {
+
+      	pname = "distant";
+	version = "0.20.0";
+      	src = fetchFromGitHub {
+		owner="chipsenkbeil";
+		repo="distant";
+		rev="v0.20.0";
+		hash="sha256-DcnleJUAeYg3GSLZljC3gO9ihiFz04dzT/ddMnypr48=";
+	};
+	cargoHash = "sha256-7MNNdm4b9u5YNX04nBtKcrw+phUlpzIXo0tJVfcgb40=";
+	nativeBuildInputs = [
+		cmake
+		perl
+		stdenv.cc.cc.lib
+
+	];
+	doCheck = false;
+      });
+
+      distant = pkgs.callPackage distant_drv {};
 
     in
     {
@@ -13,8 +40,13 @@ let
       programs.nixvim = {
         enable = true;
         #extraLuaPackages = [cell.packages.luaPackages.nvim-nio cell.packages.luaPackages.neorg];
-        extraPackages = [ cell.nixpkgs.pkgs.texlive.combined.scheme-full pkgs.dcmtk ];
-        #globals.mapleader = ";";
+        extraPackages = [ 
+		cell.nixpkgs.pkgs.texlive.combined.scheme-full 
+		pkgs.dcmtk 
+		distant
+	];
+        globals.mapleader = ";";
+        globals.maplocalleader = ";";
         colorschemes.onedark.enable = true;
         clipboard.providers.wl-copy.enable = true;
         opts = {
@@ -45,6 +77,9 @@ let
           lsp = {
             enable = true;
             inlayHints = true;
+	    capabilities = ''
+		capabilites = require('blink.cmp').get_lsp_capabilities(capabilities)
+	'';
             keymaps = {
               diagnostic = {
                 "<leader>j" = "goto_next";
@@ -57,6 +92,7 @@ let
                 gi = "implementation";
                 gt = "type_definition";
                 gr = "rename";
+                ga = "code_action";
               };
 
             };
@@ -64,18 +100,16 @@ let
               bashls.enable = true;
               clangd.enable = true;
               cmake.enable = true;
-              csharp-ls.enable = true;
+              csharp_ls.enable = true;
               cssls.enable = true;
               dartls.enable = true;
               html.enable = true;
               htmx.enable = true;
-              lua-ls.enable = true;
+              lua_ls.enable = true;
               #nil_ls.enable = true;
               nixd = {
                 enable = true;
-                settings = {
-                  formatting.command = [ "nixpkgs-fmt" ];
-                };
+                settings = { };
               };
               basedpyright = {
                 enable = true;
@@ -116,16 +150,35 @@ let
                   };
                 };
               };
-              rust-analyzer = {
-                enable = false;
-                installCargo = true;
-                installRustc = true;
+              rust_analyzer = {
+                enable = true;
+		package = cell.nixpkgs.pkgs.rust-analyzer-nightly;
+                installCargo = false;
+                installRustc = false;
+		settings = {
+                    inlayHints = {
+                      typeHints = {
+                        enable = true;
+                      };
+                      chainingHints.enable = true;
+                      closureReturnTypeHints.enable = "always";
+                      closingBraceHints.enable = true;
+                      discriminantHints.enable = "always";
+                      parameterHints.enable = true;
+                      genericParameterHints = {
+                        const.enable = true;
+                        type.enable = true;
+                      };
+
+                    };
+                  };
+
               };
               svelte = {
                 enable = true;
               };
               tailwindcss.enable = true;
-              tsserver.enable = true;
+              ts_ls.enable = true;
               zls.enable = true;
             };
           };
@@ -167,11 +220,11 @@ let
                   renderer = "core.integrations.image";
                 };
               };
-              "core.completion" = {
-                config = {
-                  engine = "nvim-cmp";
-                };
-              };
+              #"core.completion" = {
+              #  config = {
+              #    engine = "nvim-cmp";
+              #  };
+              #};
               "core.concealer" = {
                 config = {
                   folds = true;
@@ -201,10 +254,10 @@ let
           nix-develop.enable = true;
           none-ls.enable = true;
           nvim-autopairs.enable = true;
-          cmp-nvim-lsp-document-symbol.enable = true;
-          cmp-nvim-lsp-signature-help.enable = true;
+          cmp-nvim-lsp-document-symbol.enable = false;
+          cmp-nvim-lsp-signature-help.enable = false;
           cmp = {
-            enable = true;
+            enable = false;
             autoEnableSources = true;
             settings = {
               matching.disallow_partial_fuzzy_matching = false;
@@ -231,7 +284,29 @@ let
                 };
             };
           };
-          cmp-nvim-lsp.enable = true;
+          cmp-nvim-lsp.enable = false;
+	  blink-cmp = {
+	  	enable = true;
+		settings = {
+			accept.auto_brackets.enabled=true;
+			fuzzy = {
+				use_frecency = true;
+				use_proximity = true;
+			};
+			windows.documentation = {
+				auto_show = true;
+				auto_show_delay_ms = 0;
+				update_delay_ms = 0;
+				
+			};
+			keymap = {
+				preset = "default";
+			};
+
+
+		};
+	  };
+
           nvim-lightbulb = {
             enable = false;
             settings = {
@@ -278,7 +353,7 @@ let
 
           };
           rustaceanvim = {
-            enable = true;
+            enable = false;
             rustAnalyzerPackage = cell.nixpkgs.pkgs.rust-analyzer;
             settings = {
               server = {
@@ -331,6 +406,7 @@ let
           treesitter-textobjects.enable = true;
           trouble.enable = true;
           typescript-tools.enable = true;
+          web-devicons.enable = true;
           which-key.enable = true;
           zig.enable = true;
         };
@@ -346,15 +422,16 @@ let
               rev = "855105a766a0b79da71d10fbc332b414703b7aed";
             };
           })
+        pkgs.vimPlugins.distant-nvim
         ];
 
         extraConfigLuaPre = ''
-          	--local venv_path = os.getenv('VIRTUAL_ENV') -- or vim.fn.exepath('python')
+          	local venv_path = os.getenv('VIRTUAL_ENV') -- or vim.fn.exepath('python')
           	local path_python = vim.fn.exepath('python')
           	local py_path = nil
-          	--if venv_path ~= nil then
-          	--  py_path = venv_path .. "/bin/python3"
-          	if path_python ~=nil then
+          	if venv_path ~= nil then
+          	  py_path = venv_path .. "/bin/python3"
+          	elseif path_python ~=nil then
           	  py_path = path_python
           	else
           	  py_path = vim.g.python3_host_prog
@@ -366,8 +443,16 @@ let
               	require("nvim-surround").setup({
                       -- Configuration here, or leave empty to use defaults
                   })
+		require('distant'):setup({
+			manager = {
+				lazy=false,
+				user=true
+			}
+		})
           	'';
       };
+
+
     };
 in
 {

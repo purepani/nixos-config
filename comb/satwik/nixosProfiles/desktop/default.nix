@@ -4,7 +4,7 @@
 }: {
   security.polkit.enable = true;
 
-  #services.xserver.enable = true;
+  services.xserver.enable = true;
   services.displayManager.sddm = {
     enable = true;
     wayland.enable = true;
@@ -25,9 +25,10 @@
 
   xdg.portal = {
     enable = true;
-    #extraPortals = [
-    #cell.nixpkgs.pkgs.xdg-desktop-portal-gtk
-    #];
+    extraPortals = [
+      cell.nixpkgs.pkgs.xdg-desktop-portal
+      cell.nixpkgs.pkgs.xdg-desktop-portal-kde
+    ];
   };
 
 

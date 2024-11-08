@@ -1,10 +1,10 @@
-{
-  inputs,
-  cell,
-  config,
+{ inputs
+, cell
+, config
+,
 }: {
   networking.firewall = {
-    allowedTCPPorts = [80 443 4000 25565];
+    allowedTCPPorts = [ 80 443 4000 25565 ];
   };
 
   services.caddy = {
@@ -20,6 +20,12 @@
       vendorHash = "sha256-C7JOGd4sXsRZL561oP84V2/pTg7szEgF4OFOw35yS1s=";
     };
     virtualHosts = {
+      "192.168.1.7" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8096
+        '';
+
+      };
       "veneprodigy.com" = {
         extraConfig = ''
           reverse_proxy 127.0.0.1:8096
@@ -40,7 +46,7 @@
         '';
         #serverAlias = ["www.veneprodigy.com"];
       };
-      
+
       "radarr.veneprodigy.com" = {
         extraConfig = ''
           reverse_proxy localhost:7878
@@ -83,9 +89,7 @@
         '';
         #serverAlias = ["actualbudget.veneprodigy.com"];
       };
-      "${config.services.jitsi-meet.hostName}" = {
-      	
-      };
+      "${config.services.jitsi-meet.hostName}" = { };
     };
     globalConfig = ''
       acme_dns cloudflare {env.CF_API_TOKEN}

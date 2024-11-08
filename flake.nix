@@ -4,6 +4,7 @@
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixos_unstable_small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-update.url = "github:nix-community/nixpkgs-update";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
@@ -20,7 +21,6 @@
     authentik-nix. url = "github:nix-community/authentik-nix";
     nixvim = {
       url = "github:nix-community/nixvim";
-      #url = "github:PerchunPak/nixvim/fix-python-lsp-plugins";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -88,8 +88,7 @@
       }
       {
         devShells = hive.harvest self [ "repo" "devshells" ];
-      }
-      {
+      } {
         nixosConfigurations = hive.collect self "nixosConfigurations";
         homeConfigurations = hive.collect self "homeConfigurations";
         colmenaHive = hive.collect self "colmenaConfigurations";

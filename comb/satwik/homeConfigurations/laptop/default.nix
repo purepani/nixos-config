@@ -20,6 +20,7 @@ in
   programs.fish.enable = true;
 
   imports = with homeProfiles; [
+    fontconfig
     direnv
     hyprland
     easyeffects
@@ -28,10 +29,11 @@ in
     discord
     ssh
     jujutsu
+    zoxide
     wezterm
     kitty
     neovim
-    fluidsynth
+    #fluidsynth
     pianoteq
     lilypond
     extras
@@ -62,4 +64,5 @@ in
   # the Home Manager release notes for a list of state version
   # changes in each release.
   home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables.LESS = "FRX";
 }

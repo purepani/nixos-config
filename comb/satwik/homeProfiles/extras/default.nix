@@ -7,9 +7,12 @@ let
 in
 {
   home.packages = with pkgs; [
+    cell.packages.qt5Packages.slicer3d
+    #busybox
     reaper
     #bitwarden
     kicad
+    protonmail-desktop
     #xclip
     #discord-canary
     #soundux # Currently Depreciated
@@ -30,24 +33,23 @@ in
     nix-update
     inputs.nixpkgs-update.packages.default
     wireplumber
-    helvum
+    #helvum
     openssl
     ranger
     linuxConsoleTools
-    rust-analyzer
     bash
     gcc
-    nerdfonts
+    nerd-fonts.iosevka
     ledger
     fd
     unzip
     libguestfs
     qpwgraph
     #zrythm
-    #reaper
+    reaper
     godot_4
-    #minecraft
     prismlauncher
+    atlauncher
     musescore
     steam-run
     steamcmd
@@ -61,9 +63,12 @@ in
     #(citrix_workspace.override {
     #	extraCerts=[./vmsctx01-hap1009-onprem-varian-com.pem];
     #})
-    citrix_workspace_23_11_0
+    #citrix_workspace_23_11_0
     #cloudcompare
     cachix
     blender-hip
+    alsa-scarlett-gui
+    nix-diff
+    nix-tree
   ];
 }

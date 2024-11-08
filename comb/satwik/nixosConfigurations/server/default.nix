@@ -92,7 +92,6 @@ in
     enable = true;
     extraPackages = with pkgs; [
       vpl-gpu-rt
-      intel-vaapi-driver
       libvdpau-va-gl
       intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
     ];
