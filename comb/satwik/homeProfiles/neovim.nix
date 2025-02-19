@@ -77,9 +77,6 @@ let
           lsp = {
             enable = true;
             inlayHints = true;
-	    capabilities = ''
-		capabilites = require('blink.cmp').get_lsp_capabilities(capabilities)
-	'';
             keymaps = {
               diagnostic = {
                 "<leader>j" = "goto_next";
@@ -287,17 +284,21 @@ let
           cmp-nvim-lsp.enable = false;
 	  blink-cmp = {
 	  	enable = true;
+		autoLoad = true;
+		setupLspCapabilities = true;
 		settings = {
-			accept.auto_brackets.enabled=true;
 			fuzzy = {
 				use_frecency = true;
 				use_proximity = true;
 			};
-			windows.documentation = {
-				auto_show = true;
-				auto_show_delay_ms = 0;
-				update_delay_ms = 0;
-				
+			completion = {
+				accept.auto_brackets.enabled=true;
+				documentation = {
+					auto_show = true;
+					auto_show_delay_ms = 0;
+					update_delay_ms = 0;
+					
+				};
 			};
 			keymap = {
 				preset = "default";

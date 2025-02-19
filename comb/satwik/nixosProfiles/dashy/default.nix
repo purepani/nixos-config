@@ -5,10 +5,9 @@
   domain = "satwik-nixos.netbird.cloud";
   #domain = "localhost";
 in {
-  imports = [cell.nixosModules.dashy];
   services.dashy = {
     enable = true;
-    package = cell.packages.dashy;
+    #package = cell.packages.dashy;
     #port = 8082;
     settings = {
       pageInfo = {

@@ -144,6 +144,7 @@ in
     kmod
     pciutils
     libva-utils
+    tmux
   ];
 
   programs.neovim.defaultEditor = true;
@@ -154,7 +155,7 @@ in
       auto-optimise-store = true;
       trusted-users = [ "root" "@wheel" ];
     };
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -207,6 +208,10 @@ in
             tcp dport {22, 80, 443, 25565, 2049} accept
             udp dport {51820, 51819} accept
 
+            # accept SSH connections (required for a server)
+            tcp dport {111, 2049, 4000, 4001, 4002, 20048} accept
+            udp dport {111, 2049, 4000, 4001, 4002, 20048} accept
+
             # count and drop any other traffic
             counter drop
           }
@@ -247,7 +252,8 @@ in
         wireguardPeers = [
           {
             wireguardPeerConfig = {
-              PublicKey = "T5aabskeYCd5dn81c3jOKVxGWQSLwpqHSHf6wButSgw=";
+              #PublicKey = "T5aabskeYCd5dn81c3jOKVxGWQSLwpqHSHf6wButSgw=";
+	      PublicKey = "F0qV8F8VAG4zYN2Qc5J2CyzDB2o5Saa0Oex1mlA3N1Y=";
               #PublicKey = "/WirOQ8FNF9tD1+/MYgIAWpjFKiJYhJJ7/w2QmKBrVo=";
               #PublicKey = "Yn3d/LS8AAwHyAUH3cHBg0Z6pc9d4UuN5yF95nWXtwI=";
               AllowedIPs = [ "0.0.0.0/0" ];

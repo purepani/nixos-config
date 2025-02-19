@@ -2,14 +2,16 @@
   inputs,
   cell,
 }: {
-  imports = [cell.nixosModules.actual-server];
-  services.actual-server = {
+  services.actual = {
     enable = true;
-    package = cell.packages.actualbudget;
-    #userFiles = "/data";
-  };
-  networking.firewall = {
-    allowedTCPPorts = [5006];
-    allowedUDPPorts = [5006];
+    openFirewall = true;
+    settings = {
+    	port=5006;
+    	config = {
+		serverFiles = "/data/server-files";
+		userFiles = "/data/user-files";
+		dataDir = "/data";
+	};
+    };
   };
 }

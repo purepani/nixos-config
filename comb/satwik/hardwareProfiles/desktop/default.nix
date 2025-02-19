@@ -18,8 +18,10 @@ in {
     inputs.nixos-hardware.nixosModules.common-pc-ssd
   ];
   boot.initrd.availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
-  boot.initrd.kernelModules = [];
+  boot.initrd.kernelModules = [ "nfs"];
+  boot.initrd.supportedFilesystems = ["nfs"];
   boot.kernelModules = ["amdgpu" "kvm-amd"];
+  boot.supportedFilesystems = ["nfs"];
 
 
   services.xserver.videoDrivers = ["amdgpu"];
@@ -33,6 +35,13 @@ in {
     device = "/dev/disk/by-uuid/25230606-7211-400a-b701-da35819b17ff";
     fsType = "ext4";
   };
+  fileSystems."/mnt/storage" = {
+    device = "192.168.1.7:/storage";
+    fsType = "nfs";
+    options = ["nofail"];
+  };
+
+
 
   #fileSystems."/media" = {
   #  device = "/dev/disk/by-uuid/92583cb8-926c-49c5-94d8-3c524d55157a";
