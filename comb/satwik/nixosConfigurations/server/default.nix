@@ -17,6 +17,7 @@ in
   imports = with hardwareProfiles;
     with nixosProfiles; [
       server
+      sftpgo
       jellyfin
       jellyseerr
       sonarr
@@ -205,8 +206,8 @@ in
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 80, 443, 25565, 2049} accept
-            udp dport {51820, 51819} accept
+            tcp dport {22, 80, 443, 25565, 2049, 28080} accept
+            udp dport {51820, 51819, 28080} accept
 
             # accept SSH connections (required for a server)
             tcp dport {111, 2049, 4000, 4001, 4002, 20048} accept
