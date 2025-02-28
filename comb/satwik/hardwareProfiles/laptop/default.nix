@@ -33,6 +33,11 @@ in {
     fsType = "vfat";
   };
 
+  fileSystems."/mnt/storage" = {
+    device = "100.65.122.59:/storage";
+    fsType = "nfs";
+    options = ["nofail"];
+  };
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:4:0:0";
     nvidiaBusId = "PCI:1:0:0";
