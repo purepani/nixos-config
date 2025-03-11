@@ -27,7 +27,7 @@
     enable = true;
     extraPortals = [
       cell.nixpkgs.pkgs.xdg-desktop-portal
-      cell.nixpkgs.pkgs.xdg-desktop-portal-kde
+      cell.nixpkgs.pkgs.kdePackages.xdg-desktop-portal-kde
     ];
   };
 

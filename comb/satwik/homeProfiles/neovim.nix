@@ -106,7 +106,9 @@ let
               #nil_ls.enable = true;
               nixd = {
                 enable = true;
-                settings = { };
+                settings = { 
+			formatting.command = ["nixpkgs-fmt"];
+		};
               };
               basedpyright = {
                 enable = true;
@@ -386,12 +388,15 @@ let
           telescope = {
             enable = true;
             extensions = {
-              #file_browser.enable = true;
-              #frecency.enable = true;
+              file-browser.enable = true;
+              frecency.enable = true;
               fzf-native.enable = true;
+              #fzy-native.enable = true;
               media-files.enable = true;
-              #project-nvim.enable = true;
+              project.enable = true;
+	      manix.enable = true;
               ui-select.enable = true;
+	      undo.enable = true;
             };
           };
           treesitter = {
