@@ -29,6 +29,7 @@ in
     inputs.home-manager.nixosModules.home-manager
     hardwareProfiles.desktop
     android
+    docker
     nfs
     extra
     nix
@@ -69,9 +70,9 @@ in
   };
   #Temporarily change name to fix dotnet cli: https://github.com/NixOS/nixpkgs/issues/315574
   #system.nixos.codeName = pkgs.lib.mkForce "Vicuna";
-environment.systemPackages = with pkgs; [
-  clinfo
-];
+  environment.systemPackages = with pkgs; [
+    clinfo
+  ];
 
   musnix = {
     enable = false;
