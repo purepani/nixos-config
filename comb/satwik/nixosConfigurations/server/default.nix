@@ -253,12 +253,9 @@ in
         wireguardPeers = [
           {
             wireguardPeerConfig = {
-              #PublicKey = "T5aabskeYCd5dn81c3jOKVxGWQSLwpqHSHf6wButSgw=";
-	      PublicKey = "F0qV8F8VAG4zYN2Qc5J2CyzDB2o5Saa0Oex1mlA3N1Y=";
-              #PublicKey = "/WirOQ8FNF9tD1+/MYgIAWpjFKiJYhJJ7/w2QmKBrVo=";
-              #PublicKey = "Yn3d/LS8AAwHyAUH3cHBg0Z6pc9d4UuN5yF95nWXtwI=";
+              PublicKey = "0qSP0VxoIhEhRK+fAHVvmfRdjPs2DmmpOCNLFP/7cGw=";
               AllowedIPs = [ "0.0.0.0/0" ];
-              Endpoint = "68.235.44.2:51820";
+              Endpoint = "193.32.248.66:51819";
               #PresharedKeyFile = "/var/secrets/wireguard-keys/private";
               PersistentKeepalive = 25;
             };
@@ -295,14 +292,14 @@ in
         #IPMasquerade = "both";
         networkConfig = {
           # IP addresses the client interface will have
-          Address = "10.64.102.255/32";
+          Address = "10.66.75.100/32";
           IPv4Forwarding = "yes";
         };
         dns = [ "10.64.0.1" ];
         routingPolicyRules = [
           {
             routingPolicyRuleConfig = {
-              To = "10.64.102.255/32";
+              To = "10.64.75.100/32";
               #To = "10.68.127.131";
               #FirewallMark = 42;
               #InvertRule = true;
@@ -312,7 +309,7 @@ in
           }
           {
             routingPolicyRuleConfig = {
-              From = "10.64.102.255/32";
+              From = "10.64.75.100/32";
               SuppressPrefixLength = 0;
               #FirewallMark = 42;
               #InvertRule = true;

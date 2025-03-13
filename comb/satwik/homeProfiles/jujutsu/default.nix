@@ -4,7 +4,14 @@
     settings = {
       user.name = "purepani";
       user.email = "pani0028@umn.edu";
-      signing.signall = true;
+      signing = {
+        behavior = "drop";
+        backend = "gpg";
+        key = "pani0028@umn.edu";
+      };
+      git = {
+        sign-on-push = true;
+      };
     };
   };
 }

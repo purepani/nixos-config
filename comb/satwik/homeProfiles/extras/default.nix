@@ -8,6 +8,7 @@ in
 {
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
+    optinix
     #busybox
     reaper
     #bitwarden
