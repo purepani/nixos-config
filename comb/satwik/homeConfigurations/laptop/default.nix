@@ -18,7 +18,14 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.fish.enable = false;
-  programs.nushell.enable = true;
+  programs.nushell = {
+    enable = true;
+    extraEnv = ''
+      	$env.SHELL="nu";
+      	$env.EDITOR = "nvim";
+      	$env.TERM ="wezterm";
+      	'';
+  };
 
 
   imports = with homeProfiles; [
@@ -36,6 +43,7 @@ in
     wezterm
     kitty
     neovim
+    starship
     #fluidsynth
     pianoteq
     lilypond
@@ -57,7 +65,7 @@ in
   home.stateVersion = "23.05";
 
   manual = {
-    manpages.enable = false; # causes error
+    manpages.enable = true; # causes error
     html.enable = false; # saves space
     json.enable = false; # don't know what to do with this
   };
@@ -66,6 +74,12 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.sessionVariables.EDITOR = "nvim";
-  home.sessionVariables.LESS = "FRX";
+
+  home.sessionVariables = {
+    SHELL = "nu";
+    EDITOR = "nvim";
+    TERM = "wezterm";
+    #TODO: Remove when https://github.com/jj-vcs/jj/issues/4745 is fixed
+    LESS = "FRX";
+  };
 }
