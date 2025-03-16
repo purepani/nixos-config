@@ -18,14 +18,6 @@ in
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   programs.fish.enable = false;
-  programs.nushell = {
-    enable = true;
-    extraEnv = ''
-      	$env.SHELL="nu";
-      	$env.EDITOR = "nvim";
-      	$env.TERM ="wezterm";
-      	'';
-  };
 
 
   imports = with homeProfiles; [
@@ -33,6 +25,7 @@ in
     fontconfig
     direnv
     hyprland
+    nushell
     easyeffects
     rust
     git
@@ -74,6 +67,8 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
+  home.shell.enableShellIntegration = true;
+  home.shellAliases = { };
 
   home.sessionVariables = {
     SHELL = "nu";
