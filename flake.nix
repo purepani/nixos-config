@@ -11,6 +11,7 @@
     sops-nix.url = "github:Mic92/sops-nix";
     neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
     fenix.url = "github:nix-community/fenix";
+    optinix.url = "gitlab:hmajid2301/optinix";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -88,7 +89,8 @@
       }
       {
         devShells = hive.harvest self [ "repo" "devshells" ];
-      } {
+      }
+      {
         nixosConfigurations = hive.collect self "nixosConfigurations";
         homeConfigurations = hive.collect self "homeConfigurations";
         colmenaHive = hive.collect self "colmenaConfigurations";
