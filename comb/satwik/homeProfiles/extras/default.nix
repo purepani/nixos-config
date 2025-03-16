@@ -9,8 +9,8 @@ in
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
     inputs.optinix.packages.default
+    inputs.grayjay.packages.default
     zellij
-    eza
     bat
     mprocs
     #busybox

@@ -17,9 +17,12 @@ in
   #inherit bee;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-  programs.fish.enable = true;
+  programs.fish.enable = false;
+  programs.nushell.enable = true;
+
 
   imports = with homeProfiles; [
+    eza
     fontconfig
     direnv
     hyprland

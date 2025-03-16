@@ -1,6 +1,7 @@
 { inputs, cell }: {
   programs.wezterm = {
     enable = true;
+    enableBashIntegration = true;
     extraConfig = ''
                                   return {
                         	      	front_end = "WebGpu",
