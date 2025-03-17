@@ -5,6 +5,7 @@
 let
   inherit (cell) homeProfiles;
   #inherit (inputs.common) bee;
+  pkgs = cell.nixpkgs.pkgs;
 
   system = "x86_64-linux";
   #bee = rec {
@@ -12,8 +13,6 @@ let
   #  pkgs = cell.nixpkgs.pkgs;
   #  home = inputs.home-manager;
   #};
-  pkgs = cell.nixpkgs.pkgs;
-  home.packages = with pkgs; [ blender ];
 in
 {
   #inherit bee;
@@ -21,6 +20,7 @@ in
   programs.home-manager.enable = true;
   programs.fish.enable = false;
 
+  home.packages = with pkgs; [ blender-hip ];
 
   imports = with homeProfiles; [
     eza

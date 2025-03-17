@@ -54,7 +54,7 @@ in
     resolved
   ];
   home-manager.backupFileExtension = "backup";
-  home-manager.users.satwik = cell.homeConfigurations.laptop;
+  home-manager.users.satwik = cell.homeConfigurations.desktop;
 
   #systemd.tmpfiles.rules =
   #  let

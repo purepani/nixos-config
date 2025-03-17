@@ -76,7 +76,6 @@ in
     #citrix_workspace_23_11_0
     #cloudcompare
     cachix
-    blender-hip
     alsa-scarlett-gui
     nix-diff
     nix-tree
