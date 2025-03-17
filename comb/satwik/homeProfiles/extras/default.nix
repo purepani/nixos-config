@@ -10,6 +10,7 @@ in
     cell.packages.qt5Packages.slicer3d
     inputs.optinix.packages.default
     inputs.grayjay.packages.default
+    darktable
     zellij
     bat
     mprocs
