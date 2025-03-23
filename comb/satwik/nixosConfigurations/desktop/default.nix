@@ -28,6 +28,7 @@ in
     #	options.system.nixos.codeName = lib.mkOption {readOnly=false;};
     #})
     inputs.home-manager.nixosModules.home-manager
+    (inputs.nixos-cosmic.nixosModules.default // { nixpkgs = builtins.removeAttrs inputs.nixos-cosmic.nixosModules.default.nixpkgs [ "overlays" ]; })
     hardwareProfiles.desktop
     android
     docker

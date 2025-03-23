@@ -6,33 +6,34 @@ let
   nixvim_config = { config, pkgs, ... }:
     let
       helpers = config.lib.nixvim;
-      distant_drv = {
-      	rustPlatform,
-	fetchFromGitHub,
-	cmake,
-	perl,
-	stdenv,
-      }: (rustPlatform.buildRustPackage {
+      distant_drv =
+        { rustPlatform
+        , fetchFromGitHub
+        , cmake
+        , perl
+        , stdenv
+        ,
+        }: (rustPlatform.buildRustPackage {
 
-      	pname = "distant";
-	version = "0.20.0";
-      	src = fetchFromGitHub {
-		owner="chipsenkbeil";
-		repo="distant";
-		rev="v0.20.0";
-		hash="sha256-DcnleJUAeYg3GSLZljC3gO9ihiFz04dzT/ddMnypr48=";
-	};
-	cargoHash = "sha256-7MNNdm4b9u5YNX04nBtKcrw+phUlpzIXo0tJVfcgb40=";
-	nativeBuildInputs = [
-		cmake
-		perl
-		stdenv.cc.cc.lib
+          pname = "distant";
+          version = "0.20.0";
+          src = fetchFromGitHub {
+            owner = "chipsenkbeil";
+            repo = "distant";
+            rev = "v0.20.0";
+            hash = "sha256-DcnleJUAeYg3GSLZljC3gO9ihiFz04dzT/ddMnypr48=";
+          };
+          cargoHash = "sha256-7MNNdm4b9u5YNX04nBtKcrw+phUlpzIXo0tJVfcgb40=";
+          nativeBuildInputs = [
+            cmake
+            perl
+            stdenv.cc.cc.lib
 
-	];
-	doCheck = false;
-      });
+          ];
+          doCheck = false;
+        });
 
-      distant = pkgs.callPackage distant_drv {};
+      distant = pkgs.callPackage distant_drv { };
 
     in
     {
@@ -40,11 +41,11 @@ let
       programs.nixvim = {
         enable = true;
         #extraLuaPackages = [cell.packages.luaPackages.nvim-nio cell.packages.luaPackages.neorg];
-        extraPackages = [ 
-		cell.nixpkgs.pkgs.texlive.combined.scheme-full 
-		pkgs.dcmtk 
-		distant
-	];
+        extraPackages = [
+          cell.nixpkgs.pkgs.texlive.combined.scheme-full
+          pkgs.dcmtk
+          distant
+        ];
         globals.mapleader = ";";
         globals.maplocalleader = ";";
         colorschemes.onedark.enable = true;
@@ -106,9 +107,9 @@ let
               #nil_ls.enable = true;
               nixd = {
                 enable = true;
-                settings = { 
-			formatting.command = ["nixpkgs-fmt"];
-		};
+                settings = {
+                  formatting.command = [ "nixpkgs-fmt" ];
+                };
               };
               basedpyright = {
                 enable = true;
@@ -151,26 +152,26 @@ let
               };
               rust_analyzer = {
                 enable = true;
-		package = cell.nixpkgs.pkgs.rust-analyzer-nightly;
+                package = cell.nixpkgs.pkgs.rust-analyzer-nightly;
                 installCargo = false;
                 installRustc = false;
-		settings = {
-                    inlayHints = {
-                      typeHints = {
-                        enable = true;
-                      };
-                      chainingHints.enable = true;
-                      closureReturnTypeHints.enable = "always";
-                      closingBraceHints.enable = true;
-                      discriminantHints.enable = "always";
-                      parameterHints.enable = true;
-                      genericParameterHints = {
-                        const.enable = true;
-                        type.enable = true;
-                      };
-
+                settings = {
+                  inlayHints = {
+                    typeHints = {
+                      enable = true;
                     };
+                    chainingHints.enable = true;
+                    closureReturnTypeHints.enable = "always";
+                    closingBraceHints.enable = true;
+                    discriminantHints.enable = "always";
+                    parameterHints.enable = true;
+                    genericParameterHints = {
+                      const.enable = true;
+                      type.enable = true;
+                    };
+
                   };
+                };
 
               };
               svelte = {
@@ -284,31 +285,31 @@ let
             };
           };
           cmp-nvim-lsp.enable = false;
-	  blink-cmp = {
-	  	enable = true;
-		autoLoad = true;
-		setupLspCapabilities = true;
-		settings = {
-			fuzzy = {
-				use_frecency = true;
-				use_proximity = true;
-			};
-			completion = {
-				accept.auto_brackets.enabled=true;
-				documentation = {
-					auto_show = true;
-					auto_show_delay_ms = 0;
-					update_delay_ms = 0;
-					
-				};
-			};
-			keymap = {
-				preset = "default";
-			};
+          blink-cmp = {
+            enable = true;
+            autoLoad = true;
+            setupLspCapabilities = true;
+            settings = {
+              fuzzy = {
+                use_frecency = true;
+                use_proximity = true;
+              };
+              completion = {
+                accept.auto_brackets.enabled = true;
+                documentation = {
+                  auto_show = true;
+                  auto_show_delay_ms = 50;
+                  update_delay_ms = 0;
+
+                };
+              };
+              keymap = {
+                preset = "default";
+              };
 
 
-		};
-	  };
+            };
+          };
 
           nvim-lightbulb = {
             enable = false;
@@ -394,9 +395,9 @@ let
               #fzy-native.enable = true;
               media-files.enable = true;
               project.enable = true;
-	      manix.enable = true;
+              manix.enable = true;
               ui-select.enable = true;
-	      undo.enable = true;
+              undo.enable = true;
             };
           };
           treesitter = {
@@ -428,7 +429,7 @@ let
               rev = "855105a766a0b79da71d10fbc332b414703b7aed";
             };
           })
-        pkgs.vimPlugins.distant-nvim
+          pkgs.vimPlugins.distant-nvim
         ];
 
         extraConfigLuaPre = ''
@@ -446,16 +447,16 @@ let
           	'';
 
         extraConfigLua = ''
-              	require("nvim-surround").setup({
-                      -- Configuration here, or leave empty to use defaults
-                  })
-		require('distant'):setup({
-			manager = {
-				lazy=false,
-				user=true
-			}
-		})
-          	'';
+                        	require("nvim-surround").setup({
+                                -- Configuration here, or leave empty to use defaults
+                            })
+          		require('distant'):setup({
+          			manager = {
+          				lazy=false,
+          				user=true
+          			}
+          		})
+                    	'';
       };
 
 

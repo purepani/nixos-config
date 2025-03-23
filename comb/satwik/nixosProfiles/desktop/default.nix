@@ -11,9 +11,11 @@
   };
   #services.xserver.desktopManager.plasma5.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.desktopManager.cosmic.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
 
 
-  services.displayManager.defaultSession = "plasma";
+  services.displayManager.defaultSession = "cosmic";
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   services.xserver = {
@@ -34,8 +36,4 @@
 
 
 
-  programs.hyprland.enable = true;
-  environment.systemPackages = [
-    cell.nixpkgs.pkgs.kitty
-  ];
 }

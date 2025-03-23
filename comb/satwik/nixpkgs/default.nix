@@ -16,6 +16,7 @@ in
     };
     overlays = [
       #inputs.neovim-nightly-overlay.overlays.default 	
+      inputs.nixos-cosmic.overlays.default
       inputs.neorg-overlay.overlays.default
       inputs.nix-minecraft.overlays.default
       inputs.fenix.overlays.default
