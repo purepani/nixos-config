@@ -3,7 +3,13 @@
 
   inputs = {
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
+
+    #nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.follows = "nixos-cosmic/nixpkgs";
+
+
+    nixpkgs_rocm.url = "github:LunNova/nixpkgs/rocm-update";
     nixos_unstable_small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs-update.url = "github:nix-community/nixpkgs-update";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";

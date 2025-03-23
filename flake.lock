@@ -1609,6 +1609,22 @@
         "type": "github"
       }
     },
+    "nixpkgs_rocm": {
+      "locked": {
+        "lastModified": 1742259059,
+        "narHash": "sha256-/ln7MAQ6CFzWdd1OiZRyl+HCB8vZhTWog3WllwnHyBQ=",
+        "owner": "LunNova",
+        "repo": "nixpkgs",
+        "rev": "1610fce3c9b19ffe2c20868ad6586b93503a57d5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "LunNova",
+        "ref": "rocm-update",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixvim": {
       "inputs": {
         "flake-parts": "flake-parts_4",
@@ -1961,6 +1977,7 @@
         "nixos_unstable_small": "nixos_unstable_small",
         "nixpkgs": "nixpkgs_11",
         "nixpkgs-update": "nixpkgs-update",
+        "nixpkgs_rocm": "nixpkgs_rocm",
         "nixvim": "nixvim",
         "nur": "nur",
         "optinix": "optinix",

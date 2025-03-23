@@ -5,6 +5,7 @@
 let
   inherit (cell) nixosProfiles hardwareProfiles;
   inherit (inputs.common.bee) pkgs;
+  inherit (cell.nixpkgs) pkgs_rocm;
 in
 {
   inherit (inputs.common) bee;
@@ -53,9 +54,24 @@ in
   home-manager.backupFileExtension = "backup";
   home-manager.users.satwik = cell.homeConfigurations.laptop;
 
-  systemd.tmpfiles.rules = [
-    "L+    /opt/rocm/hip   -    -    -     -    ${pkgs.rocmPackages.clr}"
-  ];
+  #systemd.tmpfiles.rules =
+  #  let
+  #    rocmEnv = pkgs.symlinkJoin {
+  #      name = "rocm-combined";
+  #      paths = with pkgs_rocm.rocmPackages; [
+  #        rocblas
+  #        hipblas
+  #        rocrand
+  #        hiprand
+  #        clr
+  #        clr.icd
+  #        rocm-runtime
+  #      ];
+  #    };
+  #  in
+  #  [
+  #    "L+    /opt/rocm/hip   -    -    -     -    ${rocmEnv}"
+  #  ];
 
   services.udev.extraRules = ''
     	ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="666" TAG+="uaccess"

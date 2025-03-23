@@ -14,6 +14,7 @@ in
     zellij
     bat
     mprocs
+    chromium
     #busybox
     reaper
     #bitwarden

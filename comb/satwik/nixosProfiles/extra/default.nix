@@ -17,7 +17,7 @@
   users.users.satwik = {
     isNormalUser = true;
     description = "Satwik Pani";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout" "adbusers" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout" "adbusers" "docker" "video" "render"];
     packages = with cell.nixpkgs.pkgs; [
       kitty
       git
