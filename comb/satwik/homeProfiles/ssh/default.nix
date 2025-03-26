@@ -19,11 +19,11 @@ in
   #    veneprodigy = {
   #      user = "satwik";
   ##      hostname = "192.168.1.7";
-#        identityFile = [ "/home/satwik/.ssh/personal_server" ];
+  #        identityFile = [ "/home/satwik/.ssh/personal_server" ];
   ##    };
   #  };
   #};
-  #services.ssh-agent.enable = true;
+  #  ssh-agent.enable = true;
   #systemd.user.services.ssh-agent = {
   #  environment.SSH_ASKPASS = askPasswordWrapper;
   #  environment.DISPLAY = "fake";

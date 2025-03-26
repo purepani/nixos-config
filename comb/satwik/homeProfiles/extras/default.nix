@@ -8,9 +8,12 @@ in
 {
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
-    inputs.optinix.packages.default
+    #inputs.optinix.packages.default
     inputs.grayjay.packages.default
+    sshfs
     darktable
+    distant
+    obsidian
     zellij
     bat
     mprocs
@@ -64,7 +67,7 @@ in
     steam-tui
     rclone
     #x2goclient
-    remmina
+    cell.nixpkgs.pkgs_stable.remmina
     freerdp3
     vlc
     #(citrix_workspace.override {

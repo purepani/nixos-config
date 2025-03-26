@@ -17,7 +17,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModprobeConfig = ''
     	options snd_usb_audio vid=0x1235 pid=0x8210 device_setup=1
   '';
@@ -30,6 +30,7 @@ in
     inputs.home-manager.nixosModules.home-manager
     (inputs.nixos-cosmic.nixosModules.default // { nixpkgs = builtins.removeAttrs inputs.nixos-cosmic.nixosModules.default.nixpkgs [ "overlays" ]; })
     hardwareProfiles.desktop
+    #openssh
     android
     docker
     nfs
@@ -46,12 +47,12 @@ in
     NetworkManager
     #musnix
     #netmaker
+    openssh
     inputs.musnix.nixosModules.musnix
     #inputs.sops-nix.nixosModules.sops
     netbird
     resolved
   ];
-
   home-manager.backupFileExtension = "backup";
   home-manager.users.satwik = cell.homeConfigurations.laptop;
 
@@ -92,7 +93,9 @@ in
   ];
 
   musnix = {
-    enable = false;
+    enable = true;
+    kernel.realtime = true;
+    kernel.packages = pkgs.linuxPackages_latest;
   };
   networking.nameservers = [
     "1.1.1.1"

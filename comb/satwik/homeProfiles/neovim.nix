@@ -3,38 +3,9 @@
 ,
 }:
 let
-  nixvim_config = { config, pkgs, ... }:
+  nixvim_config = { config, pkgs, lib, ... }:
     let
       helpers = config.lib.nixvim;
-      distant_drv =
-        { rustPlatform
-        , fetchFromGitHub
-        , cmake
-        , perl
-        , stdenv
-        ,
-        }: (rustPlatform.buildRustPackage {
-
-          pname = "distant";
-          version = "0.20.0";
-          src = fetchFromGitHub {
-            owner = "chipsenkbeil";
-            repo = "distant";
-            rev = "v0.20.0";
-            hash = "sha256-DcnleJUAeYg3GSLZljC3gO9ihiFz04dzT/ddMnypr48=";
-          };
-          cargoHash = "sha256-7MNNdm4b9u5YNX04nBtKcrw+phUlpzIXo0tJVfcgb40=";
-          nativeBuildInputs = [
-            cmake
-            perl
-            stdenv.cc.cc.lib
-
-          ];
-          doCheck = false;
-        });
-
-      distant = pkgs.callPackage distant_drv { };
-
     in
     {
 
@@ -44,7 +15,6 @@ let
         extraPackages = [
           cell.nixpkgs.pkgs.texlive.combined.scheme-full
           pkgs.dcmtk
-          distant
         ];
         globals.mapleader = ";";
         globals.maplocalleader = ";";
@@ -64,10 +34,17 @@ let
           dap.enable = true;
           debugprint.enable = true;
           diffview.enable = true;
+          distant = {
+            enable = true;
+            settings = {
+              #client.bin = "${lib.getExe config.programs.nixvim.plugins.distant.distantPackage}";
+              #manager.daemon = true;
+            };
+          };
           image = {
             enable = true;
             backend = "kitty";
-            integrations = {
+            settings.integrations = {
               neorg = {
                 enabled = true;
                 filetypes = [ "norg" ];
@@ -299,7 +276,7 @@ let
                 documentation = {
                   auto_show = true;
                   auto_show_delay_ms = 50;
-                  update_delay_ms = 0;
+                  update_delay_ms = 50;
 
                 };
               };
@@ -349,6 +326,15 @@ let
             enable = true;
             openOnSetup = true;
             openOnSetupFile = true;
+          };
+          obsidian = {
+            enable = true;
+            settings = {
+              workspaces = [
+                { name = "Notes"; path = "~/Notes"; }
+
+              ];
+            };
           };
           #oil.enable = true;
           project-nvim = {
@@ -429,7 +415,6 @@ let
               rev = "855105a766a0b79da71d10fbc332b414703b7aed";
             };
           })
-          pkgs.vimPlugins.distant-nvim
         ];
 
         extraConfigLuaPre = ''
@@ -447,16 +432,10 @@ let
           	'';
 
         extraConfigLua = ''
-                        	require("nvim-surround").setup({
-                                -- Configuration here, or leave empty to use defaults
-                            })
-          		require('distant'):setup({
-          			manager = {
-          				lazy=false,
-          				user=true
-          			}
-          		})
-                    	'';
+              	require("nvim-surround").setup({
+                      -- Configuration here, or leave empty to use defaults
+                  })
+          	'';
       };
 
 
