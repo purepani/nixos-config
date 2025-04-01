@@ -344,7 +344,7 @@ let
           };
           rustaceanvim = {
             enable = false;
-            rustAnalyzerPackage = cell.nixpkgs.pkgs.rust-analyzer;
+            #rustAnalyzerPackage = cell.nixpkgs.pkgs.rust-analyzer;
             settings = {
               server = {
                 default_settings = {

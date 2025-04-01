@@ -19,11 +19,13 @@ in
     inputs.nixos-hardware.nixosModules.common-pc-laptop
     inputs.nixos-hardware.nixosModules.common-pc-laptop-ssd
   ];
-  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" "usbhid"];
-  boot.initrd.kernelModules = [ ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" "usbhid" ];
+  boot.initrd.kernelModules = [ "nfs" ];
+  boot.initrd.supportedFilesystems = [ "nfs" ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
-  services.xserver.videoDrivers = ["nvidia"];
+  boot.supportedFilesystems = [ "nfs" ];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/b3077380-f235-4796-9a90-639a882449e8";
@@ -38,7 +40,7 @@ in
   fileSystems."/mnt/storage" = {
     device = "100.65.122.59:/storage";
     fsType = "nfs";
-    options = [ "nofail" ];
+    options = [ "nofail" "user" ];
   };
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:4:0:0";

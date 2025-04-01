@@ -21,7 +21,7 @@ in
     #busybox
     reaper
     #bitwarden
-    kicad
+    #kicad
     protonmail-desktop
     #xclip
     #discord-canary
@@ -29,7 +29,7 @@ in
     cell.packages.qt5Packages.slicer3d
     nfs-utils
     libreoffice-qt6-fresh
-    zoom-us
+    #zoom-us
     zotero
     slack
     obs-studio

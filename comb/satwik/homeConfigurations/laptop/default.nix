@@ -40,7 +40,7 @@ in
     neovim
     starship
     #fluidsynth
-    pianoteq
+    #pianoteq
     lilypond
     extras
     nix-index

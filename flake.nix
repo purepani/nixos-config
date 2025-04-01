@@ -5,8 +5,8 @@
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
 
-    #nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs.follows = "nixos-cosmic/nixpkgs";
+    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    #nixpkgs.follows = "nixos-cosmic/nixpkgs";
 
 
     nixpkgs_rocm.url = "github:LunNova/nixpkgs/rocm-update";
