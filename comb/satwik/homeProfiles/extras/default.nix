@@ -74,7 +74,7 @@ in
     #	extraCerts=[./vmsctx01-hap1009-onprem-varian-com.pem];
     #})
     #citrix_workspace_23_11_0
-    #cloudcompare
+    cloudcompare
     cachix
     alsa-scarlett-gui
     nix-diff

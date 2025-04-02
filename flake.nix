@@ -9,7 +9,6 @@
     #nixpkgs.follows = "nixos-cosmic/nixpkgs";
 
 
-    nixpkgs_rocm.url = "github:LunNova/nixpkgs/rocm-update";
     nixos_unstable_small.url = "github:nixos/nixpkgs/nixos-unstable-small";
     nixpkgs_stable.url = "github:nixos/nixpkgs/release-24.11";
     nixpkgs-update.url = "github:nix-community/nixpkgs-update";

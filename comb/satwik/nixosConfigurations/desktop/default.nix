@@ -5,7 +5,6 @@
 let
   inherit (cell) nixosProfiles hardwareProfiles;
   inherit (inputs.common.bee) pkgs;
-  inherit (cell.nixpkgs) pkgs_rocm;
 in
 {
   inherit (inputs.common) bee;
@@ -28,7 +27,7 @@ in
     #	options.system.nixos.codeName = lib.mkOption {readOnly=false;};
     #})
     inputs.home-manager.nixosModules.home-manager
-    (inputs.nixos-cosmic.nixosModules.default // { nixpkgs = builtins.removeAttrs inputs.nixos-cosmic.nixosModules.default.nixpkgs [ "overlays" ]; })
+    #(inputs.nixos-cosmic.nixosModules.default // { nixpkgs = builtins.removeAttrs inputs.nixos-cosmic.nixosModules.default.nixpkgs [ "overlays" ]; })
     hardwareProfiles.desktop
     #openssh
     android

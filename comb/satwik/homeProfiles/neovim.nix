@@ -12,6 +12,22 @@ let
       programs.nixvim = {
         enable = true;
         #extraLuaPackages = [cell.packages.luaPackages.nvim-nio cell.packages.luaPackages.neorg];
+        autoCmd = [
+          {
+            command = "set filetype=fsharp";
+            event = [
+              "BufNewFile"
+              "BufRead"
+            ];
+            pattern = [
+              "*.fs"
+              "*.fsx"
+              "*.fsi"
+            ];
+          }
+
+
+        ];
         extraPackages = [
           cell.nixpkgs.pkgs.texlive.combined.scheme-full
           pkgs.dcmtk
@@ -78,6 +94,8 @@ let
               csharp_ls.enable = true;
               cssls.enable = true;
               dartls.enable = true;
+              fsautocomplete.enable = true;
+              futhark_lsp.enable = true;
               html.enable = true;
               htmx.enable = true;
               lua_ls.enable = true;
@@ -337,11 +355,11 @@ let
             };
           };
           #oil.enable = true;
-          project-nvim = {
-            enable = true;
-            enableTelescope = true;
-
-          };
+          #project-nvim = {
+          #  enable = true;
+          #  enableTelescope = true;
+          #
+          #          };
           rustaceanvim = {
             enable = false;
             #rustAnalyzerPackage = cell.nixpkgs.pkgs.rust-analyzer;

@@ -20,27 +20,25 @@
       vendorHash = "sha256-C7JOGd4sXsRZL561oP84V2/pTg7szEgF4OFOw35yS1s=";
     };
     virtualHosts = {
-    "192.168.1.7" = {
+      "192.168.1.7" = {
         extraConfig = ''
-          reverse_proxy 127.0.0.1:38080 {
-	  	header_up Host {upstream_hostport}
-	}
+          reverse_proxy 127.0.0.1:8096 
         '';
 
-    };
-    "172.87.67.58" = {
+      };
+      "172.87.67.58" = {
         extraConfig = ''
-          reverse_proxy 127.0.0.1:38080 {
-	  	header_up Host {upstream_hostport}
-	}
+                    reverse_proxy 127.0.0.1:38080 {
+          	  	header_up Host {upstream_hostport}
+          	}
         '';
 
-    };
+      };
       "webdav.veneprodigy.com" = {
         extraConfig = ''
-          reverse_proxy 127.0.0.1:38080 {
-	  	header_up Host {upstream_hostport}
-	  }
+                    reverse_proxy 127.0.0.1:38080 {
+          	  	header_up Host {upstream_hostport}
+          	  }
         '';
 
       };
@@ -109,12 +107,12 @@
       };
       "${config.services.jitsi-meet.hostName}" = { };
 
-    "ftpgo.veneprodigy.com" = {
-    	extraConfig = ''
-	  reverse_proxy 127.0.0.1:48080
-	'';
+      "ftpgo.veneprodigy.com" = {
+        extraConfig = ''
+          	  reverse_proxy 127.0.0.1:48080
+          	'';
 
-    };
+      };
 
     };
     globalConfig = ''

@@ -30,7 +30,6 @@ in
     inherit system;
   };
 
-  pkgs_rocm = import inputs.nixpkgs_rocm { inherit system; };
   pkgs_unstable_small = import inputs.nixos_unstable_small {
     inherit system;
     config = {
