@@ -27,6 +27,7 @@ in
     fontconfig
     direnv
     hyprland
+    neovide
     nushell
     easyeffects
     rust

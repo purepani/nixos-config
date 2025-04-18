@@ -10,6 +10,7 @@
 
 
     nixos_unstable_small.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixos-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs_stable.url = "github:nixos/nixpkgs/release-24.11";
     nixpkgs-update.url = "github:nix-community/nixpkgs-update";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";

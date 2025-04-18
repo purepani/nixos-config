@@ -44,7 +44,9 @@ let
         plugins = {
           fidget = {
             enable = true;
-            notification.overrideVimNotify = true;
+            settings = {
+              notification.override_vim_notify = true;
+            };
           };
           comment.enable = true;
           dap.enable = true;
@@ -59,8 +61,8 @@ let
           };
           image = {
             enable = true;
-            backend = "kitty";
             settings.integrations = {
+              backend = "kitty";
               neorg = {
                 enabled = true;
                 filetypes = [ "norg" ];
@@ -192,7 +194,8 @@ let
           neorg = {
             enable = true;
             package = cell.nixpkgs.pkgs.vimPlugins.neorg;
-            modules = {
+            telescopeIntegration.enable = true;
+            settings.load = {
               "core.defaults" = {
                 __empty = null;
               };
@@ -300,6 +303,14 @@ let
               };
               keymap = {
                 preset = "default";
+              };
+              sources = {
+                default = [
+                  "lsp"
+                  "path"
+                  "snippets"
+                  "buffer"
+                ];
               };
 
 

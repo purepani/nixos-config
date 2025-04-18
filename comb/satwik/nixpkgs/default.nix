@@ -30,6 +30,14 @@ in
     inherit system;
   };
 
+  pkgs-nixos-unstable = import inputs.nixos-unstable {
+    inherit system;
+    config = {
+      allowUnfree = true;
+    };
+  };
+
+
   pkgs_unstable_small = import inputs.nixos_unstable_small {
     inherit system;
     config = {
