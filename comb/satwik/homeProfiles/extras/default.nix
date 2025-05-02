@@ -9,7 +9,7 @@ in
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
     #inputs.optinix.packages.default
-    inputs.grayjay.packages.default
+    grayjay
     sshfs
     darktable
     distant
@@ -21,7 +21,7 @@ in
     #busybox
     reaper
     #bitwarden
-    #kicad
+    kicad
     protonmail-desktop
     #xclip
     #discord-canary
@@ -29,7 +29,8 @@ in
     cell.packages.qt5Packages.slicer3d
     nfs-utils
     libreoffice-qt6-fresh
-    #zoom-us
+    rocmPackages.rocm-smi
+    zoom-us
     zotero
     slack
     obs-studio

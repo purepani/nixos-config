@@ -55,24 +55,25 @@ in
   home-manager.backupFileExtension = "backup";
   home-manager.users.satwik = cell.homeConfigurations.desktop;
 
-  #systemd.tmpfiles.rules =
-  #  let
-  #    rocmEnv = pkgs.symlinkJoin {
-  #      name = "rocm-combined";
-  #      paths = with pkgs_rocm.rocmPackages; [
-  #        rocblas
-  #        hipblas
-  #        rocrand
-  #        hiprand
-  #        clr
-  #        clr.icd
-  #        rocm-runtime
-  #      ];
-  #    };
-  #  in
-  #  [
-  #    "L+    /opt/rocm/hip   -    -    -     -    ${rocmEnv}"
-  #  ];
+  systemd.tmpfiles.rules =
+    let
+      rocmEnv = pkgs.symlinkJoin {
+        name = "rocm-combined";
+        paths = with pkgs.rocmPackages; [
+          rocblas
+          hipblas
+          rccl
+          rocrand
+          hiprand
+          clr
+          clr.icd
+          rocm-runtime
+        ];
+      };
+    in
+    [
+      "L+    /opt/rocm/hip   -    -    -     -    ${rocmEnv}"
+    ];
 
   services.udev.extraRules = ''
     	ATTRS{idVendor}=="0483", ATTRS{idProduct}=="374f", MODE="666" TAG+="uaccess"

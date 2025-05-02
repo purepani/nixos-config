@@ -1,6 +1,23 @@
-{ inputs, cell }: {
+{ inputs, cell }:
 
-  programs.neovide = {
-    enable = true;
+let
+  neovide-config = { config, pkgs, lib, ... }: {
+
+    programs.neovide = {
+      enable = true;
+      settings = {
+        neovim-bin = "${config.programs.nixvim.build.package}/bin/nvim";
+
+      };
+    };
+
   };
+
+in
+{
+
+  imports = [
+    neovide-config
+
+  ];
 }

@@ -31,6 +31,7 @@ let
         extraPackages = [
           cell.nixpkgs.pkgs.texlive.combined.scheme-full
           pkgs.dcmtk
+          pkgs.ripgrep
         ];
         globals.mapleader = ";";
         globals.maplocalleader = ";";
@@ -39,6 +40,7 @@ let
         opts = {
           number = true;
           signcolumn = "yes:1";
+          conceallevel = 2;
         };
 
         plugins = {
@@ -60,13 +62,13 @@ let
             };
           };
           image = {
-            enable = true;
+            enable = false;
             settings.integrations = {
               backend = "kitty";
-              neorg = {
-                enabled = true;
-                filetypes = [ "norg" ];
-              };
+              #neorg = {
+              #enabled = true;
+              #filetypes = [ "norg" ];
+              #};
             };
           };
 
@@ -210,14 +212,14 @@ let
                   };
                 };
               };
-              "core.integrations.image" = { };
-              "core.latex.renderer" = {
-                config = {
-                  conceal = true;
-                  render_on_enter = true;
-                  renderer = "core.integrations.image";
-                };
-              };
+              #"core.integrations.image" = { };
+              #"core.latex.renderer" = {
+              #  config = {
+              #    conceal = true;
+              #    render_on_enter = true;
+              #    renderer = "core.integrations.image";
+              #  };
+              #};
               #"core.completion" = {
               #  config = {
               #    engine = "nvim-cmp";
@@ -444,6 +446,7 @@ let
               rev = "855105a766a0b79da71d10fbc332b414703b7aed";
             };
           })
+          pkgs.vimPlugins.nvim-lilypond-suite
         ];
 
         extraConfigLuaPre = ''
