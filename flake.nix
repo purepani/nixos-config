@@ -34,6 +34,7 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    buildbot-nix.url = "github:nix-community/buildbot-nix";
 
 
     std.url = "github:divnix/std";
