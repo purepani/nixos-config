@@ -10,6 +10,8 @@ in
     cell.packages.qt5Packages.slicer3d
     #inputs.optinix.packages.default
     grayjay
+    inkscape
+    signal-desktop
     sshfs
     darktable
     distant

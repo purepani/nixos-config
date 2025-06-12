@@ -41,6 +41,7 @@ in
       nfs
     ];
   #services.nfs.server.enable = true;	
+  networking.hostName = "satwik-server"; # Define your hostname.
   services.qbittorrent = {
     enable = true;
     openFirewall = true;
@@ -78,7 +79,6 @@ in
     ];
   };
 
-  networking.hostName = "satwik-nixos"; # Define your hostname.
 
   #Set your time zone.
   time.timeZone = "America/Chicago";

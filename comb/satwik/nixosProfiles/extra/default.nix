@@ -13,7 +13,6 @@
   hardware.bluetooth.enable = true;
   hardware.wooting.enable = true;
   time.timeZone = "America/Chicago";
-  networking.hostName = "satwik"; # Define your hostname.
   users.users.satwik = {
     isNormalUser = true;
     description = "Satwik Pani";

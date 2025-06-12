@@ -14,6 +14,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   programs.nix-ld.enable = true;
+  networking.hostName = "satwik-laptop"; # Define your hostname.
   #boot.kernelPackages = pkgs.linuxPackages-rt_latest;
   imports = with nixosProfiles; [
     inputs.home-manager.nixosModules.home-manager

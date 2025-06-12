@@ -5,7 +5,8 @@
     nixos.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
 
-    nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    #nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/ff3e119113834ab160cb4d4864a4721ba6a54b03";
     #nixpkgs.follows = "nixos-cosmic/nixpkgs";
 
 
@@ -41,7 +42,7 @@
     #hive.url = "github:whs-dot-hk/hive/remove-nixpkgs-config";
 
     colmena.url = "github:zhaofengli/colmena";
-    colmena.inputs.nixpkgs.follows = "nixpkgs";
+    #colmena.inputs.nixpkgs.follows = "nixpkgs";
 
     hive.url = "github:divnix/hive";
     hive.inputs.nixpkgs.follows = "nixpkgs";
@@ -111,11 +112,13 @@
       "https://nix-community.cachix.org"
       "https://cache.nixos.org/"
       "https://cosmic.cachix.org/"
+      "https://colmena.cachix.org/"
     ];
     trusted-public-keys = [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
       "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       "cosmic.cachix.org-1:Dya9IyXD4xdBehWjrkPv6rtxpmMdRel02smYzA85dPE="
+      "colmena.cachix.org-1:7BzpDnjjH8ki2CT3f6GdOk7QAzPOl+1t3LvTLXqYcSg="
     ];
   };
 

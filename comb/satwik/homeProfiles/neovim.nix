@@ -41,6 +41,8 @@ let
           number = true;
           signcolumn = "yes:1";
           conceallevel = 2;
+          expandtab = true;
+          tabstop = 4;
         };
 
         plugins = {

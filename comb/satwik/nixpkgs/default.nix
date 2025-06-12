@@ -6,7 +6,7 @@ let
   system = "x86_64-linux";
 in
 {
-  pkgs = import inputs.nixpkgs {
+  pkgs = (import inputs.nixpkgs {
     inherit system;
     config = {
       allowUnfree = true;
@@ -24,7 +24,7 @@ in
       #	vaapiIntel = prev.vaapiIntel.override {enableHybridCodec = true;};
       #})
     ];
-  };
+  });
 
   pkgs_stable = import inputs.nixpkgs_stable {
     inherit system;
