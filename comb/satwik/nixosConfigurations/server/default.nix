@@ -18,13 +18,14 @@ in
     with nixosProfiles; [
       server
       sftpgo
-      pihole
+      blocky
       jellyfin
       jellyseerr
       sonarr
       radarr
       recyclarr
       bazarr
+      grafana
       prowlarr
       qbittorrent
       suwayomi
