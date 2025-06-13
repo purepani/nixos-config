@@ -7,6 +7,10 @@ let
 in
 {
   inherit (inputs.common) bee;
+  imports = [
+
+    hardwareProfiles.cloud
+  ];
   boot.tmp.cleanOnBoot = true;
   zramSwap.enable = true;
   networking.hostName = "buildbot-server2";

@@ -114,6 +114,13 @@
 
       };
 
+      "pihole.veneprodigy.com" = {
+        extraConfig = ''
+          	  reverse_proxy 127.0.0.1:22280
+          	'';
+
+      };
+
     };
     globalConfig = ''
       acme_dns cloudflare {env.CF_API_TOKEN}

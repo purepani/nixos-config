@@ -18,6 +18,7 @@ in
     with nixosProfiles; [
       server
       sftpgo
+      pihole
       jellyfin
       jellyseerr
       sonarr

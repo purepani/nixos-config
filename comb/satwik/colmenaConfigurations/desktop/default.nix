@@ -9,6 +9,7 @@
     targetUser = "satwik";
     targetHost = null;
     replaceUnknownProfiles = true;
+    allowLocalDeployment = true;
   };
   imports = [
     cell.nixosConfigurations.desktop

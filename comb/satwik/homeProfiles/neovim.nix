@@ -29,7 +29,7 @@ let
 
         ];
         extraPackages = [
-          cell.nixpkgs.pkgs.texlive.combined.scheme-full
+          #cell.nixpkgs.pkgs.texlive.combined.scheme-full
           pkgs.dcmtk
           pkgs.ripgrep
         ];
@@ -177,6 +177,10 @@ let
               };
               svelte = {
                 enable = true;
+              };
+              texlab = {
+                enable = true;
+
               };
               tailwindcss.enable = true;
               ts_ls.enable = true;
@@ -432,6 +436,15 @@ let
           treesitter-textobjects.enable = true;
           trouble.enable = true;
           typescript-tools.enable = true;
+          vimtex = {
+            enable = true;
+            texlivePackage = null;
+            zathuraPackage = null;
+            settings = {
+              view_method = "zathura";
+              compiler_method = "latexmk";
+            };
+          };
           web-devicons.enable = true;
           which-key.enable = true;
           zig.enable = true;
@@ -448,7 +461,7 @@ let
               rev = "855105a766a0b79da71d10fbc332b414703b7aed";
             };
           })
-          pkgs.vimPlugins.nvim-lilypond-suite
+          #pkgs.vimPlugins.nvim-lilypond-suite
         ];
 
         extraConfigLuaPre = ''

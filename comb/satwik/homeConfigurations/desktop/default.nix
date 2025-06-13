@@ -41,7 +41,6 @@ in
     starship
     #fluidsynth
     pianoteq
-    lilypond
     extras
     nix-index
     xdg
