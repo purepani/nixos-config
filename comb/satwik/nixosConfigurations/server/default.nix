@@ -138,6 +138,16 @@ in
 
   users.groups.media.members = [ "jellyfin" "sonarr" "radarr" "bazarr" "rtorrent" "qbittorrent" ];
 
+  services.resolved = {
+    enable = true;
+    #    dnssec = "true";
+    #    domains = ["~."];
+    #    fallbackDns = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
+    extraConfig = ''
+      DNSStubListener=no
+      DNS=127.0.0.53
+    '';
+  };
 
 
   environment.systemPackages = with pkgs; [
@@ -172,7 +182,7 @@ in
 
 
 
-  networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
+  #networking.nameservers = [ "1.1.1.1" "9.9.9.9" ];
   networking.firewall = {
     enable = false;
     allowedTCPPorts = [ 80 443 25565 ];
@@ -208,8 +218,8 @@ in
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 80, 443, 25565, 2049, 28080} accept
-            udp dport {51820, 51819, 28080} accept
+            tcp dport {22, 53, 80, 443, 25565, 2049, 28080} accept
+            udp dport {53, 51820, 51819, 28080} accept
 
             # accept SSH connections (required for a server)
             tcp dport {111, 2049, 4000, 4001, 4002, 20048} accept
