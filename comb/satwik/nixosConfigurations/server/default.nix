@@ -26,6 +26,7 @@ in
       recyclarr
       bazarr
       grafana
+      prometheus
       prowlarr
       qbittorrent
       suwayomi
