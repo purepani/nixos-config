@@ -31,6 +31,9 @@
           default = [ "ads" ];
         };
       };
+      prometheus = {
+        enable = true;
+      };
     };
   };
 }

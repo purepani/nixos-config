@@ -15,7 +15,7 @@
       {
         job_name = "systemd";
         static_configs = [{
-          targets = [ "127.0.0.1:9002" ];
+          targets = [ "127.0.0.1:9002" "127.0.0.1:4000" ];
         }];
       }
     ];
