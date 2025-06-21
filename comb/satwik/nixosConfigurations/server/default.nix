@@ -17,6 +17,7 @@ in
   imports = with hardwareProfiles;
     with nixosProfiles; [
       server
+      cloudflared
       sftpgo
       blocky
       jellyfin

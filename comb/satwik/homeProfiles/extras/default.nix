@@ -9,6 +9,8 @@ in
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
     #inputs.optinix.packages.default
+    zulip
+    zulip-term
     grayjay
     inkscape
     signal-desktop
