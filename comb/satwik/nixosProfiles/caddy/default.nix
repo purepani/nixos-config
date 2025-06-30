@@ -49,6 +49,13 @@
         #serverAlias = ["www.veneprodigy.com"];
       };
 
+      "127.0.0.1:9010" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8096
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
+
       "jellyfin.veneprodigy.com" = {
         extraConfig = ''
           reverse_proxy 127.0.0.1:8096

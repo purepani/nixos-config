@@ -132,6 +132,7 @@ in
       "video"
       "vboxusers"
       "libvirtd"
+      "minecraft"
     ]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keyFiles = [
       ./__public_ssh/satwik/personal_server.pub
@@ -220,7 +221,7 @@ in
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 53, 80, 443, 25565, 2049, 28080} accept
+            tcp dport {22, 53, 80, 443, 25565, 25566, 25567, 2049, 28080} accept
             udp dport {53, 51820, 51819, 28080} accept
 
             # accept SSH connections (required for a server)

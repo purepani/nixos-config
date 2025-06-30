@@ -7,6 +7,14 @@ let
   inherit (inputs.common.bee) pkgs;
 in
 {
+  services.rustdesk-server = {
+
+    enable = true;
+    openFirewall = true;
+    signal.enable = true;
+    signal.relayHosts = [ "100.65.5.198" ];
+    relay.enable = true;
+  };
   inherit (inputs.common) bee;
   services.rpcbind.enable = true;
   #needed for easyeffects
@@ -73,7 +81,7 @@ in
       };
     in
     [
-      "L+    /opt/rocm/hip   -    -    -     -    ${rocmEnv}"
+      #"L+    /opt/rocm/hip   -    -    -     -    ${rocmEnv}"
     ];
 
   services.udev.extraRules = ''

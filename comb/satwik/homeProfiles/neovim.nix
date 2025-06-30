@@ -189,7 +189,10 @@ let
           };
           lsp-format.enable = true;
           lsp-lines.enable = true;
-          lspkind.enable = true;
+          lspkind = {
+            enable = true;
+            cmp.enable = false;
+          };
           lspsaga = {
             enable = true;
           };

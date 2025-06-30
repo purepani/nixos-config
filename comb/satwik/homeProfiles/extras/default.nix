@@ -9,13 +9,14 @@ in
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
     #inputs.optinix.packages.default
+    tmux
     zulip
-    zulip-term
+    #zulip-term
     grayjay
     inkscape
     signal-desktop
     sshfs
-    darktable
+    #darktable
     distant
     obsidian
     zellij
@@ -80,7 +81,7 @@ in
     #})
     #citrix_workspace_23_11_0
     zathura
-    cloudcompare
+    #cloudcompare
     cachix
     alsa-scarlett-gui
     nix-diff
