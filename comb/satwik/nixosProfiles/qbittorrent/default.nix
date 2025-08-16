@@ -1,16 +1,16 @@
-{
-  inputs,
-  cell,
-  config,
-  ...
+{ inputs
+, cell
+, config
+, ...
 }:
 with cell.nixpkgs.pkgs.lib; let
   pkgs = cell.nixpkgs.pkgs;
-  cfg = config.services.qbittorrent;
+  cfg = config.services.qbittorrent2;
   UID = 888;
   GID = 888;
-in {
-  options.services.qbittorrent = {
+in
+{
+  options.services.qbittorrent2 = {
     enable = mkEnableOption (lib.mdDoc "qBittorrent headless");
 
     dataDir = mkOption {
@@ -65,16 +65,16 @@ in {
 
   config = mkIf cfg.enable {
     networking.firewall = mkIf cfg.openFirewall {
-      allowedTCPPorts = [cfg.port];
+      allowedTCPPorts = [ cfg.port ];
     };
 
     systemd.services.qbittorrent = {
       # based on the plex.nix service module and
       # https://github.com/qbittorrent/qBittorrent/blob/master/dist/unix/systemd/qbittorrent-nox%40.service.in
       description = "qBittorrent-nox service";
-      documentation = ["man:qbittorrent-nox(1)"];
-      after = ["network.target" "caddy.target"];
-      wantedBy = ["multi-user.target"];
+      documentation = [ "man:qbittorrent-nox(1)" ];
+      after = [ "network.target" "caddy.target" ];
+      wantedBy = [ "multi-user.target" ];
 
       serviceConfig = {
         Type = "simple";
@@ -83,17 +83,19 @@ in {
 
         # Run the pre-start script with full permissions (the "!" prefix) so it
         # can create the data directory if necessary.
-        ExecStartPre = let
-          preStartScript = pkgs.writeScript "qbittorrent-run-prestart" ''
-            #!${pkgs.bash}/bin/bash
+        ExecStartPre =
+          let
+            preStartScript = pkgs.writeScript "qbittorrent-run-prestart" ''
+              #!${pkgs.bash}/bin/bash
 
-            # Create data directory if it doesn't exist
-            if ! test -d "$QBT_PROFILE"; then
-              echo "Creating initial qBittorrent data directory in: $QBT_PROFILE"
-              install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$QBT_PROFILE"
-            fi
-          '';
-        in "!${preStartScript}";
+              # Create data directory if it doesn't exist
+              if ! test -d "$QBT_PROFILE"; then
+                echo "Creating initial qBittorrent data directory in: $QBT_PROFILE"
+                install -d -m 0755 -o "${cfg.user}" -g "${cfg.group}" "$QBT_PROFILE"
+              fi
+            '';
+          in
+          "!${preStartScript}";
 
         #ExecStart = "${pkgs.qbittorrent-nox}/bin/qbittorrent-nox";
         ExecStart = "${cfg.package}/bin/qbittorrent-nox";
@@ -118,7 +120,7 @@ in {
     };
 
     users.groups = mkIf (cfg.group == "qbittorrent") {
-      qbittorrent = {gid = GID;};
+      qbittorrent = { gid = GID; };
     };
   };
 }

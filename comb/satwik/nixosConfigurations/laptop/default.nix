@@ -39,7 +39,7 @@ in
   ];
   home-manager.users.satwik = cell.homeConfigurations.laptop;
 
-  services.qbittorrent = {
+  services.qbittorrent2 = {
     enable = true;
     openFirewall = true;
     port = 58080;
@@ -51,4 +51,17 @@ in
     "1.1.1.1"
     "1.1.1.2"
   ];
+
+  nix = {
+    settings = {
+      trusted-users = [ "satwik" ];
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+      ];
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
+  };
 }

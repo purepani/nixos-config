@@ -46,7 +46,7 @@ in
     ];
   #services.nfs.server.enable = true;	
   networking.hostName = "satwik-server"; # Define your hostname.
-  services.qbittorrent = {
+  services.qbittorrent2 = {
     enable = true;
     openFirewall = true;
     port = 58080;
