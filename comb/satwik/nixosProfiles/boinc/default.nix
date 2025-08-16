@@ -10,6 +10,7 @@ in
       ocl-icd
       rocmPackages.clr.icd
     ];
+    allowRemoteGuiRpc = true;
   };
 }
 

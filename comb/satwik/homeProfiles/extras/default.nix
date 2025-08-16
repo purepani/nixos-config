@@ -10,11 +10,14 @@ in
     cell.packages.qt5Packages.slicer3d
     #inputs.optinix.packages.default
     tmux
+    boinctui
     zulip
+    gridcoin-research
     #zulip-term
     grayjay
     inkscape
     signal-desktop
+    rustdesk-flutter
     sshfs
     #darktable
     distant

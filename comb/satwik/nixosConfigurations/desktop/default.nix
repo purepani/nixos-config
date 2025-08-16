@@ -8,11 +8,10 @@ let
 in
 {
   services.rustdesk-server = {
-
     enable = true;
     openFirewall = true;
     signal.enable = true;
-    signal.relayHosts = [ "100.65.5.198" ];
+    signal.relayHosts = [ "100.65.5.198" "192.168.1.50" ];
     relay.enable = true;
   };
   inherit (inputs.common) bee;
@@ -40,6 +39,7 @@ in
     hardwareProfiles.desktop
     #openssh
     android
+    boinc
     docker
     nfs
     extra
@@ -175,8 +175,8 @@ in
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 80, 443, 25565, 2049} accept
-            udp dport {51820, 51819} accept
+            tcp dport {22, 80, 443, 25565, 2049, 21114-21119} accept
+            udp dport {51820, 51819, 21116} accept
 
             # count and drop any other traffic
             counter drop
