@@ -33,6 +33,7 @@ in
       suwayomi
       minecraft-server
       #firefly-iii
+      home-assistant
       jitsi-meet
       netdata
       #netmaker
@@ -41,7 +42,7 @@ in
       #coredns
       caddy
       glances
-      actual-server
+      #actual-server
       nfs
     ];
   #services.nfs.server.enable = true;	
@@ -156,6 +157,7 @@ in
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     neovim
+    busybox
     wget
     kmod
     pciutils
@@ -221,8 +223,8 @@ in
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 53, 80, 443, 25565, 25566, 25567, 2049, 28080} accept
-            udp dport {53, 51820, 51819, 28080} accept
+            tcp dport {22, 53, 80, 443, 25565, 25566, 25567, 2049, 28080, 8725} accept
+            udp dport {53, 51820, 51819, 28080, 8725} accept
 
             # accept SSH connections (required for a server)
             tcp dport {111, 2049, 4000, 4001, 4002, 20048} accept
@@ -263,14 +265,14 @@ in
           # Don't use a file from the Nix store as these are world readable. Must be readable by the systemd.network user
           #FirewallMark = 42;
           PrivateKeyFile = "/var/secrets/wireguard-keys/private";
-          ListenPort = 51819;
+          ListenPort = 51820;
         };
         wireguardPeers = [
           {
             wireguardPeerConfig = {
               PublicKey = "0qSP0VxoIhEhRK+fAHVvmfRdjPs2DmmpOCNLFP/7cGw=";
               AllowedIPs = [ "0.0.0.0/0" ];
-              Endpoint = "193.32.248.66:51819";
+              Endpoint = "193.32.248.66:51820";
               #PresharedKeyFile = "/var/secrets/wireguard-keys/private";
               PersistentKeepalive = 25;
             };
@@ -307,14 +309,14 @@ in
         #IPMasquerade = "both";
         networkConfig = {
           # IP addresses the client interface will have
-          Address = "10.66.75.100/32";
+          Address = "10.74.53.180/32";
           IPv4Forwarding = "yes";
         };
         dns = [ "10.64.0.1" ];
         routingPolicyRules = [
           {
             routingPolicyRuleConfig = {
-              To = "10.64.75.100/32";
+              To = "10.74.53.180/32";
               #To = "10.68.127.131";
               #FirewallMark = 42;
               #InvertRule = true;
@@ -324,7 +326,7 @@ in
           }
           {
             routingPolicyRuleConfig = {
-              From = "10.64.75.100/32";
+              From = "10.74.53.180/32";
               SuppressPrefixLength = 0;
               #FirewallMark = 42;
               #InvertRule = true;

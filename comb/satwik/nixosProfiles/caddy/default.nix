@@ -26,6 +26,12 @@
         '';
 
       };
+      "http://100.65.122.59" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8123
+        '';
+
+      };
       "172.87.67.58" = {
         extraConfig = ''
                     reverse_proxy 127.0.0.1:38080 {
@@ -48,6 +54,24 @@
         '';
         #serverAlias = ["www.veneprodigy.com"];
       };
+
+      "ha.veneprodigy.com" = {
+        extraConfig = ''
+          reverse_proxy 127.0.0.1:8123
+        '';
+        #serverAlias = ["www.veneprodigy.com"];
+      };
+      #"z2mqtt.veneprodigy.com" = {
+      #extraConfig = ''
+      #@websockets {
+      #header Connection *Upgrade*
+      #header Upgrade websocket
+      #path /api/*
+      #}
+      #reverse_proxy 127.0.0.1:8724
+      #'';
+      ##serverAlias = ["www.veneprodigy.com"];
+      #};
 
       "127.0.0.1:9010" = {
         extraConfig = ''

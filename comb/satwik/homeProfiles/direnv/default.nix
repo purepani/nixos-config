@@ -1,7 +1,8 @@
-{inputs, cell}:
+{ inputs, cell }:
 {
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+  programs.direnv.enableBashIntegration = true;
   programs.bash = {
     enable = true;
     bashrcExtra = ''

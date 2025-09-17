@@ -73,6 +73,12 @@ let
               #};
             };
           };
+          jupytext = {
+            enable = true;
+            python3Dependencies = p: with p; [
+              jupytext
+            ];
+          };
 
           lsp = {
             enable = true;
@@ -198,7 +204,22 @@ let
           };
           luasnip.enable = true;
           lualine.enable = true;
-          molten.enable = true;
+          molten = {
+            enable = true;
+            python3Dependencies = p: with p; [
+              pynvim
+              jupyter_client
+              cairosvg
+              pnglatex
+              plotly
+              kaleido
+              pyperclip
+              nbformat
+              pillow
+              requests
+              websocket-client
+            ];
+          };
           #neocord.enable = true;
           neogit.enable = true;
           neogen.enable = true;
@@ -312,6 +333,9 @@ let
 
                 };
               };
+              signature = {
+                enabled = true;
+              };
               keymap = {
                 preset = "default";
               };
@@ -376,12 +400,16 @@ let
               ];
             };
           };
+          otter.enable = true;
           #oil.enable = true;
           #project-nvim = {
           #  enable = true;
           #  enableTelescope = true;
           #
           #          };
+          quarto = {
+            enable = true;
+          };
           rustaceanvim = {
             enable = false;
             #rustAnalyzerPackage = cell.nixpkgs.pkgs.rust-analyzer;
