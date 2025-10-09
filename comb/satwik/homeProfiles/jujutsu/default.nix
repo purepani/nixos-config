@@ -4,6 +4,7 @@
     settings = {
       user.name = "purepani";
       user.email = "pani0028@umn.edu";
+      ui.pager = ":builtin";
       signing = {
         behavior = "drop";
         backend = "gpg";

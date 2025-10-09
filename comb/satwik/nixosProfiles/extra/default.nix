@@ -21,7 +21,7 @@
       busybox
       kitty
       git
-      firefox
+      #firefox
       #thunderbird
       #libinput-gestures
     ];

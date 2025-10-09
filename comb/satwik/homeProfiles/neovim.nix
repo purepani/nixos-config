@@ -6,6 +6,8 @@ let
   nixvim_config = { config, pkgs, lib, ... }:
     let
       helpers = config.lib.nixvim;
+      uv = pkgs.uv;
+      #basedpyright = pkgs.basedpyright;
     in
     {
 
@@ -32,6 +34,7 @@ let
           #cell.nixpkgs.pkgs.texlive.combined.scheme-full
           pkgs.dcmtk
           pkgs.ripgrep
+          pkgs.uv
         ];
         globals.mapleader = ";";
         globals.maplocalleader = ";";
@@ -118,17 +121,28 @@ let
                   formatting.command = [ "nixpkgs-fmt" ];
                 };
               };
-              basedpyright = {
-                enable = true;
-                settings = {
-                  basedpyright.analysis.typeCheckingMode = "standard";
-                };
-                extraOptions = {
-                  python = {
-                    pythonPath = helpers.mkRaw "py_path";
+              basedpyright =
+                {
+                  enable = true;
+                  #onAttach = {
+                  #  function = ''
+                  #    local path = vim.api.nvim_buf_get_name(bufnr)
+                  #    print(path)
+                  #    local cmd = string.format("${uv}/bin/uv run --with-requirements %s ${basedpyright}/bin/basedpyright-langserver --stdio", path)
+                  #    print(cmd)
+                  #    client.cmd = cmd
+                  #    return client
+                  #  '';
+                  #};
+                  settings = {
+                    basedpyright.analysis.typeCheckingMode = "standard";
+                  };
+                  extraOptions = {
+                    python = {
+                      pythonPath = helpers.mkRaw "py_path";
+                    };
                   };
                 };
-              };
               #pylyzer.enable=true;
               pylsp = {
                 enable = true;
@@ -139,9 +153,9 @@ let
                     #black.enabled=true;
                     #flake8.enabled=true;
                     isort.enabled = false;
-                    jedi_completion.enabled = true;
-                    jedi_hover.enabled = true;
-                    jedi_references.enabled = true;
+                    jedi_completion.enabled = false;
+                    jedi_hover.enabled = false;
+                    jedi_references.enabled = false;
                     #jedi_signature_help=true;
                     #jedi_symbols=true;
                     pylsp_mypy = {
@@ -151,15 +165,15 @@ let
                     };
 
                     rope.enabled = false;
-                    rope_autoimport.enabled = true;
-                    rope_completion.enabled = true;
+                    rope_autoimport.enabled = false;
+                    rope_completion.enabled = false;
                     ruff.enabled = true;
                   };
                 };
               };
               rust_analyzer = {
                 enable = true;
-                package = cell.nixpkgs.pkgs.rust-analyzer-nightly;
+                package = cell.nixpkgs.pkgs.rust-analyzer;
                 installCargo = false;
                 installRustc = false;
                 settings = {
@@ -224,8 +238,8 @@ let
           neogit.enable = true;
           neogen.enable = true;
           neorg = {
-            enable = true;
-            package = cell.nixpkgs.pkgs.vimPlugins.neorg;
+            enable = false;
+            #package = cell.nixpkgs.pkgs.vimPlugins.neorg;
             telescopeIntegration.enable = true;
             settings.load = {
               "core.defaults" = {
@@ -467,6 +481,14 @@ let
           treesitter-textobjects.enable = true;
           trouble.enable = true;
           typescript-tools.enable = true;
+          venv-selector = {
+            enable = true;
+            settings = {
+              options = {
+                debug = true;
+              };
+            };
+          };
           vimtex = {
             enable = true;
             texlivePackage = null;

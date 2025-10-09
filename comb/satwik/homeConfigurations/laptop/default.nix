@@ -30,6 +30,7 @@ in
     neovide
     nushell
     easyeffects
+    firefox
     rust
     git
     discord

@@ -1,11 +1,13 @@
-{
-  inputs,
-  cell,
-}: let
+{ inputs
+, cell
+,
+}:
+let
   #inherit (inputs) system;
-in {
+in
+{
   home.packages = [
-    inputs.pianoteq.pianoteq8
+    inputs.pianoteq.pianoteq9
     #inputs.nixpkgs.pianoteq.standard-8
   ];
 }

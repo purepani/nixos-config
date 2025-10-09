@@ -1,9 +1,11 @@
-{
-  inputs,
-  cell,
-}: let
+{ inputs
+, cell
+,
+}:
+let
   pkgs = cell.nixpkgs.pkgs;
-in {
+in
+{
   home.packages = with pkgs; [
     vesktop
   ];

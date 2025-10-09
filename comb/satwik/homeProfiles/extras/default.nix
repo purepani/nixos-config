@@ -9,6 +9,9 @@ in
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
     #inputs.optinix.packages.default
+    nurl
+    ride
+    hyperhdr
     tmux
     boinctui
     zulip
@@ -17,6 +20,7 @@ in
     grayjay
     inkscape
     signal-desktop
+    nix-output-monitor
     rustdesk-flutter
     sshfs
     #darktable
@@ -36,7 +40,7 @@ in
     #soundux # Currently Depreciated
     cell.packages.qt5Packages.slicer3d
     nfs-utils
-    libreoffice-qt6-fresh
+    #libreoffice-qt6-fresh
     rocmPackages.rocm-smi
     zoom-us
     zotero
@@ -59,7 +63,8 @@ in
     bash
     gcc
     nerd-fonts.iosevka
-    ledger
+    # TODO: reenable
+    #ledger
     fd
     unzip
     libguestfs

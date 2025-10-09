@@ -29,6 +29,7 @@ in
     hyprland
     nushell
     easyeffects
+    firefox
     rust
     git
     discord
