@@ -7,7 +7,7 @@ let
 in
 {
   home.packages = [
-    inputs.pianoteq.pianoteq9
+    inputs.pianoteq.packages.pianoteq_v9
     #inputs.nixpkgs.pianoteq.standard-8
   ];
 }
