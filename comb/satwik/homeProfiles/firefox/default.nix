@@ -1,6 +1,11 @@
 { inputs, cell }: {
   programs.firefox = {
     enable = true;
+    package = cell.nixpkgs.pkgs.firefox.override {
+      cfg = {
+        enablePlasmaBrowserIntegration = true;
+      };
+    };
     profiles = {
       default = {
         id = 0;

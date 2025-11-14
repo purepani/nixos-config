@@ -222,7 +222,7 @@ let
             enable = true;
             python3Dependencies = p: with p; [
               pynvim
-              jupyter_client
+              jupyter-client
               cairosvg
               pnglatex
               plotly

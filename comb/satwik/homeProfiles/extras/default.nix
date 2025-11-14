@@ -33,7 +33,7 @@ in
     #busybox
     reaper
     #bitwarden
-    kicad
+    #kicad
     protonmail-desktop
     #xclip
     #discord-canary
@@ -82,7 +82,7 @@ in
     rclone
     #x2goclient
     cell.nixpkgs.pkgs_stable.remmina
-    freerdp3
+    freerdp
     vlc
     #(citrix_workspace.override {
     #	extraCerts=[./vmsctx01-hap1009-onprem-varian-com.pem];
