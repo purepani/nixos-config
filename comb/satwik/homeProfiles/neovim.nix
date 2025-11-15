@@ -113,6 +113,10 @@ let
               futhark_lsp.enable = true;
               html.enable = true;
               htmx.enable = true;
+              julials = {
+                enable = true;
+                package = null;
+              };
               lua_ls.enable = true;
               #nil_ls.enable = true;
               nixd = {
@@ -496,6 +500,13 @@ let
             settings = {
               view_method = "zathura";
               compiler_method = "latexmk";
+            };
+          };
+          vim-slime = {
+            enable = true;
+            settings = {
+              target = "tmux";
+              bracketed_paste = true;
             };
           };
           web-devicons.enable = true;

@@ -16,6 +16,7 @@ in
   };
   inherit (inputs.common) bee;
   services.rpcbind.enable = true;
+  services.fwupd.enable = true;
   #needed for easyeffects
   programs.dconf.enable = true;
   nix.package = pkgs.nixVersions.latest;
@@ -39,7 +40,7 @@ in
     hardwareProfiles.desktop
     #openssh
     android
-    boinc
+    #boinc
     docker
     nfs
     extra
