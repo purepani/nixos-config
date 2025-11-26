@@ -9,6 +9,8 @@ in
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
     #inputs.optinix.packages.default
+    restic
+    parsec-bin
     nurl
     ride
     hyperhdr
@@ -26,14 +28,13 @@ in
     #darktable
     distant
     obsidian
-    zellij
     bat
     mprocs
     chromium
     #busybox
     reaper
     #bitwarden
-    #kicad
+    kicad
     protonmail-desktop
     #xclip
     #discord-canary

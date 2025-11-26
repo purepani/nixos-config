@@ -28,6 +28,7 @@ in
     direnv
     hyprland
     nushell
+    zellij
     easyeffects
     firefox
     rust

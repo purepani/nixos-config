@@ -26,12 +26,6 @@
         '';
 
       };
-      "http://100.65.122.59" = {
-        extraConfig = ''
-          reverse_proxy 127.0.0.1:8123
-        '';
-
-      };
       "172.87.67.58" = {
         extraConfig = ''
                     reverse_proxy 127.0.0.1:38080 {

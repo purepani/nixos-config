@@ -43,6 +43,12 @@ in
     options = [ "nofail" ];
   };
 
+  fileSystems."/mnt/ven" = {
+    device = "192.168.1.7:/ven";
+    fsType = "nfs";
+    options = [ "nofail" ];
+  };
+
 
 
   #fileSystems."/media" = {

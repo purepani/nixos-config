@@ -30,7 +30,7 @@
       "script ui" = "!include scripts.yaml";
       default_config = { };
       http = {
-        trusted_proxies = [ "127.0.0.1" "100.65.122.59" ];
+        trusted_proxies = [ "127.0.0.1" ];
         use_x_forwarded_for = true;
       };
     };

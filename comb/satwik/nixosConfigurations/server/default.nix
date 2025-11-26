@@ -140,6 +140,8 @@ in
     ];
   };
 
+  users.users.anonuser = { uid = 12345; group = "anongrp"; isSystemUser = true; };
+  users.groups.anongrp = { gid = 12345; };
   users.groups.media.members = [ "jellyfin" "sonarr" "radarr" "bazarr" "rtorrent" "qbittorrent" ];
 
   services.resolved = {
@@ -223,8 +225,8 @@ in
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 53, 80, 443, 25565, 25566, 25567, 2049, 28080, 8725} accept
-            udp dport {53, 51820, 51819, 28080, 8725} accept
+            tcp dport {22, 53, 80, 443, 25565, 25566, 25567, 2049, 28080, 8123, 8725} accept
+            udp dport {53, 51820, 51819, 28080, 8123, 8725} accept
 
             # accept SSH connections (required for a server)
             tcp dport {111, 2049, 4000, 4001, 4002, 20048} accept
@@ -338,5 +340,24 @@ in
         linkConfig.RequiredForOnline = "no";
       };
     };
+  };
+
+  services.restic.backups = {
+    remotebackup = {
+      passwordFile = "/home/satwik/.secrets/restic-password";
+      environmentFile = "/home/satwik/.secrets/restic-environment";
+
+      paths = [
+        "/var"
+        "/srv"
+      ];
+
+
+      timerConfig = {
+        OnCalendar = "00:00";
+        RandomizedDelaySec = "5h";
+      };
+    };
+
   };
 }

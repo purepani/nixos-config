@@ -31,6 +31,7 @@ in
     nushell
     easyeffects
     firefox
+    zellij
     rust
     git
     discord

@@ -26,7 +26,7 @@ in
       };
 
       "pb" = {
-        package = pkgs.fabricServers.fabric-1_21_6;
+        package = pkgs.fabricServers.fabric-1_21_10;
         enable = true;
         autoStart = true;
         serverProperties = {
