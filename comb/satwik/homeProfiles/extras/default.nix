@@ -10,14 +10,14 @@ in
     cell.packages.qt5Packages.slicer3d
     #inputs.optinix.packages.default
     restic
-    parsec-bin
+    #parsec-bin
     nurl
-    ride
+    #ride
     hyperhdr
     tmux
     boinctui
     zulip
-    gridcoin-research
+    #gridcoin-research
     #zulip-term
     grayjay
     inkscape

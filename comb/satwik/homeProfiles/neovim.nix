@@ -143,9 +143,14 @@ let
                       formatting.command = [ "nixpkgs-fmt" ];
                     };
                   };
+
+                  ruff.enable = true;
+                  ty = {
+                    enable = true;
+                  };
                   basedpyright =
                     {
-                      enable = true;
+                      enable = false;
                       #onAttach = {
                       #  function = ''
                       #    local path = vim.api.nvim_buf_get_name(bufnr)
@@ -167,7 +172,7 @@ let
                     };
                   #pylyzer.enable=true;
                   pylsp = {
-                    enable = true;
+                    enable = false;
                     #package = pkgs.python312Packages.python-lsp-server; 
                     #pythonPackage = pkgs.python312;
                     settings = {
@@ -432,7 +437,6 @@ let
                 settings = {
                   workspaces = [
                     { name = "Notes"; path = "~/Notes"; }
-
                   ];
                 };
               };
@@ -504,12 +508,8 @@ let
               trouble.enable = true;
               typescript-tools.enable = true;
               venv-selector = {
-                enable = true;
-                settings = {
-                  options = {
-                    debug = true;
-                  };
-                };
+                enable = false;
+                settings = { options = { debug = true; set_environment_variables = true; }; };
               };
               vimtex = {
                 enable = true;

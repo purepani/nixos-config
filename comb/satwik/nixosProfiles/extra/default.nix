@@ -16,7 +16,7 @@
   users.users.satwik = {
     isNormalUser = true;
     description = "Satwik Pani";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout" "adbusers" "docker" "video" "render" "minecraft" "boinc" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout" "adbusers" "docker" "video" "render" "minecraft" "boinc" "plugdev" ];
     packages = with cell.nixpkgs.pkgs; [
       busybox
       kitty
@@ -25,6 +25,9 @@
       #thunderbird
       #libinput-gestures
     ];
+  };
+  users.groups = {
+    plugdev = { gid = 888; };
   };
   #services.logind = {
   #  lidSwitch = "suspend";
