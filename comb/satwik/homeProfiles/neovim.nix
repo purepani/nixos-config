@@ -8,6 +8,19 @@ let
       helpers = config.lib.nixvim;
       uv = pkgs.uv;
       #basedpyright = pkgs.basedpyright;
+
+      venv-selector-nvim = pkgs.vimUtils.buildVimPlugin {
+        pname = "venv-selector.nvim";
+        version = "0-unstable-2026-01-26";
+        src = pkgs.fetchFromGitHub {
+          owner = "linux-cultist";
+          repo = "venv-selector.nvim";
+          rev = "2210d8718afcf76fd5f38582c1e54182f7eba8eb";
+          hash = "sha256-KHq2yjTgvq1etE76llvi3o0vQzTmo5T+5klndPclU2g=";
+        };
+        meta.homepage = "https://github.com/linux-cultist/venv-selector.nvim/";
+        meta.hydraPlatforms = [ ];
+      };
     in
     {
 
@@ -508,7 +521,8 @@ let
               trouble.enable = true;
               typescript-tools.enable = true;
               venv-selector = {
-                enable = false;
+                enable = true;
+                package = venv-selector-nvim;
                 settings = { options = { debug = true; set_environment_variables = true; }; };
               };
               vimtex = {

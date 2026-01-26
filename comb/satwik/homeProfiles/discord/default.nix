@@ -7,7 +7,7 @@ let
 in
 {
   home.packages = with pkgs; [
-    vesktop
+    #vesktop
     discord-canary
   ];
   services.arrpc.enable = true;

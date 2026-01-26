@@ -19,7 +19,7 @@ in
     zulip
     #gridcoin-research
     #zulip-term
-    grayjay
+    #grayjay
     inkscape
     signal-desktop
     nix-output-monitor
