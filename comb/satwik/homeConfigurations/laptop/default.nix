@@ -13,7 +13,6 @@ let
   #  home = inputs.home-manager;
   #};
   pkgs = cell.nixpkgs.pkgs;
-  home.packages = with pkgs; [ blender ];
 in
 {
   #inherit bee;
@@ -21,6 +20,7 @@ in
   programs.home-manager.enable = true;
   programs.fish.enable = false;
 
+  home.packages = [ pkgs.blender ];
 
   imports = with homeProfiles; [
     eza

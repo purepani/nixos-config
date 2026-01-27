@@ -20,7 +20,9 @@ in
   programs.home-manager.enable = true;
   programs.fish.enable = false;
 
-  home.packages = with pkgs; [ blender-hip ];
+  home.packages = [ pkgs.pkgsRocm.blender ];
+
+
 
   imports = with homeProfiles; [
     eza

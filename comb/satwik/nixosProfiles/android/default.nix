@@ -1,6 +1,6 @@
-{
-  inputs,
-  cell,
+{ inputs
+, cell
+,
 }: {
-  programs.adb.enable = true;
+  #programs.adb.enable = true;
 }

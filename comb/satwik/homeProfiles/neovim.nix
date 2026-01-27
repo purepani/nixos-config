@@ -277,52 +277,6 @@ let
               #neocord.enable = true;
               neogit.enable = true;
               neogen.enable = true;
-              neorg = {
-                enable = false;
-                #package = cell.nixpkgs.pkgs.vimPlugins.neorg;
-                telescopeIntegration.enable = true;
-                settings.load = {
-                  "core.defaults" = {
-                    __empty = null;
-                  };
-                  "core.autocommands" = { };
-                  "core.integrations.treesitter" = { };
-                  "core.integrations.telescope" = { };
-                  "core.neorgcmd" = { };
-                  "core.dirman" = {
-                    config = {
-                      workspaces = {
-                        main = "~/notes";
-                      };
-                    };
-                  };
-                  #"core.integrations.image" = { };
-                  #"core.latex.renderer" = {
-                  #  config = {
-                  #    conceal = true;
-                  #    render_on_enter = true;
-                  #    renderer = "core.integrations.image";
-                  #  };
-                  #};
-                  #"core.completion" = {
-                  #  config = {
-                  #    engine = "nvim-cmp";
-                  #  };
-                  #};
-                  "core.concealer" = {
-                    config = {
-                      folds = true;
-                      icon_preset = "basic";
-                    };
-                  };
-                  "core.summary" = {
-                    config = {
-                      strategy = "default";
-                    };
-                  };
-                };
-
-              };
               neotest = {
                 enable = false;
                 adapters = {
@@ -338,37 +292,6 @@ let
               nix-develop.enable = true;
               none-ls.enable = true;
               nvim-autopairs.enable = true;
-              cmp-nvim-lsp-document-symbol.enable = false;
-              cmp-nvim-lsp-signature-help.enable = false;
-              cmp = {
-                enable = false;
-                autoEnableSources = true;
-                settings = {
-                  matching.disallow_partial_fuzzy_matching = false;
-                  sources = [
-                    { name = "nvim_lsp"; }
-                    { name = "treesitter"; }
-                    { name = "neorg"; }
-                    { name = "luasnip"; }
-                    { name = "path"; }
-                    { name = "buffer"; }
-                  ];
-                  snippet = {
-                    expand = "function(args) require('luasnip').lsp_expand(args.body) end";
-                  };
-                  mapping =
-                    {
-                      "<C-Space>" = "cmp.mapping.complete()";
-                      "<C-d>" = "cmp.mapping.scroll_docs(-4)";
-                      "<C-e>" = "cmp.mapping.close()";
-                      "<C-f>" = "cmp.mapping.scroll_docs(4)";
-                      "<CR>" = "cmp.mapping.confirm({ select = true })";
-                      "<S-Tab>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
-                      "<Tab>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
-                    };
-                };
-              };
-              cmp-nvim-lsp.enable = false;
               blink-cmp = {
                 enable = true;
                 autoLoad = true;
@@ -509,14 +432,16 @@ let
               };
               treesitter = {
                 enable = true;
+                highlight.enable = true;
+                indent.enable = true;
+                #folding.enable = true;
                 nixvimInjections = true;
                 settings = {
-                  highlight.enable = true;
                   incremental_selection.enable = true;
                 };
               };
-              treesitter-context.enable = true;
-              treesitter-refactor.enable = true;
+              #treesitter-context.enable = true;
+              #treesitter-refactor.enable = true;
               treesitter-textobjects.enable = true;
               trouble.enable = true;
               typescript-tools.enable = true;
