@@ -112,7 +112,6 @@ in
     enable = true;
   };
 
-  programs.adb.enable = true;
   programs.dconf.enable = true;
   services.udisks2.enable = true;
 
@@ -149,10 +148,12 @@ in
     #    dnssec = "true";
     #    domains = ["~."];
     #    fallbackDns = ["1.1.1.1#one.one.one.one" "1.0.0.1#one.one.one.one"];
-    extraConfig = ''
-      DNSStubListener=no
-      DNS=127.0.0.53
-    '';
+    settings = {
+      Resolve = {
+        DNSStubListener = false;
+        DNS = "127.0.0.53";
+      };
+    };
   };
 
 
@@ -256,10 +257,10 @@ in
   systemd.network = {
     enable = true;
     netdevs = {
-      "10-givingfrog" = {
+      "10-sleekpuffer" = {
         netdevConfig = {
           Kind = "wireguard";
-          Name = "givingfrog";
+          Name = "sleekpuffer";
           MTUBytes = "1380";
         };
         # See also man systemd.netdev (also contains info on the permissions of the key files)
@@ -272,9 +273,9 @@ in
         wireguardPeers = [
           {
             wireguardPeerConfig = {
-              PublicKey = "0qSP0VxoIhEhRK+fAHVvmfRdjPs2DmmpOCNLFP/7cGw=";
+              PublicKey = "tI+Ddqg8MZ3nqXLuvA5Kzryih//XLId7IM4IEgROiFk=";
               AllowedIPs = [ "0.0.0.0/0" ];
-              Endpoint = "193.32.248.66:51820";
+              Endpoint = "23.234.103.127:51820";
               #PresharedKeyFile = "/var/secrets/wireguard-keys/private";
               PersistentKeepalive = 25;
             };
@@ -307,18 +308,18 @@ in
 
       givingfrog = {
         # See also man systemd.network
-        matchConfig.Name = "givingfrog";
+        matchConfig.Name = "sleekpuffer";
         #IPMasquerade = "both";
         networkConfig = {
           # IP addresses the client interface will have
-          Address = "10.74.53.180/32";
+          Address = "10.70.1.188/32";
           IPv4Forwarding = "yes";
         };
         dns = [ "10.64.0.1" ];
         routingPolicyRules = [
           {
             routingPolicyRuleConfig = {
-              To = "10.74.53.180/32";
+              To = "10.70.1.188/32";
               #To = "10.68.127.131";
               #FirewallMark = 42;
               #InvertRule = true;
@@ -328,7 +329,7 @@ in
           }
           {
             routingPolicyRuleConfig = {
-              From = "10.74.53.180/32";
+              From = "10.70.1.188/32";
               SuppressPrefixLength = 0;
               #FirewallMark = 42;
               #InvertRule = true;

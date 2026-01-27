@@ -6,6 +6,7 @@
     nixos-cosmic.url = "github:lilyinstarlight/nixos-cosmic";
 
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
     #nixpkgs.url = "github:nixos/nixpkgs/1bebb6ee89a51ac1357798d4a72e745279f10484";
     #nixpkgs.follows = "nixos-cosmic/nixpkgs";
 

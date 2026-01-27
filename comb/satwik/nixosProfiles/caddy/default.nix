@@ -2,23 +2,25 @@
 , cell
 , config
 ,
-}: {
+}:
+let
+  pkgs = cell.nixpkgs.pkgs;
+  caddy = pkgs.caddy.withPlugins {
+    plugins = [
+
+      "github.com/caddy-dns/cloudflare@v0.2.2"
+    ];
+    hash = "sha256-dnhEjopeA0UiI+XVYHYpsjcEI6Y1Hacbi28hVKYQURg=";
+  };
+in
+{
   networking.firewall = {
     allowedTCPPorts = [ 80 443 4000 25565 ];
   };
 
   services.caddy = {
     enable = true;
-    package = cell.packages.caddy.override {
-      externalPlugins = [
-        {
-          name = "godaddy";
-          repo = "github.com/caddy-dns/cloudflare";
-          version = "44030f9306f4815aceed3b042c7f3d2c2b110c97";
-        }
-      ];
-      vendorHash = "sha256-C7JOGd4sXsRZL561oP84V2/pTg7szEgF4OFOw35yS1s=";
-    };
+    package = caddy;
     virtualHosts = {
       "192.168.1.7" = {
         extraConfig = ''

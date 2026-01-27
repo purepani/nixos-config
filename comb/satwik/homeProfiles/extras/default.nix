@@ -8,7 +8,12 @@ in
 {
   home.packages = with pkgs; [
     cell.packages.qt5Packages.slicer3d
+    stow
+    uv
+    ty
+    emacs-lsp-booster
     #inputs.optinix.packages.default
+    myEmacs
     restic
     #parsec-bin
     nurl
@@ -55,6 +60,7 @@ in
     kdePackages.kio-zeroconf
     nixpkgs-review
     nix-update
+    nixd
     inputs.nixpkgs-update.packages.default
     wireplumber
     #helvum

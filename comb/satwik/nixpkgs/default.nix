@@ -15,14 +15,14 @@ in
       ];
     };
     overlays = [
-      #inputs.neovim-nightly-overlay.overlays.default 	
-      #inputs.nixos-cosmic.overlays.default
       inputs.neorg-overlay.overlays.default
       inputs.nix-minecraft.overlays.default
-      #inputs.fenix.overlays.default
-      #(final: prev: {
-      #	vaapiIntel = prev.vaapiIntel.override {enableHybridCodec = true;};
-      #})
+      inputs.emacs-overlay.overlays.default
+      (final: prev: {
+        myEmacs = prev.emacs-unstable-pgtk.pkgs.withPackages (
+          epkgs: [ epkgs.treesit-grammars.with-all-grammars epkgs.vterm ]
+        );
+      })
     ];
   });
 

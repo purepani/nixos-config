@@ -24,6 +24,7 @@ in
 
   imports = with homeProfiles; [
     eza
+    shell
     fontconfig
     direnv
     hyprland

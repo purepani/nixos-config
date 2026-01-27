@@ -39,6 +39,7 @@ in
     inputs.sops-nix.nixosModules.sops
     #(inputs.nixos-cosmic.nixosModules.default // { nixpkgs = builtins.removeAttrs inputs.nixos-cosmic.nixosModules.default.nixpkgs [ "overlays" ]; })
     hardwareProfiles.desktop
+    emacs
     #openssh
     android
     #boinc
