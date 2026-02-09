@@ -19,7 +19,7 @@ in
     nurl
     #ride
     hyperhdr
-    tmux
+    tmuxq
     boinctui
     zulip
     #gridcoin-research
