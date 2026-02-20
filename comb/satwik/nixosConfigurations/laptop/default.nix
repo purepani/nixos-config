@@ -20,6 +20,7 @@ in
     inputs.home-manager.nixosModules.home-manager
     hardwareProfiles.laptop
     extra
+    emacs
     nix
     desktop
     kdeconnect

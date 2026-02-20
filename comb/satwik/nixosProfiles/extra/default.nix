@@ -27,7 +27,7 @@
     ];
   };
   users.groups = {
-    plugdev = { gid = 888; };
+    plugdev = { gid = 889; };
   };
   #services.logind = {
   #  lidSwitch = "suspend";

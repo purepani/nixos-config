@@ -22,7 +22,6 @@
     fenix.url = "github:nix-community/fenix";
     optinix.url = "gitlab:hmajid2301/optinix";
 
-    grayjay.url = "github:Rishabh5321/grayjay-flake";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
