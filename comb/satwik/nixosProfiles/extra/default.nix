@@ -16,7 +16,7 @@
   users.users.satwik = {
     isNormalUser = true;
     description = "Satwik Pani";
-    extraGroups = [ "networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout" "adbusers" "docker" "video" "render" "minecraft" "boinc" "plugdev" ];
+    extraGroups = [ "networkmanager" "wheel" "libvirtd" "audio" "input" "tty" "dialout" "adbusers" "docker" "video" "render" "minecraft" "boinc" "plugdev" "terraria"];
     packages = with cell.nixpkgs.pkgs; [
       busybox
       kitty

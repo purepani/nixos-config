@@ -19,9 +19,24 @@ in
       inputs.nix-minecraft.overlays.default
       inputs.emacs-overlay.overlays.default
       (final: prev: {
-        myEmacs = prev.emacs-unstable-pgtk.pkgs.withPackages (
-          epkgs: [ epkgs.treesit-grammars.with-all-grammars epkgs.vterm ]
-        );
+        myEmacs =
+          let
+            unwrapped_emacs = final.emacs-unstable-pgtk.pkgs.withPackages (
+              epkgs: [
+                epkgs.treesit-grammars.with-all-grammars
+                epkgs.vterm
+          ]
+            );
+          in
+            unwrapped_emacs;
+
+        terraria-server = prev.terraria-server.overrideAttrs (old: {
+          version = "1.4.5.6";
+          src = final.fetchurl {
+            url = "https://terraria.org/api/download/pc-dedicated-server/terraria-server-${final.terraria-server.urlVersion}.zip";
+            hash = "sha256-11xFWsIX/TQ0RIyPglHBNH8IdahcQ4WJ3HG1V3d+kVU";
+          };
+        });
       })
     ];
   });

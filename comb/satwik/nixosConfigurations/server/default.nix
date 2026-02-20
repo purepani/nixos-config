@@ -17,6 +17,7 @@ in
   imports = with hardwareProfiles;
     with nixosProfiles; [
       server
+      terraria
       cloudflared
       sftpgo
       blocky
@@ -133,6 +134,7 @@ in
       "vboxusers"
       "libvirtd"
       "minecraft"
+      "terraria"
     ]; # Enable ‘sudo’ for the user.
     openssh.authorizedKeys.keyFiles = [
       ./__public_ssh/satwik/personal_server.pub
@@ -166,7 +168,9 @@ in
     pciutils
     libva-utils
     tmux
+    restic
   ];
+
 
   programs.neovim.defaultEditor = true;
 
@@ -226,8 +230,8 @@ in
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 53, 80, 443, 25565, 25566, 25567, 2049, 28080, 8123, 8725} accept
-            udp dport {53, 51820, 51819, 28080, 8123, 8725} accept
+            tcp dport {22, 53, 80, 443, 7777, 25565, 25566, 25567, 2049, 28080, 8123, 8725} accept
+            udp dport {53, 51820, 51819, 7777, 28080, 8123, 8725} accept
 
             # accept SSH connections (required for a server)
             tcp dport {111, 2049, 4000, 4001, 4002, 20048} accept
@@ -345,8 +349,8 @@ in
 
   services.restic.backups = {
     remotebackup = {
-      passwordFile = "/home/satwik/.secrets/restic-password";
-      environmentFile = "/home/satwik/.secrets/restic-environment";
+      passwordFile = "/home/satwik/secrets/restic-password";
+      environmentFile = "/home/satwik/secrets/restic-environment";
 
       paths = [
         "/var"

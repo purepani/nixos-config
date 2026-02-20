@@ -7,7 +7,12 @@ let
 in
 {
   home.packages = with pkgs; [
-    cell.packages.qt5Packages.slicer3d
+    dcmtk
+    imagemagick
+    mpv
+    ffmpeg
+    # cinny-desktop
+#    cell.packages.qt5Packages.slicer3d
     stow
     uv
     ty
@@ -36,7 +41,7 @@ in
     bat
     mprocs
     chromium
-    #busybox
+    busybox
     reaper
     #bitwarden
     kicad
@@ -44,7 +49,7 @@ in
     #xclip
     #discord-canary
     #soundux # Currently Depreciated
-    cell.packages.qt5Packages.slicer3d
+#    cell.packages.qt5Packages.slicer3d
     nfs-utils
     #libreoffice-qt6-fresh
     rocmPackages.rocm-smi

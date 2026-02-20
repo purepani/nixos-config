@@ -2,4 +2,4 @@
 .direnv
 .data
 .ropeproject
-result
+**/result
