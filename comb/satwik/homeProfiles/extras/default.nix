@@ -11,6 +11,7 @@ in
     imagemagick
     mpv
     ffmpeg
+    oscar
     # cinny-desktop
 #    cell.packages.qt5Packages.slicer3d
     stow
@@ -18,7 +19,7 @@ in
     ty
     emacs-lsp-booster
     #inputs.optinix.packages.default
-    myEmacs
+    #myEmacs
     restic
     #parsec-bin
     nurl

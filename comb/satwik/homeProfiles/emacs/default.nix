@@ -4,9 +4,10 @@ let
 in
 {
   services.emacs = {
-    enable = false;
+    enable = true;
     package = pkgs.myEmacs;
-    install = true;
-    startWithGraphical = true;
+    socketActivation.enable = true;
+    client.enable = true;
+
   };
 }

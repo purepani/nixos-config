@@ -3,12 +3,12 @@
     enable = true;
     settings = {
       user.name = "purepani";
-      user.email = "pani0028@umn.edu";
+      user.email = "purepani@pm.me";
       ui.pager = ":builtin";
       signing = {
         behavior = "drop";
         backend = "gpg";
-        key = "pani0028@umn.edu";
+        key = "purepani@pm.me";
       };
       git = {
         sign-on-push = true;

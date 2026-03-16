@@ -27,6 +27,7 @@ in
     shell
     fontconfig
     direnv
+    emacs
     hyprland
     neovide
     nushell

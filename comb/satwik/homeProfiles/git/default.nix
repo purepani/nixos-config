@@ -5,7 +5,7 @@
   programs.git = {
     enable = true;
     userName = "purepani";
-    userEmail = "pani0028@umn.edu";
+    userEmail = "purepani@pm.me";
     signing = {
       key = null;
       signByDefault = true;
@@ -20,7 +20,10 @@
   services.gpg-agent = {
     enable = true;
     enableExtraSocket = true;
-    pinentry.package = cell.nixpkgs.pkgs.pinentry-qt;
+    pinentry = {
+      package = cell.nixpkgs.pkgs.pinentry-qt;
+      program = "pinentry-qt";
+    };
     #enableSshSupport = true;
     enableBashIntegration = true;
     enableFishIntegration = true;
@@ -31,7 +34,7 @@
   programs.gpg = {
     enable = true;
     settings = {
-      pinentry-mode = "loopback";
+      pinentry-mode = "default";
     };
   };
 }
