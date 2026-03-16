@@ -20,7 +20,7 @@
   services.gpg-agent = {
     enable = true;
     enableExtraSocket = true;
-    pinentry.package = cell.nixpkgs.pkgs.pinentry-tty;
+    pinentry.package = cell.nixpkgs.pkgs.pinentry-qt;
     #enableSshSupport = true;
     enableBashIntegration = true;
     enableFishIntegration = true;
