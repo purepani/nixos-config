@@ -25,6 +25,10 @@ in
               epkgs: [
                 epkgs.treesit-grammars.with-all-grammars
                 epkgs.vterm
+                final.dash
+                final.s-search
+                final.fswatch
+                final.fd
           ]
             );
           in
