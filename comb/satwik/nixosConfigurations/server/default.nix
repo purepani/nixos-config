@@ -23,6 +23,7 @@ in
       blocky
       jellyfin
       jellyseerr
+      flaresolverr
       sonarr
       radarr
       recyclarr

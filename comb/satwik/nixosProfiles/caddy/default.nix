@@ -118,6 +118,14 @@ in
         #serverAlias = ["www.veneprodigy.com"];
       };
 
+      "flaresolverr.veneprodigy.com" = {
+        extraConfig = ''
+          	  reverse_proxy 127.0.0.1:8191
+          	'';
+
+      };
+
+
       "suwayomi.veneprodigy.com" = {
         extraConfig = ''
           reverse_proxy 127.0.0.1:8080
