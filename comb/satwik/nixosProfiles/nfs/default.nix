@@ -5,6 +5,7 @@
 
   fileSystems."/export/storage" = {
     device = "/storage";
+    fsType = "none";
     options = [
       "bind"
       "x-systemd.requires=zfs-mount.service"
@@ -13,6 +14,7 @@
 
   fileSystems."/export/ven" = {
     device = "/storage/ven";
+    fsType = "none";
     options = [
       "bind"
       "x-systemd.requires=zfs-mount.service"

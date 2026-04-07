@@ -22,6 +22,11 @@
     fenix.url = "github:nix-community/fenix";
     optinix.url = "gitlab:hmajid2301/optinix";
 
+    ptouch = {
+      url = "path:/home/satwik/projects/printer-driver-ptouch";
+      flake = false;
+    };
+
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";

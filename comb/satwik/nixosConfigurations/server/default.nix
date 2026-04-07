@@ -231,7 +231,7 @@ in
             ip protocol icmp icmp type echo-request accept
 
             # accept SSH connections (required for a server)
-            tcp dport {22, 53, 80, 443, 7777, 25565, 25566, 25567, 2049, 28080, 8123, 8725} accept
+            tcp dport {22, 53, 80, 443, 7777, 25565, 25566, 25567, 25568, 2049, 28080, 8123, 8725} accept
             udp dport {53, 51820, 51819, 7777, 28080, 8123, 8725} accept
 
             # accept SSH connections (required for a server)

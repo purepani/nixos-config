@@ -50,6 +50,20 @@ in
           difficulty = 3;
         };
       };
+      "love" = {
+        package = pkgs.fabricServers.fabric-26_1_2.override { jre_headless = pkgs.openjdk25_headless; };
+        enable = true;
+        autoStart = true;
+        serverProperties = {
+          server-port = 25568;
+          white-list = true;
+          motd = "LOVE Survival";
+          openFirewall = true;
+          difficulty = 3;
+          level-seed="-654365436230757766";
+        };
+      };
+
     };
   };
 }

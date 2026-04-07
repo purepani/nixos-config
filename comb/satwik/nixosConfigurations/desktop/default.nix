@@ -44,7 +44,6 @@ in
     android
     #boinc
     docker
-    nfs
     extra
     nix
     desktop

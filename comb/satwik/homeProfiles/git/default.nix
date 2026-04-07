@@ -22,7 +22,6 @@
     enableExtraSocket = true;
     pinentry = {
       package = cell.nixpkgs.pkgs.pinentry-qt;
-      program = "pinentry-qt";
     };
     #enableSshSupport = true;
     enableBashIntegration = true;
