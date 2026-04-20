@@ -20,18 +20,17 @@
 , postgresql
 , nss
 , nspr
-,
+, qtwayland
+, wrapQtAppsHook
+, dcmtk
 }:
 
 
 let
   pname = "Slicer3D";
-  version = "5.6.2";
-  stability = "release";
+  version = "5.11.0";
+  stability = "nightly";
   os = "linux";
-  old_hwloc = hwloc.overrideAttrs (_: {
-    version = "1.4.1";
-  });
 
   desktopItem = makeDesktopItem {
     name = "Slicer3D";
@@ -51,7 +50,7 @@ stdenv.mkDerivation {
     fetchzip {
       inherit name;
       inherit url;
-      hash = "sha256-DmJS1yrwJBcAIRnVA8VdsO4u82E1MWX+uvRC+6dEXmM=";
+      hash = "sha256-nLqZuwrj7T3NwGcNL7mbuvdAVfBdgks71xYcaXdOirQ=";
       extension = "tar.gz";
     };
 
@@ -63,7 +62,7 @@ stdenv.mkDerivation {
   nativeBuildInputs = [
     autoPatchelfHook
     copyDesktopItems
-  ];
+     ];
 
   buildInputs = [
     freetype
@@ -77,6 +76,7 @@ stdenv.mkDerivation {
     libGL
     libGLU
     fontconfig
+    qtwayland
     xorg.xkbutils
     xorg.xcbutil
     xorg.xcbutilwm
@@ -90,6 +90,7 @@ stdenv.mkDerivation {
     xorg.libXtst
     xorg.libXcomposite
     alsa-lib
+    hwloc
     postgresql
     libxkbcommon
     glib
@@ -97,14 +98,15 @@ stdenv.mkDerivation {
     cups
     unixODBC
     libxcrypt-legacy
-    old_hwloc
     nss
     nspr
   ];
+
+  dontWrapQtApps=true;
   autoPatchelfIgnoreMissingDeps = [ "libhwloc.so.5" ];
   installPhase = ''
     		runHook preInstall
-
+            ls
         		mkdir $out
         		cp -r . $out
         		mkdir $out/share/applications/

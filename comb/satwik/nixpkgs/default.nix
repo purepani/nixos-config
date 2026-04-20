@@ -29,6 +29,10 @@ in
                 final.s-search
                 final.fswatch
                 final.fd
+                (final.texliveMedium.withPackages (ps: with ps; [
+                  dvisvgm dvipng # for preview and export as html
+                  wrapfig amsmath ulem hyperref capt-of
+                ]) )
           ]
             );
           in

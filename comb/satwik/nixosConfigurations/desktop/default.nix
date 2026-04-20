@@ -51,7 +51,6 @@ in
     locale
     pipewire
     printers
-    steam
     #virtualization
     udev
     NetworkManager
@@ -65,6 +64,11 @@ in
   ];
   home-manager.backupFileExtension = "backup";
   home-manager.users.satwik = cell.homeConfigurations.desktop;
+
+  programs.steam = {
+    enable = true;
+    extraPackages = [pkgs.hidapi];
+  };
 
   systemd.tmpfiles.rules =
     let

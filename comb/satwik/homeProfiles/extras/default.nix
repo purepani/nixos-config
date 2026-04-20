@@ -13,7 +13,7 @@ in
     ffmpeg
     oscar
     # cinny-desktop
-#    cell.packages.qt5Packages.slicer3d
+    #cell.packages.qt5Packages.slicer3d
     stow
     uv
     ty
