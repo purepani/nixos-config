@@ -40,7 +40,7 @@ in
   fileSystems."/mnt/storage" = {
     device = "100.65.122.59:/storage";
     fsType = "nfs";
-    options = [ "nofail" "user" ];
+    options = [ "nofail" "user" "x-systemd.automount" "noauto"];
   };
   hardware.nvidia.prime = {
     amdgpuBusId = "PCI:4:0:0";

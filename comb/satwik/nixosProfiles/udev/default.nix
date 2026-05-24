@@ -1,6 +1,13 @@
 { inputs, cell }:
 let
   pkgs = cell.nixpkgs.pkgs;
+  steam_controller = pkgs.writeTextFile {
+    name = "steamcontroller-udev";
+    text = ''
+         SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", ATTRS{idProduct}=="1304" RUN+="/bin/sh -c 'echo enabled > /sys$env{DEVPATH}/../power/wakeup;'"
+    '';
+    destination = "/etc/udev/rules.d/69-probe-rs.rules";
+  };
   probe-rs = pkgs.writeTextFile
     {
       name = "probe-rs-udev";

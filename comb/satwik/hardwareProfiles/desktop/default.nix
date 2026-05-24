@@ -37,16 +37,17 @@ in
     device = "/dev/disk/by-uuid/25230606-7211-400a-b701-da35819b17ff";
     fsType = "ext4";
   };
+  
   fileSystems."/mnt/storage" = {
     device = "192.168.1.7:/storage";
     fsType = "nfs";
-    options = [ "nofail" ];
+    options = [ "nofail" "x-systemd.automount" "noauto"];
   };
 
   fileSystems."/mnt/ven" = {
     device = "192.168.1.7:/ven";
     fsType = "nfs";
-    options = [ "nofail" ];
+    options = [ "nofail" "x-systemd.automount" "noauto"];
   };
 
 
