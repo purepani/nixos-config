@@ -7,6 +7,9 @@ let
 in
 {
   home.packages = with pkgs; [
+    age
+    sops
+    anki
     dcmtk
     imagemagick
     mpv

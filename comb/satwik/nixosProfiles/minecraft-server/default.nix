@@ -50,7 +50,7 @@ in
           difficulty = 3;
         };
       };
-      "love" = {
+      "love" = { 
         package = pkgs.fabricServers.fabric-26_1_2.override { jre_headless = pkgs.openjdk25_headless; };
         enable = true;
         autoStart = true;
@@ -63,6 +63,22 @@ in
           level-seed="-654365436230757766";
         };
       };
+
+      "creativelove" = { 
+        package = pkgs.fabricServers.fabric-26_1_2.override { jre_headless = pkgs.openjdk25_headless; };
+        enable = true;
+        autoStart = true;
+        serverProperties = {
+          server-port = 25569;
+          white-list = true;
+          motd = "LOVE Creative";
+          openFirewall = true;
+          difficulty = 3;
+          level-seed="-654365436230757766";
+          level-type="minecraft\:flat";
+        };
+      };
+
 
     };
   };

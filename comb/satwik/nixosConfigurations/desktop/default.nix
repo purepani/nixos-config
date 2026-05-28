@@ -49,6 +49,7 @@ in
     desktop
     kdeconnect
     locale
+    tailscale
     pipewire
     printers
     #virtualization
@@ -59,7 +60,7 @@ in
     openssh
     inputs.musnix.nixosModules.musnix
     #inputs.sops-nix.nixosModules.sops
-    netbird
+    #netbird
     resolved
   ];
   home-manager.backupFileExtension = "backup";

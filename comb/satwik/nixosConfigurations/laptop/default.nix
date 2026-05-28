@@ -34,7 +34,8 @@ in
     #musnix
     netmaker
     inputs.musnix.nixosModules.musnix
-    netbird
+    #netbird
+    tailscale
     resolved
     qbittorrent
   ];
