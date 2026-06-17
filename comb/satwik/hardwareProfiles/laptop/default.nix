@@ -38,7 +38,7 @@ in
   };
 
   fileSystems."/mnt/storage" = {
-    device = "100.65.122.59:/storage";
+    device = "100.78.210.28:/storage";
     fsType = "nfs";
     options = [ "nofail" "user" "x-systemd.automount" "noauto"];
   };
