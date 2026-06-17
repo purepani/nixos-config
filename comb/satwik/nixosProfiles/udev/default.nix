@@ -1,12 +1,12 @@
 { inputs, cell }:
 let
   pkgs = cell.nixpkgs.pkgs;
-  steam_controller = pkgs.writeTextFile {
+  steam-controller = pkgs.writeTextFile {
     name = "steamcontroller-udev";
     text = ''
          SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", ATTRS{idProduct}=="1304" RUN+="/bin/sh -c 'echo enabled > /sys$env{DEVPATH}/../power/wakeup;'"
     '';
-    destination = "/etc/udev/rules.d/69-probe-rs.rules";
+    destination = "/etc/udev/rules.d/70-steamcontroller-wakeup.rules";
   };
   probe-rs = pkgs.writeTextFile
     {
@@ -172,7 +172,7 @@ in
     extraRules = ''
       KERNEL=="ttyUSB*", MODE="0666"
       ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="2dc8", DRIVERS=="usb", ATTR{power/wakeup}="enabled"
-
+      ACTION=="add", SUBSYSTEM=="usb", ATTRS{idVendor}=="28de", ATTRS{idProduct}=="1304", ATTR{power/wakeup}="enabled", ATTR{driver/5-2.4/power/wakeup}="enabled"
     '';
   };
 

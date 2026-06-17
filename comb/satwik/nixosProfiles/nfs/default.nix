@@ -32,7 +32,7 @@
   services.rpcbind.enable = true;
   services.nfs.server.exports = ''
     	/export  *(rw,fsid=0,no_subtree_check)
-    	/export/storage  192.168.1.0/24(rw,no_subtree_check,nohide,insecure,crossmnt,no_root_squash) 100.126.51.12(rw,no_subtree_check,nohide,insecure,crossmnt,no_root_squash) 
+    	/export/storage  192.168.1.0/24(rw,no_subtree_check,nohide,insecure,crossmnt,no_root_squash) 100.109.216.55(rw,no_subtree_check,nohide,insecure,crossmnt,no_root_squash) 
     	/export/ven  192.168.1.0/24(rw,anonuid=12345,anongid=12345,no_subtree_check,nohide,insecure,all_squash,crossmnt) 100.109.216.55(rw,anonuid=12345,anongid=12345,no_subtree_check,nohide,insecure,all_squash,crossmnt)
   '';
 

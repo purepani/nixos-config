@@ -31,6 +31,7 @@ in
     tmux
     boinctui
     zulip
+    ripgrep
     #gridcoin-research
     #zulip-term
     #grayjay
