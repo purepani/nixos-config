@@ -1,11 +1,11 @@
 {inputs, cell}: {
   services.syncthing = {
     enable = true;
-    openDefaultPorts = true;
     overrideDevices = false;
+    tray.enable = true;
     settings = {
       folders = {
-        "/home/satwik/org-notes" = {
+        "~/org-notes" = {
           
         };
           

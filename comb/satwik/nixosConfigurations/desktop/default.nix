@@ -185,6 +185,10 @@ in
             tcp dport {22, 80, 443, 25565, 2049, 21114-21119} accept
             udp dport {51820, 51819, 21116} accept
 
+            #syncthing
+            tcp dport { 22000 } accept
+            udp dport { 22000, 21027 } accept
+
             # count and drop any other traffic
             counter drop
           }
