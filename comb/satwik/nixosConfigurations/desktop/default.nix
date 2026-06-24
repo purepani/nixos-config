@@ -62,7 +62,6 @@ in
     #inputs.sops-nix.nixosModules.sops
     #netbird
     resolved
-    syncthing
   ];
   home-manager.backupFileExtension = "backup";
   home-manager.users.satwik = cell.homeConfigurations.desktop;

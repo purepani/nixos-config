@@ -38,7 +38,6 @@ in
     tailscale
     resolved
     qbittorrent
-    syncthing
   ];
   home-manager.users.satwik = cell.homeConfigurations.laptop;
 

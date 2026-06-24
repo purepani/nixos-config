@@ -50,6 +50,7 @@ in
     extras
     nix-index
     xdg
+    syncthing
   ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
